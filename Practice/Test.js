@@ -1,14 +1,7 @@
 
-const numbers = []; 
-const totalNumbers = [];
-  let count = 0;
-for (let i = 1; i < 1001; i++){
-  totalNumbers = numbers.concat(String(i).split(''));
-  
-  
+let arr1 = [1, 2, 3, 4];
 
+arr2 = arr1.map(x => [x * 2]).flat();
+// [[2], [4], [6], [8]]
 
-
-}
-
-console.log(totalNumbers);
+console.log(arr2);

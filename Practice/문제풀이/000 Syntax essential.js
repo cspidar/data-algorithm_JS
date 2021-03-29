@@ -1,20 +1,71 @@
+//=용어: 인덱스, 요소, 콜백 함수, 판별 함수, 연산 함수, 매개변수  
+//=영어 표기 = 매개변수: element, start, end, index
+//=구문: 자주 사용하지 않는 선택 매개변수에 대한 구문 (예. arr.forEach(callback(currentvalue[, index[, array]])[, thisArg]) 은 따로 싣지 않음
+
+
+//= 메소드
+var obj = {
+  a : "foo",
+  b(){ return this.a; }
+};
+console.log(obj.b()); // "foo"
+
+//=이터레이터 Iterator (반복자, 반복을 수행하는 포인트?)
+arr.entries().next().value;
+
+//=이터러블 Iterable (반복가능, 반복이 가능한 대상: 배열, 객체, 스트링 등?)
+
+
+//=배열 프로퍼티
+Array.prototype.length
+arr.length //배열의 길이 (요소의 갯수) 반환
 
 //=배열 메소드
 Array.prototype.concat()
+  arr1.concat(arr2, arr3, arrN) //배열 or 원소 합쳐 새배열 반환
+
 Array.prototype.copyWithin()
-Array.prototype.entries()
-Array.prototype.every()
+  arr.copyWithin(target, start, end) //start (기본값: 0) 에서 end (기본값: this.length (현 배열의 길이)) 인덱스까지를 target~ 에 복사, end 생략 시 start 부터 끝까지 복사
+
+Array.prototype.entries() //키-값 (배열: 인덱스-값) 이터레이터 반환 
+
+Array.prototype.every() 
+  arr.every((element) => element < 10) //판별 함수 조건 불만족 요소 발견 시 false, 모든 값이 참이면 true, 빈 배열은 무조건 true
+
 Array.prototype.fill()
+  arr.fill(value, start, end) //start 에서 end 인덱스까지 값을 value 로 채움
+
 Array.prototype.filter()
-Array.filter(a => a === '1')
+  arr.filter(element => element.length >= 3) //판별 함수 만족 요소를 모아 새로운 배열로 반환
 
 Array.prototype.find()
-Array.prototype.findIndex()
-Array.prototype.flat() //고차 배열 평탄화
-const a = Arr.flat(2)
+  arr.find(element => element >= 10) //판별 함수를 만족하는 첫번째 요소의 값을 반환, 없으면 undefined 반환
+//인덱스 반환: findIndex()
+//배열 요소의 위치: indexOf()
+//배열 요소존재 확인: indexOf() 또는 includes()
 
-Array.prototype.flatMap()
-Array.prototype.forEach()
+Array.prototype.findIndex()
+  arr.find(element => element >= 10) //판별 함수를 만족하는 첫번째 요소의 인덱스를 반환, 없으면 -1 반환
+
+Array.prototype.flat() //고차 배열을 depth 만큼 차수 낮춤, 기본 depth: 1
+  arr.flat([depth])
+  arr.flat(1) // [1,[2]] -> [1,2] / [1,[2,[3]]] -> [1,2,[3]]
+  arr.flat(2) // [1,[2,[3]]] -> [1,2,3]
+
+Array.prototype.flatMap() //=map().flat(1)
+
+Array.prototype.forEach() //
+  array1.forEach(element => console.log(element)) // 
+  //map()과 reduce()와는 달리 undefined를 반환하기 때문에 메서드 체인의 중간에 사용할 수 없습니다. forEach()는 배열을 변형하지 않습니다. 그러나 callback이 변형할 수는 있습니다. 예외를 던지지 않고는 forEach()를 중간에 멈출 수 없습니다. 중간에 멈춰야 한다면 forEach()가 적절한 방법이 아닐지도 모릅니다.다음 방법으로는 조기에 반복을 종료할 수 있습니다.
+  // 간단한 for 반복문
+  // for...of, for...in 반복문
+  // Array.prototype.every()
+  // Array.prototype.some()
+  // Array.prototype.find()
+  // Array.prototype.findIndex()
+  // 다른 배열 메서드 every(), some(), find(), findIndex()는 배열 요소를 판별 함수에 전달하고, 그 결과의 참/거짓 여부에 따라 반복의 종료 여부를 결정합니다.
+
+
 Array.prototype.includes()
 Array.prototype.indexOf()
 Array.prototype.join()
@@ -44,7 +95,35 @@ Array.prototype.values()
 
 
 
+//=객체 메소드
 
+Object.assign()
+Object.create()
+Object.defineProperties()
+Object.defineProperty()
+Object.entries()
+Object.freeze()
+Object.fromEntries()
+Object.getOwnPropertyDescriptor()
+Object.getOwnPropertyDescriptors()
+Object.getOwnPropertyNames()
+Object.getOwnPropertySymbols()
+Object.getPrototypeOf()
+Object.prototype.hasOwnProperty()
+Object.is()
+Object.isExtensible()
+Object.isFrozen()
+Object.prototype.isPrototypeOf()
+Object.isSealed()
+Object.keys()
+Object.preventExtensions()
+Object.prototype.propertyIsEnumerable()
+Object.seal()
+Object.setPrototypeOf()
+Object.prototype.toLocaleString()
+Object.prototype.toString()
+Object.prototype.valueOf()
+Object.values()
 
 
 
