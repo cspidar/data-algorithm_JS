@@ -1,5 +1,6 @@
 //=용어: 인덱스, 요소, 콜백 함수, 판별 함수, 연산 함수, 매개변수  
-//=영어 표기 = 매개변수: element, start, end, index
+//=매개변수 (영어 표기): element, start, end, index
+//유사 배열 객체: 인덱스와 length 존재
 //=구문: 자주 사용하지 않는 선택 매개변수에 대한 구문 (예. arr.forEach(callback(currentvalue[, index[, array]])[, thisArg]) 은 따로 싣지 않음
 
 
@@ -54,17 +55,20 @@ Array.prototype.flat() //고차 배열을 depth 만큼 차수 낮춤, 기본 dep
 
 Array.prototype.flatMap() //=map().flat(1)
 
-Array.prototype.forEach() //
-  array1.forEach(element => console.log(element)) // 
-  //map()과 reduce()와는 달리 undefined를 반환하기 때문에 메서드 체인의 중간에 사용할 수 없습니다. forEach()는 배열을 변형하지 않습니다. 그러나 callback이 변형할 수는 있습니다. 예외를 던지지 않고는 forEach()를 중간에 멈출 수 없습니다. 중간에 멈춰야 한다면 forEach()가 적절한 방법이 아닐지도 모릅니다.다음 방법으로는 조기에 반복을 종료할 수 있습니다.
-  // 간단한 for 반복문
-  // for...of, for...in 반복문
-  // Array.prototype.every()
-  // Array.prototype.some()
-  // Array.prototype.find()
-  // Array.prototype.findIndex()
-  // 다른 배열 메서드 every(), some(), find(), findIndex()는 배열 요소를 판별 함수에 전달하고, 그 결과의 참/거짓 여부에 따라 반복의 종료 여부를 결정합니다.
+Array.prototype.forEach()
+  array1.forEach(element => element * 3) // 인덱스 0 부터 끝까지 연산 함수 수행
+  //원본 배열 변형 X (undefine 반환: map()과 reduce()와는 달리 메서드 체인 중간에 사용 불가), 연산 함수가 변형할 수는 있음 (기존 배열을 다른 루트로 건드려서). 
+  //중간에 멈출 수 없음. 멈춰야 한다면 forEach()는 적절한 방법이 아님.
+  // 멈추는것이 가능한 항목들
+    // 간단한 for 반복문
+    // for...of, for...in 반복문
+    // Array.prototype.every()
+    // Array.prototype.some()
+    // Array.prototype.find()
+    // Array.prototype.findIndex()
+    // every(), some(), find(), findIndex()는 판별 함수의 참/거짓 여부에 따라 반복의 종료 여부 결정.
 
+Array.from()
 
 Array.prototype.includes()
 Array.prototype.indexOf()
