@@ -1,8 +1,14 @@
-//=용어: 인덱스, 요소, 콜백 함수, 판별 함수, 연산 함수, 매개변수  
+//=용어: 인덱스, <<요소, 매개변수, 인자 (arr.pop('인자'))>>, <<콜백 함수, 판별 함수, 연산 함수, 리듀서(reducer) 함수>>, 얕게 복사, 반환, 스트링(문자열) 
 //=매개변수 (영어 표기): element, start, end, index
-//유사 배열 객체: 인덱스와 length 존재
+//유사 배열 객체 (array-like object): 인덱스와 length 존재
+//반복 가능한 객체(iterable object)
+// Object 와 Argument (매개변수? 인자?) 의 차이
 //=구문: 자주 사용하지 않는 선택 매개변수에 대한 구문 (예. arr.forEach(callback(currentvalue[, index[, array]])[, thisArg]) 은 따로 싣지 않음
 
+//=이터레이터 Iterator (반복기, 반복자, 반복을 수행하는 포인트/앵커?)
+arr.entries().next().value;
+
+//=이터러블 Iterable (반복가능, 반복이 가능한 대상: 배열, 객체, 스트링 등?)
 
 //= 메소드
 var obj = {
@@ -11,22 +17,18 @@ var obj = {
 };
 console.log(obj.b()); // "foo"
 
-//=이터레이터 Iterator (반복자, 반복을 수행하는 포인트?)
-arr.entries().next().value;
-
-//=이터러블 Iterable (반복가능, 반복이 가능한 대상: 배열, 객체, 스트링 등?)
-
 
 //=배열 프로퍼티
 Array.prototype.length
 arr.length //배열의 길이 (요소의 갯수) 반환
 
+
 //=배열 메소드
 Array.prototype.concat()
-  arr1.concat(arr2, arr3, arrN) //배열 or 원소 합쳐 새배열 반환
+  arr1.concat(arr2, arr3, arrN) //배열 or 원소를 합쳐 새배열 반환
 
 Array.prototype.copyWithin()
-  arr.copyWithin(target, start, end) //start (기본값: 0) 에서 end (기본값: this.length (현 배열의 길이)) 인덱스까지를 target~ 에 복사, end 생략 시 start 부터 끝까지 복사
+  arr.copyWithin(target, start, end) //start (옵션: 기본 0) 에서 end (옵션: 기본 this.length (현 배열의 길이)) 인덱스까지 값을 target 인덱스부터 복사.
 
 Array.prototype.entries() //키-값 (배열: 인덱스-값) 이터레이터 반환 
 
@@ -34,7 +36,7 @@ Array.prototype.every()
   arr.every((element) => element < 10) //판별 함수 조건 불만족 요소 발견 시 false, 모든 값이 참이면 true, 빈 배열은 무조건 true
 
 Array.prototype.fill()
-  arr.fill(value, start, end) //start 에서 end 인덱스까지 값을 value 로 채움
+  arr.fill(value, start, end) //start (옵션: 기본 0) 에서 end (옵션: 기본 this.length (현 배열의 길이)) 인덱스까지 값을 value 로 채움
 
 Array.prototype.filter()
   arr.filter(element => element.length >= 3) //판별 함수 만족 요소를 모아 새로운 배열로 반환
@@ -57,7 +59,7 @@ Array.prototype.flatMap() //=map().flat(1)
 
 Array.prototype.forEach()
   array1.forEach(element => element * 3) // 인덱스 0 부터 끝까지 연산 함수 수행
-  //원본 배열 변형 X (undefine 반환: map()과 reduce()와는 달리 메서드 체인 중간에 사용 불가), 연산 함수가 변형할 수는 있음 (기존 배열을 다른 루트로 건드려서). 
+  //원본 배열 변형 X, 연산 함수가 변형할 수는 있음. undefine 반환: map()과 reduce()와는 달리 메서드 체인 중간에 사용 불가
   //중간에 멈출 수 없음. 멈춰야 한다면 forEach()는 적절한 방법이 아님.
   // 멈추는것이 가능한 항목들
     // 간단한 for 반복문
@@ -69,20 +71,76 @@ Array.prototype.forEach()
     // every(), some(), find(), findIndex()는 판별 함수의 참/거짓 여부에 따라 반복의 종료 여부 결정.
 
 Array.from()
+Array.from('abcd') // ['a','b','c','d']
+Array.from([1, 2, 3], x => x + x) //배열, 유사 배열 객체(array-like object)나 반복 가능한 객체(iterable object)를 얕게 복사 하고 연산 함수를 적용 (옵션) 해 배열 반환
+// 배열 반환 가능 항목: 스트링, Set, Map, 배열 형태의 argument
 
 Array.prototype.includes()
+arr.includes('a') // 배열의 요소를 탐색. 존재하면 true, 없으면 false 반환
+
 Array.prototype.indexOf()
+arr.indexOf(2, n) // 배열의 요소를 탐색. n 번째 인덱스 (옵션: 기본 1) 를 반환, 없으면 -1 반환.
+// 배열의 모든 요소 인덱스 찾기
+  var indices = [];
+  var array = ['a', 'b', 'a', 'c', 'a', 'd'];
+  var element = 'a';
+  var idx = array.indexOf(element);
+  while (idx != -1) {
+    indices.push(idx);
+    idx = array.indexOf(element, idx + 1);
+  }
+  console.log(indices);
+  // [0, 2, 4]
+// 배열의 요소 확인 후 없으면 업데이트
+  function updateVegetablesCollection (veggies, veggie) {
+    if (veggies.indexOf(veggie) === -1) {
+        veggies.push(veggie);
+        console.log('새로운 veggies 컬렉션 : ' + veggies);
+    } else if (veggies.indexOf(veggie) > -1) {
+        console.log(veggie + ' 은 이미 veggies 컬렉션에 존재합니다.');
+    }
+  }
+  var veggies = ['potato', 'tomato', 'chillies', 'green-pepper'];
+  updateVegetablesCollection(veggies, 'spinach');
+  // 새로운 veggies 컬렉션 : potato, tomato, chillies, green-pepper, spinach
+  updateVegetablesCollection(veggies, 'spinach');
+  // spinach 은 이미 veggies 컬렉션에 존재합니다.
+
+Array.isArray()
+Array.isArray(arr) // 인자가 배열인지 판별. 참이면 true, 거짓이면 false 반환
+
 Array.prototype.join()
+arr.join(arr) // 배열 안의 모든 요소를 더해 문자열을 만듦. 요소가 undefined 또는 null이면 빈 문자열로 변환
+
 Array.prototype.keys()
+arr.keys()// 배열의 각 인덱스를 키 값으로 가지는 새로운 Array Iterator 객체를 반환.
+
 Array.prototype.lastIndexOf()
+arr.lastIndexOf() // indexOf() 와 달리 마지막 인덱스 반환. 없으면 -1 반환
 
 Array.prototype.map()
-var roots = numbers.map(Math.sqrt);
-const map1 = array.map(x => x * 2);
+arr.map(x => x * 2) // 배열의 요소에 연산 함수를 적용하여 새로운 배열을 반환. 원본 배열 변형 X, 연산 함수가 변형할 수는 있음. 
+['1', '2', '3'].map(parseInt) // 두개 이상의 인자를 받는 연산 함수를 적용하면 기대와 다른 결과값이 나오므로 주의.
+
+Array.of()
+Array(1, 2, 3) // [1, 2, 3] 형태에 상관 없이 인자로 배열 생성
+Array(3) // [ , , ] 인자의 길이를 갖는 배열 생성
 
 Array.prototype.pop()
+arr.pop() //배열의 마지막 요소를 제거하고 그 요소를 반환, 빈 배열은  undefined 반환
+
 Array.prototype.push()
+arr.push('a','b','c','n') // 배열의 끝에 하나 이상의 요소를 추가, 배열의 새로운 길이를 반환.
+Array.prototype.push.apply(arr1, arr2)//두 배열을 합치려면 apply() 사용, apply에는 매개변수 숫자 제한이 있음
+
 Array.prototype.reduce()
+arr.reduce((acc, cur) => acc + cur)
+arr.reduce((acc, cur, inx, src) => acc + cur, int)// 배열의 각 요소에 대해 주어진 리듀서(reducer) 함수를 실행하고, 하나의 결과값을 반환합니다.
+// acc: accumulator, cur: currentValue, idx: currentIndex, src: sourceArray, int: initialValue
+// acc: 연산 함수의 반환값을 누적, int가 존재할경우 int에서 시작 
+//int를 초기값으로 배열의 각 요소를 cur에 대입하여 연산 함수를 실행, acc에 연속적으로 저장한 뒤 반환
+
+
 Array.prototype.reduceRight()
 Array.prototype.reverse()
 Array.prototype.shift()
