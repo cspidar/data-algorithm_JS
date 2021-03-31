@@ -1,9 +1,16 @@
-//=용어: 인덱스, <<요소, 매개변수, 인자 (arr.pop('인자'))>>, <<콜백 함수, 판별 함수, 연산 함수, 리듀서(reducer) 함수>>, 얕게 복사, 반환, 스트링(문자열) 
+//=용어: 인덱스, <<요소 (배열을 구성하는 값), 매개변수, 인자 (arr.pop('인자'))>>, <<콜백 함수, 판별 함수, 연산 함수, 리듀서(reducer) 함수>>, 얕게 복사, 반환, 스트링(문자열) 
 //=매개변수 (영어 표기): element, start, end, index
 //유사 배열 객체 (array-like object): 인덱스와 length 존재
 //반복 가능한 객체(iterable object)
 // Object 와 Argument (매개변수? 인자?) 의 차이
 //=구문: 자주 사용하지 않는 선택 매개변수에 대한 구문 (예. arr.forEach(callback(currentvalue[, index[, array]])[, thisArg]) 은 따로 싣지 않음
+
+//////////////////위로 배열
+
+
+//////////////////아래로 객체
+//=용어: 객체 (obj, object), 속성 (프로퍼티, prop, property), 
+
 
 //=이터레이터 Iterator (반복기, 반복자, 반복을 수행하는 포인트/앵커?)
 arr.entries().next().value;
@@ -130,29 +137,55 @@ Array.prototype.pop()
 arr.pop() //배열의 마지막 요소를 제거하고 그 요소를 반환, 빈 배열은  undefined 반환
 
 Array.prototype.push()
-arr.push('a','b','c','n') // 배열의 끝에 하나 이상의 요소를 추가, 배열의 새로운 길이를 반환.
+arr.push('a','b','c','...') // 배열의 끝에 하나 이상의 요소를 추가, 배열의 새로운 길이를 반환.
 Array.prototype.push.apply(arr1, arr2)//두 배열을 합치려면 apply() 사용, apply에는 매개변수 숫자 제한이 있음
 
 Array.prototype.reduce()
 arr.reduce((acc, cur) => acc + cur)
 arr.reduce((acc, cur, inx, src) => acc + cur, int)// 배열의 각 요소에 대해 주어진 리듀서(reducer) 함수를 실행하고, 하나의 결과값을 반환합니다.
 // acc: accumulator, cur: currentValue, idx: currentIndex, src: sourceArray, int: initialValue
-// acc: 연산 함수의 반환값을 누적, int가 존재할경우 int에서 시작 
-//int를 초기값으로 배열의 각 요소를 cur에 대입하여 연산 함수를 실행, acc에 연속적으로 저장한 뒤 반환
+// acc: 연산 함수의 반환값을 누적, int (옵션: 기본 0)가 존재할경우 int에서 시작 
+//int를 초기값으로 배열의 각 요소가 차례로 cur에 대입되어 연산 함수를 적용한 뒤, acc에 연속적으로 저장하여 반환
+//https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce 예시 많음
 
+Array.prototype.reduceRight() // reduce() 와 같으나 끝에서 처음으로 실행
 
-Array.prototype.reduceRight()
 Array.prototype.reverse()
+arr.reverse() // 원본 배열의 순서를 반전 (원본 배열 변경), 반환
+
 Array.prototype.shift()
+arr.shift() // 배열의 첫 번째 요소를 제거하고 (원본 배열 변경), 제거된 요소를 반환.
+
 Array.prototype.slice()
+arr.slice(start, end) //start부터 end (옵션: 기본 arr.length) 전까지 (end 미포함) 요소를 새로운 배열로 반환 (원본 배열 유지). 참조 된 객체가 변경되면 변경 내용은 새 배열과 원래 배열 모두 적용.
+
 Array.prototype.some()
+arr.some(elem => elem > 10) // 판별 함수 조건 만족 요소 발견 시 true, 모두 불만족하면 false, 빈배열은 false 반환. 
+
 Array.prototype.sort()
+arr.sort((a , b) => {
+  return a - b 
+}) // 정렬 함수 기준으로 정렬 (원본 배열 변경).
+// a - b 오름차순 : 1, 2, 3, a, b, c
+// b - a 내림차순 : c, b, a, 3, 2, 1
+// 기본: 문자열의 유니코드 
+
 Array.prototype.splice()
+arr.splice(start, deleteNum, 'item') // start 인덱스부터 deleteNum 갯수만큼 요소 삭제 후 'item' 요소 추가
+
 Array.prototype.toLocaleString()
-Array.prototype.toSource()
+arr.toLocaleString() // 요소를 문자열로 반환, 요소가 함수인 경우 리턴값 반환
+
+Array.prototype.toSource() // <현재 지원 안함> 배열의 소스 코드 문자열을 반환
+
 Array.prototype.toString()
+arr.toString() // 요소를 문자열로 반환
+
 Array.prototype.unshift()
+arr.unshift(element) // element 를 첫 요소로 추가하고 새로운 길이를 반환
+
 Array.prototype.values()
+arr.values() // 각 인덱스에 대한 값을 가지는 새로운 Array Iterator 객체를 반환
 
 
 
@@ -160,15 +193,53 @@ Array.prototype.values()
 //=객체 메소드
 
 Object.assign()
-Object.create()
-Object.defineProperties()
-Object.defineProperty()
+Object.assign(target, source1, source2, ...source) // source 객체를 target 에 복사한 뒤 target 반환 (target 변경), 동일한 속성은 더 뒤의 파라미터 객체에 의해 덮어쓰여짐.
+//객체 복사
+const obj = { a: 1 };
+const copy = Object.assign({}, obj);
+console.log(copy); // { a: 1 }
+//깊은 클로닝, Object.assign() 은 속성의 값을 복사, 출처 값이 객체에 대한 참조인 경우, 참조 값만 복사.
+
+Object.create() // 객체 생성
+var o
+o = Object.create(prototype) // prototype을 갖는 객체 생성
+
+Object.defineProperties() // 객체의 새로운 속성들을 정의
+Object.defineProperties(object, {
+  prop1: {
+    value: 42,
+    writable: true
+  },
+  prop2: {},
+  prop3: {}
+});
+
+Object.defineProperty() // 객체의 새로운 속성을 정의
+Object.defineProperty(obj, 'prop', {
+  value: 42,
+  writable: false
+});
+
 Object.entries()
+Object.entries(obj) //obj의 [key, value] 쌍에 해당하는 배열을 반환. 속성의 순서는 개체의 속성 값을 수동으로 반복하여 주어진 순서와 동일
+//Object.entries({b:2, a:1, c:3})[0] //> ['b',2]
+
 Object.freeze()
-Object.fromEntries()
+Object.freeze(obj) // obj를 변경 불가 상태로 만듦
+
+Object.fromEntries() // entries() 의 반대
+Object.fromEntries(arr) // [key, value] 쌍의 arr을 객체로 반환
+
 Object.getOwnPropertyDescriptor()
+Object.getOwnPropertyDescriptor(obj, prop) // obj내 prop의 설명을 반환, 없으면 undefined
+
 Object.getOwnPropertyDescriptors()
+Object.getOwnPropertyDescriptors(obj) // obj내 전체 prop의 설명을 반환, 없으면 undefined
+
 Object.getOwnPropertyNames()
+Object.getOwnPropertyNames(obj) // 
+
+
 Object.getOwnPropertySymbols()
 Object.getPrototypeOf()
 Object.prototype.hasOwnProperty()
@@ -190,6 +261,12 @@ Object.values()
 
 
 
+//Map
+
+//Set
+
+//getter
+//setter
 
 
 

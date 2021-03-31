@@ -1,3 +1,8 @@
 
+const obj = {b:2, a:1, c:3}
 
-console.log([55,1,2,3,4].reduce((acc, cur, inx, src) => acc + cur))
+console.log(Object.entries({'b':2, a:1, c:3})[0] == ["b", 2])
+
+console.log(Object.entries(obj)[0])
+
+console.log(Object.entries(obj)[0][0])
