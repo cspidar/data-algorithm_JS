@@ -6,12 +6,13 @@
 //// 학습 과정중, 학습을 위해 작성하여 오류가 있을 수 있습니다. 
 //// 오류 발견 시 전달해주시면 확인 후 업데이트 하겠습니다.
 //// 작성 규칙
+// H: 여러 형태가 가능한 대상
 // n: 숫자, 1/0: Infinity, 'a': 문자열, true/false: 불리언, 
 // arr: 배열, [item1, item2, ...item]: 배열[index], 배열[start]: item1, 배열[end]: ...item, 
 // obj: 객체, {key1: value1, key2: value2, ...key: ...value}: 객체.key, 
 // func: 함수, (p1, p2, ...p) => : 함수, 
-// (p) => p < 10 : 판별 함수
-// (p) => p + 1 : 연산 함수
+// (p) => p < 10 : 판별 함수 만족
+// (p) => p + 1 : 연산 함수 적용
 
 
 //// 용어
@@ -28,13 +29,13 @@
 
 // thisArg: 호출하는데 제공될 this 의 값
 
-// 열거 가능 (enumerable)
+// enumerable (열거 가능)
 
-// 유사 배열 (array-like)
+// array-like (유사 배열): length 속성과 index를 가진 객체?
 
-// 반복 가능 (iterable): 반복이 가능한 대상 (배열, 객체, 스트링 등)?
+// iterable (순회 가능, 반복 가능?): 반복이 가능한 대상 (스트링, Map, Set)?
 
-// 반복자 (iterator): 반복을 수행하는 포인트/앵커?
+// iterator (반복자): 반복을 수행하는 포인트/앵커?
 
 // 원시값: 객체가 아니면서 메서드도 가지지 않는 데이터 (string, number, bigint, boolean, undefined, symbol)
 
@@ -43,7 +44,7 @@ const user = {} // [], new Function, ...
 user.sayHi = () => console.log('Hi');
 user.sayHi(); // Hi
 
-// 메소드 체인: user.sayHi().sayBye().goToBed()
+// 메소드 체인: user.sayHi().sayBye().goToBed(), undefined 를 반환하는 메소드는 체인 중간에 올수 없음
 
 
 
@@ -103,29 +104,21 @@ arr.flat()
 //> [1, 2, 4, 5]
 ///
 
-
-Array.prototype.flatMap() //=map().flat(1)
-
 Array.prototype.forEach()
-  array1.forEach(element => element * 3) // 인덱스 0 부터 끝까지 연산 함수 수행
-  //원본 배열 변형 X, 연산 함수가 변형할 수는 있음. undefine 반환: map()과 reduce()와는 달리 메서드 체인 중간에 사용 불가
-  //중간에 멈출 수 없음. 멈춰야 한다면 forEach()는 적절한 방법이 아님.
-  // 멈추는것이 가능한 항목들
-    // 간단한 for 반복문
-    // for...of, for...in 반복문
-    // Array.prototype.every()
-    // Array.prototype.some()
-    // Array.prototype.find()
-    // Array.prototype.findIndex()
-    // every(), some(), find(), findIndex()는 판별 함수의 참/거짓 여부에 따라 반복의 종료 여부 결정.
+arr.forEach((p) => p + 1) 
+// start 부터 end 까지 연산 함수 적용, 중간 탈출 불가, undefine 반환
 
 Array.from()
-Array.from('abcd') // ['a','b','c','d']
-Array.from([1, 2, 3], x => x + x) //배열, 유사 배열 객체(array-like object)나 반복 가능한 객체(iterable object)를 얕게 복사 하고 연산 함수를 적용 (옵션) 해 배열 반환
-// 배열 반환 가능 항목: 스트링, Set, Map, 배열 형태의 argument
+Array.from(H, x => x + 1) 
+// H ('a', arr, array-like, iterable, (p1, p2, ...p)) 배열화 후 각 item에 연산 함수 (옵션: 기본 x => x) 적용, 새로운 arr 반환
 
 Array.prototype.includes()
-arr.includes('a') // 배열의 요소를 탐색. 존재하면 true, 없으면 false 반환
+arr.includes(item) // arr내 item 존재 여부 확인, 있으면 true, 없으면 false 반환
+
+
+<<<<<>>>>>>>>>>><<>>>
+
+
 
 Array.prototype.indexOf()
 arr.indexOf(2, n) // 배열의 요소를 탐색. n 번째 인덱스 (옵션: 기본 1) 를 반환, 없으면 -1 반환.
@@ -170,6 +163,11 @@ arr.lastIndexOf() // indexOf() 와 달리 마지막 인덱스 반환. 없으면 
 Array.prototype.map()
 arr.map(x => x * 2) // 배열의 요소에 연산 함수를 적용하여 새로운 배열을 반환. 원본 배열 변형 X, 연산 함수가 변형할 수는 있음. 
 ['1', '2', '3'].map(parseInt) // 두개 이상의 인자를 받는 연산 함수를 적용하면 기대와 다른 결과값이 나오므로 주의.
+
+
+Array.prototype.flatMap() 
+//map().flat()
+
 
 Array.of()
 Array(1, 2, 3) // [1, 2, 3] 형태에 상관 없이 인자로 배열 생성
