@@ -1,8 +1,8 @@
+const set1 = new Set([1, 2, 3, 4, 4, 5]);
 
-const obj = {b:2, a:1, c:3}
+set1.add({ x: 10, y: 20 }).add({ x: 20, y: 30 });
 
-console.log(Object.entries({'b':2, a:1, c:3})[0] == ["b", 2])
 
-console.log(Object.entries(obj)[0])
+console.log(set1);
+// expected output: true
 
-console.log(Object.entries(obj)[0][0])

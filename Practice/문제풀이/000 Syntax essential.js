@@ -1,15 +1,31 @@
-//=용어: 인덱스, <<요소 (배열을 구성하는 값), 매개변수, 인자 (arr.pop('인자'))>>, <<콜백 함수, 판별 함수, 연산 함수, 리듀서(reducer) 함수>>, 얕게 복사, 반환, 스트링(문자열) 
+//[]: 배열, {}: 객체, 
+//=용어: 인덱스, <<불리언, 심볼, 스트링(문자열), 요소 (element? item? 배열을 구성하는 값), 매개변수, 인자 (arr.pop('인자'))>>, <<콜백 함수, 판별 함수, 연산 함수, 리듀서(reducer) 함수>>, 얕게 복사, 반환, 확장, 동결 (frozen, 확장 불가이며 모든 속성이 설정 불가 및 모든 데이터 속성(즉, getter 또는 setter 요소가 있는 접근자 속성이 아닌 속성)이 쓰기 불가인 경우), 
+//봉인 (밀봉 sealed,  확장 불가이고 모든 속성이 설정 불가이며 따라서 삭제할 수 없(지만 반드시 쓰기 불가일 필요는 없)는 경우,  객체에는 새로운 속성을 추가할 수 없고, 현재 존재하는 모든 속성을 설정 불가능 상태로 만들어줍니다. 하지만 쓰기 가능한 속성의 값은 밀봉 후에도 변경할 수 있습니다. 바로 이 점이 Object.freeze()와의 차이), 열거 가능 (enumerable, )
 //=매개변수 (영어 표기): element, start, end, index
 //유사 배열 객체 (array-like object): 인덱스와 length 존재
 //반복 가능한 객체(iterable object)
 // Object 와 Argument (매개변수? 인자?) 의 차이
+// 파라미터 parameter (함수의 input)
 //=구문: 자주 사용하지 않는 선택 매개변수에 대한 구문 (예. arr.forEach(callback(currentvalue[, index[, array]])[, thisArg]) 은 따로 싣지 않음
+//thisArg: 호출하는데 제공될 this 의 값. 
+
+
 
 //////////////////위로 배열
 
+//
 
 //////////////////아래로 객체
-//=용어: 객체 (obj, object), 속성 (프로퍼티, prop, property), 
+//=용어: 객체 (obj, object), 속성 (프로퍼티, prop, property), 심볼
+// 원시 값:  객체가 아니면서 메서드도 가지지 않는 데이터. 원시 값에는 6종류, string, number, bigint, boolean, undefined, symbol이 존재
+
+
+
+//////////////아래로 함수
+//<<파라미터 (인수, parameter), 아규먼트 (arg, argument) >>
+
+
+
 
 
 //=이터레이터 Iterator (반복기, 반복자, 반복을 수행하는 포인트/앵커?)
@@ -220,7 +236,7 @@ Object.defineProperty(obj, 'prop', {
   writable: false
 });
 
-Object.entries()
+Object.entries() // arr, map과 다름
 Object.entries(obj) //obj의 [key, value] 쌍에 해당하는 배열을 반환. 속성의 순서는 개체의 속성 값을 수동으로 반복하여 주어진 순서와 동일
 //Object.entries({b:2, a:1, c:3})[0] //> ['b',2]
 
@@ -237,36 +253,245 @@ Object.getOwnPropertyDescriptors()
 Object.getOwnPropertyDescriptors(obj) // obj내 전체 prop의 설명을 반환, 없으면 undefined
 
 Object.getOwnPropertyNames()
-Object.getOwnPropertyNames(obj) // 
+Object.getOwnPropertyNames(obj) // obj내 전체 속성 이름 (key) 을 배열로 반환,  enumerable = false도 포함
 
 
-Object.getOwnPropertySymbols()
-Object.getPrototypeOf()
+Object.getOwnPropertySymbols() // obj내 전체 심볼을 배열로 반환
+
+Object.getPrototypeOf() // obj의 프로토타입을 반환
+
 Object.prototype.hasOwnProperty()
+obj.hasOwnProperty('prop') // obj의 prop (key) 존재 여부를 불리언으로 반환
+
 Object.is()
-Object.isExtensible()
+Object.is(a, b); // a와 b의 같음 여부를 불리언으로 반환
+
+Object.isExtensible() 
+Object.isExtensible(obj) // obj에 속성 추가 가능 여부를 불리언으로 반환
+
 Object.isFrozen()
+Object.isFrozen(obj) // 객체의 동결 여부를 불리언으로 반환
+
 Object.prototype.isPrototypeOf()
+Object.isPrototypeOf(obj) //프로토타입 체인에 해당 객체가 존재하는지 여부를 불리언으로 반환
+//instanceof 연산자와 함께 특정 프로토타입으로부터 상속된 객체만 작동하게 하려는(예를 들어 특정 메소드나 속성이 객체에 있다는걸 보장하려는 때) 코드
+if (Fi.prototype.isPrototypeOf(obj)) {
+  // do something safe
+}
+
 Object.isSealed()
-Object.keys()
+Object.isSealed(obj) // obj의 봉인 여부를 불리언으로 반환
+
+Object.keys() // getOwnPropertyNames() 와 유사 (차이점?)
+Object.keys(obj) // obj내 전체 속성 이름 (key) 을 배열로 반환, enumerable = true 만
+
 Object.preventExtensions()
+Object.preventExtensions(obj) // obj를 확장 불가로 만듦
+
 Object.prototype.propertyIsEnumerable()
+obj.propertyIsEnumerable('prop') // obj내 prop의 열거 가능 여부를 불리언으로 반환
+
 Object.seal()
+Object.seal(obj) // obj를 밀봉(봉인)
+
 Object.setPrototypeOf()
-Object.prototype.toLocaleString()
-Object.prototype.toString()
+Object.setPrototypeOf(obj, prototype) // obj를 다른 prototype으로 변경
+
+Object.prototype.toLocaleString() // Array.prototype.toLocaleString() 와 같음
+obj.toLocaleString() // obj를 문자열로 반환, 
+
+Object.prototype.toString() // Array.prototype.toString() 와 같음
+obj.toString() // obj를 문자열로 변환
+
 Object.prototype.valueOf()
-Object.values()
+obj.valueOf() // obj의 원시값 반환
+
+Object.values() // Array.prototype.values() 와 같지 않음
+Object.values(obj) // obj의 value를 배열로 반환
+
+
+
+//// =Map 객체
+//키-값 쌍을 저장하며 각 쌍의 삽입 순서도 기억하는 콜렉션, 아무 값이나 저장 가능
+
+let myMap = new Map()
+
+let keyString = '문자열'
+let keyObj    = {}
+let keyFunc   = function() {}
+
+// 값 설정
+myMap.set(keyString, "'문자열'과 관련된 값")
+myMap.set(keyObj, 'keyObj와 관련된 값')
+myMap.set(keyFunc, 'keyFunc와 관련된 값')
+
+myMap.size              // 3
+
+// getting the values
+myMap.get(keyString)    // "'문자열'과 관련된 값"
+myMap.get(keyObj)       // "keyObj와 관련된 값"
+myMap.get(keyFunc)      // "keyFunc와 관련된 값"
+
+myMap.get('문자열')    // "'문자열'과 관련된 값"
+                         // keyString === '문자열'이기 때문
+myMap.get({})            // undefined, keyObj !== {}
+myMap.get(function() {}) // undefined, keyFunc !== function () {}
+
+
+////Map 객체 프로퍼티
+
+//get Map[@@species]
+
+//Map.prototype[@@toStringTag]
+
+Map.prototype.size
+map.size // 맵 크기 반환
+
+
+//// Map 객체 메소드
+
+Map.prototype[Symbol.iterator]()
+map[Symbol.iterator] // 이터레이터 반환
+
+Map.prototype.clear()
+map.clear() // map의 모든 요소를 제거
+
+Map.prototype.delete()
+map.delete(key) // map의 key를 제거, 성공 여부 불리언 반환
+
+Map.prototype.entries() // arr.entries() 와 같음, obj.entries() 와 다름
+map.entries()// 키-값 (배열: 인덱스-값) 이터레이터 반환
+
+Map.prototype.forEach()
+map.forEach((value, key, map) => `${key}: ${value}`) // map 내의 key/value 쌍의 개수 만큼 연산 함수를 순서대로 실행, undefined 반환
+
+Map.prototype.get()
+map.get(key) // map의 key에 해당하는 value를 반환, 대상이 없으면 undefined 반환
+
+Map.prototype.has()
+map.has(key) // map의 key 존재 여부를 불리언으로 반환
+
+Map.prototype.keys() // arr.keys() 와 유사
+map.keys() //map의 key를 Iterator로 반환
+
+Map.prototype.set()
+map.set(key, value) // map에 key와 value 추가, key가 이미 존재하면 value를 대체
+
+Map.prototype.values()
+map.values() //map의 value를 Iterator로 반환
+
+
+
+////Set 객체
+//자료형에 관계 없이 유일한 값을 저장, 인덱스는 없다
+
+const set1 = new Set([1, 1, 1, 2, 3]);
+
+console.log(set1.has(1));
+// expected output: true
+
+console.log(set1.has(5));
+// expected output: false
+
+console.log(set1);
+// [1, 2, 3]
+
+
+////Set 속성
+//get Set[@@species]
+//Set[Symbol.species]
+
+Set.prototype.size
+set.size // set의 원소 수 반환, 중복 원소의 갯수도 포함됨, [1,1,1,2,3].size //> 5
 
 
 
 
-//Map
+////Set 메소드
+//Set.prototype[@@iterator]()
+//set1[Symbol.iterator]()
 
-//Set
+Set.prototype.add()
+set.add(item) //set의 맨 뒤에 item을 추가, item이 추가된 set를 반환
+
+Set.prototype.clear()
+set.clear() // set의 모든 item 삭제, undefined 반환
+
+Set.prototype.delete()
+set.delete(item) // set의 특정 item을 삭제, 성공 여부 반환
+
+value와 관련된 요소를 제거하고 Set.prototype.has(value)가 이전에 반환했던 값을 반환합니다. Set.prototype.has(value)는 그 뒤에 false를 반환합니다.
+Set.prototype.entries() (en-US)
+삽입 순으로 Set 객체 내 각 값에 대한 [value, value] 배열을 포함하는 새로운 Iterator 객체를 반환합니다. 이는 Map 객체와 비슷하게 유지되므로 여기서 각 항목은 그 key와 value에 대해 같은 값을 갖습니다.
+Set.prototype.forEach(callbackFn[, thisArg])
+삽입 순으로 Set 객체 내에 있는 각 값에 대해 한 번 callbackFn을 호출합니다. thisArg 매개변수가 forEach에 제공된 경우, 이는 각 콜백에 대해 this 값으로 사용됩니다.
+Set.prototype.has(value)
+Set 객체 내 주어진 값을 갖는 요소가 있는지를 주장하는(asserting, 나타내는) boolean을 반환합니다.
+Set.prototype.keys() (en-US)
+values() 함수와 같은 함수로 삽입 순으로 Set 객체 내 각 요소에 대한 값을 포함하는 새로운 Iterator 객체를 반환합니다.
+Set.prototype.values()
+삽입 순으로 Set 객체 내 각 요소에 대한 값을 포함하는 새로운 Iterator 객체를 반환합니다.
+Set.prototype[@@iterator]() (en-US)
+삽입 순으로 Set 객체 내 각 요소에 대한 값을 포함하는 새로운 Iterator 객체를 반환합니다
+
+
+
+
+
+
+////Function
+////속성 (프로퍼티)
+
+Function.length
+func.length // func의 파라미터 갯수 반환
+
+Function.name
+func.name // func의 이름 반환
+
+////메소드
+Function.prototype.apply()
+func.apply(thisArg, []) // thisArg에 func를 호출하여 [] 를 차례로 적용
+//배열 합치기 (concat()은 새 배열을 만들어 반환)
+var array = ['a', 'b'];
+var elements = [0, 1, 2];
+array.push.apply(array, elements);
+console.info(array); // ["a", "b", 0, 1, 2]
+// [] 내의 최대값 반환
+Math.max.apply(null, [])
+// [] 내의 최소값 반환
+Math.min.apply(null, numbers);
+
+
+
+Function.prototype.bind() // 바인딩 함수 생성 (this 유지)
+func.bind(thisArg, arg1, arg2, ...arg) // 어렵.. https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+
+Function.prototype.call() 
+// apply(): 파라미터 배열 1개 받음
+// call(): 파라미터 목록 받음
+func.call(thisArg, p1, p2, ...p) // thisArg에 func를 호출하여 파라미터 목록을 차례로 적용
+
+Function.prototype.toString()
+func.toString() // func의 소스코드를 문자열로 반환
+
+
+
+
+
+
+
 
 //getter
 //setter
+
+
+
+
+
+
+
+
+
 
 
 
