@@ -7,12 +7,13 @@
 //// 오류 발견 시 전달해주시면 확인 후 업데이트 하겠습니다.
 //// 작성 규칙
 // H: 여러 형태가 가능한 대상
-// n: 숫자, 1/0: Infinity, 'a': 문자열, true/false: 불리언, 
-// arr: 배열, [item1, item2, ...item]: 배열[index], 배열[start]: item1, 배열[end]: ...item, 
+// n: 숫자, 1/0: Infinity, true/false: 불리언,
+// str: 문자열, 'a': 문자열,  
+// arr: 배열, [item1, item2, ...item]: 배열[index], 배열[start]: item1, 배열[end]: ...item, 차례로: start -> end
 // obj: 객체, {key1: value1, key2: value2, ...key: ...value}: 객체.key, 
 // func: 함수, (p1, p2, ...p) => : 함수, 
-// (p) => p < 10 : 판별 함수 만족
-// (p) => p + 1 : 연산 함수 적용
+// p => p < 10 : 판별 함수 만족
+// p => p + 1 : 연산 함수 적용
 
 
 //// 용어
@@ -67,19 +68,19 @@ arr.copyWithin(target, start, end)
 //index - value iterator 반환 
 
 Array.prototype.every() 
-arr.every((p) => p < 10)
+arr.every(p => p < 10)
 // 모든 item이 판별 함수 조건 만족 시 true, 불만족 item 발견 시 false, 빈 배열은 무조건 true 반환
 
 Array.prototype.fill()
 arr.fill(value, start, end) 
-//start (옵션: 기본 0) 에서 end (옵션: 기본 this.length) index까지 item을 value로 채움, 변경된 arr 반환
+//start (옵션: 기본 0) 에서 end (옵션: 기본 this.length) 까지 item을 value로 채움, 변경된 arr 반환
 
 Array.prototype.filter()
-arr.filter((p) => p < 10) 
+arr.filter(p => p < 10) 
 //판별 함수 만족 item을 모아 새로운 arr 반환
 
 Array.prototype.find()
-arr.find((p) => p < 10) 
+arr.find(p => p < 10) 
 //판별 함수를 만족하는 첫번째 item을 반환, 없으면 undefined 반환
 
 /// 연관 메소드
@@ -88,7 +89,7 @@ arr.find((p) => p < 10)
 // item 존재 확인: indexOf() 또는 includes()
 
 Array.prototype.findIndex()
-arr.find((p) => p < 10) 
+arr.find(p => p < 10) 
 //판별 함수를 만족하는 첫번째 item의 index를 반환, 없으면 -1 반환
 
 Array.prototype.flat() 
@@ -105,24 +106,21 @@ arr.flat()
 ///
 
 Array.prototype.forEach()
-arr.forEach((p) => p + 1) 
+arr.forEach(p => p + 1) 
 // start 부터 end 까지 연산 함수 적용, 중간 탈출 불가, undefine 반환
 
 Array.from()
-Array.from(H, x => x + 1) 
-// H ('a', arr, array-like, iterable, (p1, p2, ...p)) 배열화 후 각 item에 연산 함수 (옵션: 기본 x => x) 적용, 새로운 arr 반환
+Array.from(H, p => p + 1) 
+// H ('a', arr, array-like, iterable, (p1, p2, ...p)) 배열화 후 각 item에 연산 함수 (옵션: 기본 p => p) 적용, 새로운 arr 반환
 
 Array.prototype.includes()
-arr.includes(item) // arr내 item 존재 여부 확인, 있으면 true, 없으면 false 반환
-
-
-<<<<<>>>>>>>>>>><<>>>
-
-
+arr.includes(item) 
+// arr의 특정 item 존재 여부 확인, 있으면 true, 없으면 false 반환
 
 Array.prototype.indexOf()
-arr.indexOf(2, n) // 배열의 요소를 탐색. n 번째 인덱스 (옵션: 기본 1) 를 반환, 없으면 -1 반환.
-// 배열의 모든 요소 인덱스 찾기
+arr.indexOf(item, n) 
+// arr의 특정 item 존재 여부 확인, n 번째 (옵션: 기본 1) index를 반환, 없으면 -1 반환
+/// 특정 item의 모든 index 찾기
   var indices = [];
   var array = ['a', 'b', 'a', 'c', 'a', 'd'];
   var element = 'a';
@@ -132,8 +130,8 @@ arr.indexOf(2, n) // 배열의 요소를 탐색. n 번째 인덱스 (옵션: 기
     idx = array.indexOf(element, idx + 1);
   }
   console.log(indices);
-  // [0, 2, 4]
-// 배열의 요소 확인 후 없으면 업데이트
+//> [0, 2, 4]
+/// arr내 특정 item 존재 여부 확인 후 없으면 추가
   function updateVegetablesCollection (veggies, veggie) {
     if (veggies.indexOf(veggie) === -1) {
         veggies.push(veggie);
@@ -144,54 +142,83 @@ arr.indexOf(2, n) // 배열의 요소를 탐색. n 번째 인덱스 (옵션: 기
   }
   var veggies = ['potato', 'tomato', 'chillies', 'green-pepper'];
   updateVegetablesCollection(veggies, 'spinach');
-  // 새로운 veggies 컬렉션 : potato, tomato, chillies, green-pepper, spinach
+//> 새로운 veggies 컬렉션 : potato, tomato, chillies, green-pepper, spinach
   updateVegetablesCollection(veggies, 'spinach');
-  // spinach 은 이미 veggies 컬렉션에 존재합니다.
-
-Array.isArray()
-Array.isArray(arr) // 인자가 배열인지 판별. 참이면 true, 거짓이면 false 반환
-
-Array.prototype.join()
-arr.join(arr) // 배열 안의 모든 요소를 더해 문자열을 만듦. 요소가 undefined 또는 null이면 빈 문자열로 변환
-
-Array.prototype.keys()
-arr.keys()// 배열의 각 인덱스를 키 값으로 가지는 새로운 Array Iterator 객체를 반환.
+//> spinach 은 이미 veggies 컬렉션에 존재합니다.
 
 Array.prototype.lastIndexOf()
-arr.lastIndexOf() // indexOf() 와 달리 마지막 인덱스 반환. 없으면 -1 반환
+arr.lastIndexOf() 
+// indexOf() 와 달리 마지막 index 반환, 없으면 -1 반환
+
+Array.isArray()
+Array.isArray(arr) 
+// arr이 배열인지 판별, true/false 반환
+
+Array.prototype.join()
+arr.join(arr) 
+// arr의 모든 item을 더해, 새로운 str로 반환, item이 undefined 또는 null이면 빈 str로 반환
+
+// Array.prototype.keys()
+// arr.keys()
+// arr배열의 각 indes를 키 값으로 가지는 새로운 iterator 반환.
 
 Array.prototype.map()
-arr.map(x => x * 2) // 배열의 요소에 연산 함수를 적용하여 새로운 배열을 반환. 원본 배열 변형 X, 연산 함수가 변형할 수는 있음. 
-['1', '2', '3'].map(parseInt) // 두개 이상의 인자를 받는 연산 함수를 적용하면 기대와 다른 결과값이 나오므로 주의.
-
+arr.map(x => x + 1) 
+// str의 item에 연산 함수를 적용, 새로운 arr 반환 
+/// 두개 이상의 p를 받는 연산 함수를 적용 시 기대와 다른 결과값이 나오므로 주의
+['1', '2', '3'].map(parseInt) 
 
 Array.prototype.flatMap() 
-//map().flat()
-
+// map().flat()
+/// flat().map() 이 아님
+console.log([1, 2, [3, 3]].flat().map(x => x + 1))
+///> [2, 3, 4, 4]
+///
+console.log([1, 2, [3, 3]].map(x => x + 1).flat())
+///> [2, 3, "3,31"]
 
 Array.of()
-Array(1, 2, 3) // [1, 2, 3] 형태에 상관 없이 인자로 배열 생성
-Array(3) // [ , , ] 인자의 길이를 갖는 배열 생성
+Array.of(item1, item2, ...item)
+// [item1, item2, ...item] 반환
 
 Array.prototype.pop()
-arr.pop() //배열의 마지막 요소를 제거하고 그 요소를 반환, 빈 배열은  undefined 반환
+arr.pop() 
+// arr의 마지막 item을 제거하고 제거한 item을 반환, 빈 배열은 undefined 반환 (원본 arr 변경)
 
 Array.prototype.push()
-arr.push('a','b','c','...') // 배열의 끝에 하나 이상의 요소를 추가, 배열의 새로운 길이를 반환.
-Array.prototype.push.apply(arr1, arr2)//두 배열을 합치려면 apply() 사용, apply에는 매개변수 숫자 제한이 있음
+arr.push(item1, item2, ...item) // arr의 끝에 하나 이상의 item 추가, 배열의 새로운 길이를 반환. (원본 arr 변경)
+/// 두 배열 합치기, concat()은 원본 배열 유지
+Array.prototype.push.apply(arr1, arr2)
+///
 
 Array.prototype.reduce()
 arr.reduce((acc, cur) => acc + cur)
-arr.reduce((acc, cur, inx, src) => acc + cur, int)// 배열의 각 요소에 대해 주어진 리듀서(reducer) 함수를 실행하고, 하나의 결과값을 반환합니다.
+arr.reduce((acc, cur, inx, src) => acc + cur, int)// arr의 각 item에 대해 주어진 리듀서(reducer) 함수를 차례로 적용, acc 반환
+//리듀서 함수: int (옵션: 기본 0) 를 초기값으로 시작, arr의 각 item이 차례로 cur에 대입되어 연산 함수를 적용한 뒤 acc에 누적 저장
 // acc: accumulator, cur: currentValue, idx: currentIndex, src: sourceArray, int: initialValue
-// acc: 연산 함수의 반환값을 누적, int (옵션: 기본 0)가 존재할경우 int에서 시작 
-//int를 초기값으로 배열의 각 요소가 차례로 cur에 대입되어 연산 함수를 적용한 뒤, acc에 연속적으로 저장하여 반환
 //https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce 예시 많음
 
-Array.prototype.reduceRight() // reduce() 와 같으나 끝에서 처음으로 실행
+Array.prototype.reduceRight() // reduce() 와 같으나 item이 end 에서 start 순서로 cur에 대입
 
 Array.prototype.reverse()
-arr.reverse() // 원본 배열의 순서를 반전 (원본 배열 변경), 반환
+arr.reverse() // arr의 순서를 반전 (원본 arr 변경), 변경된 arr 반환
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Array.prototype.shift()
 arr.shift() // 배열의 첫 번째 요소를 제거하고 (원본 배열 변경), 제거된 요소를 반환.
