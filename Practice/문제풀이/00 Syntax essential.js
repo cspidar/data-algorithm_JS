@@ -1,14 +1,14 @@
 //// 원래 명칭을 단순화시켜 실제 사용되는 형태로 표현했습니다. 그 과정에서 다소 생략, 또는 비약이 있을 수 있습니다.
 //// 반환값, 대상의 변경 여부, 항목의 옵션 여부 및 생략 시 기본값을 명확히 하는데 중점을 두고 작성했습니다.
+//// 학습 과정중, 학습을 위해 작성하여 오류가 있을 수 있습니다. 
+//// 오류 발견 시 전달해주시면 확인 후 업데이트 하겠습니다.
 
 ////// 본문 작성 형태: 설명 (원본 변경/유지 여부), 반환값
 ////// 대상의 변경 여부 표시: 변경된 대상 반환 = (원본 변경) 기존 대상 변경 / 새로운 대상 반환 = (원본 유지) 기존 대상 유지 
 
 ////// 옵션 항목과 생략 시 기본값: (옵션: 기본 0)
-//// 학습 과정중, 학습을 위해 작성하여 오류가 있을 수 있습니다. 
-//// 오류 발견 시 전달해주시면 확인 후 업데이트 하겠습니다.
+
 //// 작성 규칙
-// H: 여러 형태가 가능한 대상
 // n: 숫자, 1/0: Infinity, true/false: 불리언,
 // str: 문자열, 'a': 문자열,  
 // arr: 배열, [item1, item2, ...item]: 배열[index], 배열[start]: item1, 배열[end]: ...item, 차례로: start -> end
@@ -17,9 +17,13 @@
 // p => p < 10 : 판별 함수 만족
 // p => p + 1 : 연산 함수 적용
 
+// H: 여러 형태가 가능한 대상 (arr, obj, set, map)
+
+
 ///> 코드 실행 결과 표시
 
 ////// H. 으로 검색하면 하이브리드 항목들 확인 가능 (전체 정리하면 보일듯)
+
 
 //// 용어
 
@@ -192,7 +196,7 @@ Array.isArray(arr)
 // arr이 배열인지 판별, true/false 반환
 
 Array.prototype.join()
-arr.join(arr) /// 동작 이상하게됨
+arr.join('a') /// 구분자를 기준
 // arr의 모든 item을 더해, 새로운 str로 반환, item이 undefined 또는 null이면 빈 str로 반환
 
 Array.prototype.map()
@@ -284,37 +288,47 @@ arr.values() // arr의 item을 차례로 제공하는 새로운 iterator 반환.
 
 
 
-
-
 //=객체 메소드
 
 Object.assign()
-Object.assign(target, source1, source2, ...source) // source 객체를 target 에 복사한 뒤 target 반환 (target 변경), 동일한 속성은 더 뒤의 파라미터 객체에 의해 덮어쓰여짐.
-//객체 복사
+Object.assign(target, src1, src2, ...src) 
+// src 를 target 에 복사한 뒤 target 반환 (target 변경), 동일한 속성은 더 뒤의 파라미터 객체에 의해 덮어쓰여짐.
+/// 객체 복사
 const obj = { a: 1 };
 const copy = Object.assign({}, obj);
 console.log(copy); // { a: 1 }
-//깊은 클로닝, Object.assign() 은 속성의 값을 복사, 출처 값이 객체에 대한 참조인 경우, 참조 값만 복사.
 
-Object.create() // 객체 생성
-var o
-o = Object.create(prototype) // prototype을 갖는 객체 생성
+Object.create()
+let obj = Object.create(prototype) 
+// prototype을 갖는 obj 생성
+/// 예시
 
-Object.defineProperties() // 객체의 새로운 속성들을 정의
-Object.defineProperties(object, {
-  prop1: {
-    value: 42,
-    writable: true
+Object.defineProperties()
+Object.defineProperties(obj, {
+  key1: {
+    value: undefined,
+    writable: false,
+    configurable: false,
+    enumerable: false,
+    get: undefined,
+    set: undefined
   },
-  prop2: {},
-  prop3: {}
+  key2: {
+    value: 'value2',
+  },
+  key3: {}
 });
+// obj에 1개 이상의 src와 그 속성 (옵션: 기본 key1의 작성값) 을 정의
 
-Object.defineProperty() // 객체의 새로운 속성을 정의
-Object.defineProperty(obj, 'prop', {
-  value: 42,
-  writable: false
-});
+Object.defineProperty(obj, 'key', {
+  value: undefined,
+  writable: false,
+  configurable: false,
+  enumerable: false,
+  get: undefined,
+  set: undefined
+})
+// obj에 단일 src와 그 속성 (옵션: 기본 key1의 작성값) 을 정의
 
 Object.entries() // arr, map과 다름
 Object.entries(obj) //obj의 [key, value] 쌍에 해당하는 배열을 반환. 속성의 순서는 개체의 속성 값을 수동으로 반복하여 주어진 순서와 동일
@@ -388,6 +402,85 @@ obj.valueOf() // obj의 원시값 반환
 
 Object.values() // Array.prototype.values() 와 같지 않음
 Object.values(obj) // obj의 value를 배열로 반환
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Properties
+String length
+Methods
+String.prototype[@@iterator]()
+String.prototype.anchor() // 사용 X
+String.prototype.at() // 실험중
+String.prototype.big() // 사용 X
+String.prototype.blink() // 사용 X
+String.prototype.bold() // 사용 X
+String.prototype.charAt()
+String.prototype.charCodeAt()
+String.prototype.codePointAt()
+String.prototype.concat()
+String.prototype.endsWith()
+String.prototype.fixed() // 사용 X
+String.prototype.fontcolor() // 사용 X
+String.prototype.fontsize() // 사용 X
+String.fromCharCode()
+String.fromCodePoint()
+String.prototype.includes()
+String.prototype.indexOf()
+String.prototype.italics() // 사용 X
+String.prototype.lastIndexOf()
+String.prototype.link() // 사용 X
+String.prototype.localeCompare()
+String.prototype.match()
+String.prototype.matchAll()
+String.prototype.normalize()
+String.prototype.padEnd()
+String.prototype.padStart()
+String.raw()
+String.prototype.repeat()
+String.prototype.replace()
+String.prototype.replaceAll()
+String.prototype.search()
+String.prototype.slice()
+String.prototype.small() // 사용 X
+String.prototype.split()
+String.prototype.startsWith()
+String.prototype.strike() // 사용 X
+String.prototype.sub() // 사용 X
+String.prototype.substr() // 사용 X
+String.prototype.substring()
+String.prototype.sup() // 사용 X
+String.prototype.toLocaleLowerCase()
+String.prototype.toLocaleUpperCase()
+String.prototype.toLowerCase()
+String.prototype.toSource() // 표준 X, 사용 금지
+String.prototype.toString()
+String.prototype.toUpperCase()
+String.prototype.trim()
+String.prototype.trimEnd()
+String.prototype.trimStart()
+String.prototype.valueOf()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
