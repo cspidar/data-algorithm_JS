@@ -1,8 +1,12 @@
 
-const arr = [1,2,3,4,5]
+const set = new Set;
 
-str = 'avsdadsv'
-console.log(str.split())
+
+
+set.add(1)
+set.add(2)
+console.log(set.get(1))
+
 
 //> 1,2,3,4,5
 
