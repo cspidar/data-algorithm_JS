@@ -330,8 +330,10 @@ Object.defineProperty(obj, 'key', {
 })
 // obj에 단일 src와 그 속성 (옵션: 기본 key1의 작성값) 을 정의
 
+
 Object.entries() // arr, map과 다름
-Object.entries(obj) //obj의 [key, value] 쌍에 해당하는 배열을 반환. 속성의 순서는 개체의 속성 값을 수동으로 반복하여 주어진 순서와 동일
+Object.entries(obj) 
+//obj의 [key, value] 쌍에 해당하는 배열을 반환. 속성의 순서는 개체의 속성 값을 수동으로 반복하여 주어진 순서와 동일
 //Object.entries({b:2, a:1, c:3})[0] //> ['b',2]
 
 Object.freeze()
