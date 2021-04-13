@@ -3,6 +3,34 @@
 
 
 
+// 삼항 연산자
+/// 조건1? 입력값1 : 조건2? 입력값2 : ...조건? ...입력값
+const ans = a > b ? 1 : a > c ? 2 : 3
+
+// 몫, 나머지
+/// 몫: 소수 -> 정수형 변환 
+/// parseInt(n)
+parseInt (13 / 5)
+//> 2
+/// 나머지
+/// a % b
+13 % 5
+//> 3
+
+// 올림 Math.ceil(n), 내림 Math.floor(n), 반올림 Math.round(n)
+
+// 변수 선언 시 자료형을 넣어주는게 좋다
+let x // (X) 숫자 들어가면 str로 변환됨
+let x = 0; // (O)
+
+
+
+
+
+
+
+
+
 arr.shift()
 
 arr.unshift(i)
