@@ -23,8 +23,30 @@ parseInt (13 / 5)
 let x // (X) 숫자 들어가면 str로 변환됨
 let x = 0; // (O)
 
+// 충분히 큰 숫자 변수 선언
+const n = Number.MAX_SAFE_INTEGER
 
+// arr의 최소값 (배열 자체로 넣으면 NaN 반환)
+const n = Math.min(...arr)
+const n = Math.min.apply(null, arr)
+// arr의 최대값 (배열 자체로 넣으면 NaN 반환)
+const n = Math.max(...arr)
 
+// arr의 i 를 splice()로 직접 지우면 뒤의 인덱스가 변하기 때문에 연속 사용 시 주의해야 함, slice()로 원본 배열은 유지한 채 새로운 배열로 반환하는 것이 더 이상적
+
+// arr을 변수 선언하면 얕은 복사로 참조만 복사되어 변수를 조작하면 원본도 변경되지만 str은 변수 선언을 하면 string 자체가 복사 (깊은 복사) 되어 원본이 변경되지 않는다.
+const arr = [1,2,3]
+const str = '123123'
+
+// str 정규표현식 사용하여 replace로 교체
+str.replace(/A/g, 'B') // 'A' 를 글로벌 (g) 로 'B'로 교체
+
+// str을 for of 로 순회는 가능하나 arr 메소드를 사용 가능한건 아님
+
+// for in: 대상의 값을 순회 (obj, str, arr(인덱스), map(인덱스), set(인덱스) 가능) for of 가 가능 한 대상에게 적용하면 값 대신 인덱스 제공
+// for of: 대상의 값을 순회 (arr, map, set 가능)
+for (i in arr){ arr1.push(arr[i] + 1) }
+for (i of arr){ arr1.push(i + 1) }
 
 
 

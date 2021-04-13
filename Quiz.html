@@ -1,25 +1,27 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>출력결과</title>
-    </head>
-    <body>
-        <script>
-            function solution(N){
-              let ans = 0;
-              for (i = 1; i <= N; i++){
-                ans += i;
-              }
+<head>
+    <meta charset="UTF-8">
+    <title>출력결과</title>
+</head>
+<body>
+<script>
+  function sol(str){
+    const lowStr = str.toLowerCase();
+    let ans = 0
+    for (let i = 0; i < str.length; i++){
+      if (str[i] != lowStr[i]) {
+        ans++
+      }
+    }
 
-              
+
+  
 
 
-
-
-              return ans;
-            }
-
-            console.log(solution(13));
-        </script>
-    </body>
+  return ans;
+  }
+const input = 'KoreaTimeGood'
+console.log(sol(input));
+</script>
+</body>
 </html>
