@@ -59,15 +59,44 @@ const str = '123123'
 // str 정규표현식 사용하여 replace로 교체
 str.replace(/A/g, 'B') // 'A' 를 글로벌 (g) 로 'B'로 교체
 
-// [문법 - 일반 - str]
-// str을 for of 로 순회는 가능하나 arr 메소드를 사용 가능한건 아님
-
 // [문법 - 일반 - 순회]
-// for in: 대상의 값을 순회 (obj, str, arr(인덱스), map(인덱스), set(인덱스) 가능) for of 가 가능 한 대상에게 적용하면 값 대신 인덱스 제공
-// for of: 대상의 값을 순회 (arr, map, set 가능)
+// for in: 대상의 값을 순회 (obj, str(인덱스), arr(인덱스), map(인덱스), set(인덱스) 가능) for of 가 가능 한 대상에게 적용하면 값 대신 인덱스 제공
+// for of: 대상의 값을 순회 (arr, str, map, set 가능)
 for (i in arr){ arr1.push(arr[i] + 1) }
 for (i of arr){ arr1.push(i + 1) }
 
+
+
+// str.charCodeAt() ascii num으로 변경
+// String.fromCharCode(n) ascii num을 str로 변경
+// 영어 대문자 65 ~ 90
+// 영어 소문자 97 ~ 122
+
+// && : and
+// || : or
+n == 1 || 2 // 이렇게 입력하면 인식 못함
+n == 1 || n == 2 // 이렇게 해야 인식함.... (다른 방법 없나?..)
+
+// 문자열 일부 출력
+//str.substring(start, end) start부터 end-1 인덱스까지 반환
+
+// Set 생성 형태
+Set(str) // {'s1', 's2', '...s'}
+Set(arr) // {i1, i2, ...i}
+Set(...arr) // 불가
+
+// 중복 문자 / 배열 원소 찾기 
+// str.indexOf(str[i]) 는 str[i] 의 반복을 무시하고 고유 인덱스를 반환
+// i != str.indexOf(str[i]) 는 반복되는 항목
+
+// arr.filter() index 넣는건 옵션... 고유 콜백 아님
+arr.filter(p => p < 10)
+arr.filter((item, index) => item[index])
+
+// arr[-n] 은 undefined
+// n - undefined 은 NaN
+
+// 절대값 Math.abs(n)
 
 
 
