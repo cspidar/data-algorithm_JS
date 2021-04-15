@@ -1,186 +1,173 @@
+arr.shift();
 
+arr.unshift(i);
 
+arr.pop();
 
+arr.push(i1, i2, ...i);
 
+arr.splice(start, n, i1, i2, ...i);
+arr.fill(i, start, end);
+arr.copyWithin(target, start, end);
 
-arr.shift()
+arr.sort((a, b) => a - b);
 
-arr.unshift(i)
+arr.reverse();
 
-arr.pop()
+arr.flat(n);
 
-arr.push(i1, i2, ...i)
+arr.concat(h1, h2, ...h);
+arr.join('a');
 
-arr.splice(start, n, i1, i2, ...i) 
+arr.slice(start, end);
 
-arr.fill(i, start, end) 
+arr.toString();
 
-arr.copyWithin(target, start, end)
+arr.forEach((p) => p + 1);
 
-arr.sort((a , b) => a - b )
+arr.map((p) => p + 1);
 
-arr.reverse()
+arr.flatMap((p) => p + 1);
 
-arr.flat(n)
+arr.reduce((acc, cur) => acc + cur, int);
+arr.reduce((acc, cur, inx, src) => acc + cur, int);
 
-arr.concat(h1, h2, ...h) 
+arr.reduceRight((acc, cur) => acc + cur);
+arr.reduceRight((acc, cur, inx, src) => acc + cur, int);
 
-arr.join('a')
+Array.from(H, (p) => p + 1);
 
-arr.slice(start, end)
+arr.every((p) => p < 10);
 
-arr.toString()
+arr.some((p) => p > 10);
 
-arr.forEach(p => p + 1)
+arr.filter((p) => p < 10);
+arr.filter((item, index) => item[index]);
 
-arr.map(p => p + 1)
+arr.find((p) => p < 10);
 
-arr.flatMap(p => p + 1)
+arr.findIndex((p) => p < 10);
 
-arr.reduce((acc, cur) => acc + cur, int)
-arr.reduce((acc, cur, inx, src) => acc + cur, int)
+arr.includes(i);
 
-arr.reduceRight((acc, cur) => acc + cur)
-arr.reduceRight((acc, cur, inx, src) => acc + cur, int)
+arr.indexOf(item, start);
 
-Array.from(H, p => p + 1)
+arr.lastIndexOf();
 
-arr.every(p => p < 10)
+Object.assign(obj, src1, src2, ...src);
 
-arr.some(p => p > 10)
+Object.keys(obj);
 
-arr.filter(p => p < 10)
+Object.getOwnPropertyNames(obj);
 
-arr.find(p => p < 10)
+Object.entries(obj);
 
-arr.findIndex(p => p < 10)
+Object.fromEntries([[k1, k2], [k2, v2], ...[k, v]]);
 
-arr.includes(i)
+Object.values(obj);
 
-arr.indexOf(item, start)
+obj.key.toString();
 
-arr.lastIndexOf()
-
-
-Object.assign(obj, src1, src2, ...src)
-
-Object.keys(obj)
-
-Object.getOwnPropertyNames(obj)
-
-Object.entries(obj)
-
-Object.fromEntries([[k1, k2], [k2, v2], ...[k, v]])
-
-Object.values(obj)
-
-obj.key.toString()
-
-obj.hasOwnProperty('key')
+obj.hasOwnProperty('key');
 
 Object.is(H1, H2);
 
+str.concat('s1', 's2', ...'s');
 
-str.concat('s1', 's2', ...'s')
+str.slice(start, end);
 
-str.slice(start, end)
+str.substring(start, end);
 
-str.substring(start, end)
+str.split('s', n);
 
-str.split('s', n)
+str.toLowerCase();
 
-str.toLowerCase()
+str.toUpperCase();
 
-str.toUpperCase()
+str.padStart(n, 's');
 
-str.padStart(n, 's')
-
-str.padEnd(n, 's')
+str.padEnd(n, 's');
 
 str.repeat(n);
 
-str.replace('r1/s1', 's2') - str
+str.replace('r1/s1', 's2') - str;
 
-str.replace('r/s1', p => p + 1) - func
+str.replace('r/s1', (p) => p + 1) - func;
 
-str.replaceAll('r/s1', 's2')
+str.replaceAll('r/s1', 's2');
 
-str.replaceAll('r/a1', p => p + 1)
+str.replaceAll('r/a1', (p) => p + 1);
 
-H.toString()
+H.toString();
 
-str.includes('s', start)
+str.includes('s', start);
 
-str.indexOf('s', start)
+str.indexOf('s', start);
 
-str.lastIndexOf('s', end)
+str.lastIndexOf('s', end);
 
-str.startsWith('s', n)
+str.startsWith('s', n);
 
-str.search(r)
+str.search(r);
 
-str.endsWith('s')
+str.endsWith('s');
 
-str.at(index)
+str.at(index);
 
-str.at(index)
+str.at(index);
 
+map.size;
 
-map.size
+map.clear();
 
-map.clear()
+map.delete(key);
 
-map.delete(key)
+map.get(key);
 
-map.get(key)
+map
+  .set(k1, v1)
+  .set(k2, v2)
+  .set(...k, ...v);
 
-map.set(k1, v1).set(k2, v2).set(...k, ...v)
+map.has(key);
 
-map.has(key)
+map.forEach((value, key) => value + 1);
 
-map.forEach((value, key) => value + 1)
+map.keys();
 
-map.keys()
+map.values();
 
-map.values()
+map.entries();
 
-map.entries()
+set.size;
 
+set
+  .add(a1)
+  .add(a2)
+  .add(...a);
 
-set.size
+set.clear();
 
-set.add(a1).add(a2).add(...a)
+set.delete(i);
 
-set.clear()
+set.has(i);
 
-set.delete(i)
+set.forEach((p) => p + 1);
 
-set.has(i)
+set.keys();
 
-set.forEach((p) => p + 1)
+set.values();
 
-set.keys()
+set.entries();
 
-set.values()
+func.length;
 
-set.entries()
+func.name;
 
+func.bind(p_this, p1, p2, ...p);
 
-func.length
+func.toString();
 
-func.name
+func.apply(p_this, [p1, p2, ...p]);
 
-func.bind(p_this, p1, p2, ...p)
-
-func.toString()
-
-func.apply(p_this, [p1, p2, ...p])
-
-func.call(p_this, p1, p2, ...p)
-
-
-
-
-
-
-
+func.call(p_this, p1, p2, ...p);
