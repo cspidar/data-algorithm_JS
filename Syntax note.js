@@ -155,4 +155,39 @@ for (i = 0; i < str.length / 2; i++) {
 }
 if (flag) ans = 'YES';
 
-//
+// 최대 최소값
+Math.max(...arr); // 배열이 아님에 주의
+Math.min(...arr); // 배열이 아님에 주의
+
+// 배열 복사
+const barr = [...arr];
+
+// 문자열화 - 배열 원소의 숫자 자릿수별 인덱스, 원소 길이 (자릿수) 사용 을 위해 적용
+arr.map((p) => p.toString());
+
+// 숫자화, 첫자리 0 제거
+arr.map((p) => Number(p));
+
+// 소수 확인
+const chkPrime = (n) => {
+  if (n === 1) return false;
+  else if (n === 2) return true;
+  else {
+    for (i = 2; i < n; i++) {
+      if (n % i === 0) return false;
+      else return true;
+    }
+  }
+};
+
+// for문 둘의 차이
+///
+for (i = 2; i < n; i++) {
+  if (n % i === 0) return false;
+}
+return true;
+///
+for (i = 2; i < n; i++) {
+  if (n % i === 0) return false;
+  return true;
+}

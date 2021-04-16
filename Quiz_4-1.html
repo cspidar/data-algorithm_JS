@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function sol(arr) {
+        const sarr = [...arr].sort((a, b) => b - a).map((p) => p.toString());
+        const res = [];
+        for (i in sarr) {
+          let tmp = 0;
+          for (j = 0; j < sarr[i].length; j++) {
+            tmp += Number(sarr[i][j]);
+          }
+          res.push(tmp);
+        }
+        const barr = [...res].map((p) => Number(p));
+        const ans = sarr[res.indexOf(Math.max(...barr))];
+        return ans;
+      }
+
+      const in1 = [128, 460, 603, 40, 521, 137, 123];
+      console.log(sol(in1));
+      !console.table(sol(in1));
+    </script>
+  </body>
+</html>
