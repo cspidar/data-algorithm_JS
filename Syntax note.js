@@ -33,8 +33,9 @@ let x; // (X) 숫자 입력하면 str로 변환됨
 let x = 0; // (O)
 
 // [Number 메소드]
-// 충분히 큰 숫자 변수 선언 - 숫자 계산
+// 충분히 큰/작은 숫자 변수 선언 - 숫자 계산
 const n = Number.MAX_SAFE_INTEGER;
+const n = Number.MIN_SAFE_INTEGER;
 
 // = Math 메소드 - 배열
 // arr의 최소값 (배열 자체로 넣으면 NaN 반환)
@@ -173,21 +174,117 @@ const chkPrime = (n) => {
   if (n === 1) return false;
   else if (n === 2) return true;
   else {
-    for (i = 2; i < n; i++) {
+    for (i = 2; i <= Math.sqrt(n); i++) {
       if (n % i === 0) return false;
-      else return true;
     }
+    return true;
   }
 };
 
-// for문 둘의 차이
+// for문 둘의 차이 (for문 안에서 true false 둘다 리턴하면 안됨?)
+// true가 먼저 박혀서 그런건지...
 ///
 for (i = 2; i < n; i++) {
-  if (n % i === 0) return false;
+  if (n % i === 0) {
+    return false;
+  }
 }
 return true;
 ///
 for (i = 2; i < n; i++) {
   if (n % i === 0) return false;
-  return true;
+  else return true;
+}
+
+// [문법 - str, 정규표현식]
+// 알파벳 소문자만 남기고 숫자, 기호 등 제거
+str.replace(/[^a-z]/g, '');
+
+// 숫자 확인
+isNaN(s); // 숫자면 false, 아니면 true
+
+// str -> n
+Number(n);
+parseInt(str);
+
+// 좌우 탐색 시 시작값 큰 수 넣는 이유: -> 방향 탐색시 시작값의 왼쪽에는 비교 대상이 없기 때문
+
+// str revers() 안됨
+
+// 숫자 뒤집기
+let res = 0;
+while (n) {
+  let tmp = n % 10;
+  res = res * 10 + tmp;
+  n = n / 10;
+}
+
+// arr.indexOf([1, 2]) 와 같은 2차배열 인덱스는 못찾음
+
+// sort n개 만 돌려도 시간복잡도 NlogN
+
+// 후치 연산
+res.push(arr[i++]); // arr[i] 를 푸시 하고 i++
+
+// set.has(v) / arr.includes(v)
+
+// arr.sort() 기본 값은 오름차순 (a - b)
+
+// while(A && B) 는 A && B 인 동안 반복이므로 A 또는 B 하나만 false여도 중단
+
+// 팩토리얼 계산 (재귀)
+function factorial(n) {
+  return n != 1 ? n * factorial(n - 1) : 1;
+}
+
+// 투포인터 알고리즘
+// 집합이 아닌 수열...
+
+// 투포인터 알고리즘 특정값보다 작은 부분수열 갯수 구하기
+let answer = 0,
+  sum = 0,
+  lt = 0;
+for (let rt = 0; rt < arr.length; rt++) {
+  sum += arr[rt];
+  while (sum > m) {
+    sum -= arr[lt++];
+  }
+  answer += rt - lt + 1;
+}
+
+// 슬라이딩 윈도우
+// 반복문을 병렬적으로 사용하는건 시간복잡도에 상관없음.
+let answer,
+  sum = 0;
+for (let i = 0; i < k; i++) sum += arr[i];
+answer = sum;
+for (let i = k; i < arr.length; i++) {
+  sum += arr[i] - arr[i - k];
+  answer = Math.max(answer, sum);
+}
+
+// obj <-> arr 변환
+/// obj -> arr
+Object.entries(obj);
+/// arr -> obj
+Object.fromEntries(arr);
+
+// Map 의 value 연산
+map.set(k, (map.get(k) += 1)); // ( X ) += 이 아님, 값을 셋 하는것
+map.set(k, map.get(k) + 1); // ( O )
+
+// Map 순회
+for ([key, value] of map) {
+}
+
+// 두 Map 일치 검사
+/// 조건
+let flag = 1;
+if (map1.has(k) != map2.has(k) || map1.get(k) != map2.get(k)) {
+  return 'NO'; // 이런 상황에서 바로 빠져나오는게 유리
+}
+/// 소거
+for (let x of str2) {
+  if (!map.has(x) || map.get(x) == 0) return 'NO';
+  map.set(x, sH.get(x) - 1);
 }
