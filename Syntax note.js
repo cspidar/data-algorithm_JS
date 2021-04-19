@@ -321,3 +321,32 @@ while (lt < m - n) {
 // if 문 조건 안에서 배열 직접조작 하면 원본 배열 수정됨
 if (arr.pop()) {
 }
+
+// Map k 확인 후 없으면 추가, 있으면 +1
+for (i in str2) {
+  if (!map2.has(str2[i])) {
+    map2.set(str2[i], 1);
+  } else map2.set(str2[i], map2.get(str2[i]) + 1);
+}
+
+// 0 == false : true
+// 0 === false : false
+
+// 슬라이딩 윈도우 형태 반복문의 구조
+// 순회 길이가 3이라고 하면 반복문을 적용할 대상을 길이 2, rt = 2 로 세팅
+/// for 문
+// rt 더해 대상 길이을 3으로 만들고 rt++
+// 평가
+// lt 빼서 대상 길이 2로 만들고 lt++
+
+// 두 Map 일치 확인 함수
+function chkMaps(p1, p2) {
+  // console.log(p1);
+  if (p1.size != p2.size) return false;
+  else {
+    for ([k, v] of p1) {
+      if (!p2.has(k) || p2.get(k) !== v) return false; // p2에 p1의 k가 있는지 확인 || p2의 v와 p1의 v가 같은지 확인
+    }
+    return true;
+  }
+}
