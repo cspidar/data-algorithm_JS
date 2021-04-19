@@ -288,3 +288,36 @@ for (let x of str2) {
   if (!map.has(x) || map.get(x) == 0) return 'NO';
   map.set(x, sH.get(x) - 1);
 }
+
+// 화살표 함수는 항상 익명, 생성자로 사용 불가
+
+// 함수 선언 형태
+function func(p) {
+  return p + 1;
+}
+const func = function (p) {
+  return p + 1;
+};
+const fullname = function name(p) {
+  return p + 1;
+};
+
+// flag와 count
+let flag = 1;
+while (lt < m - n) {
+  for ([k, v] of map1) {
+    if (map1.has(k) != map2.has(k) || map1.get(k) != map2.get(k)) {
+      flag = 0;
+    }
+  }
+  if (flag) {
+    count++;
+  }
+  flag = 1;
+  map1.delete(arr1[lt++]);
+  map1.set(arr1[rt++], 1);
+}
+
+// if 문 조건 안에서 배열 직접조작 하면 원본 배열 수정됨
+if (arr.pop()) {
+}
