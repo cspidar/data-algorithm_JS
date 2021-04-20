@@ -68,7 +68,7 @@ for (i in arr) {
 for (i of arr) {
   arr1.push(i + 1);
 }
-// for of/in - if 일괄로 분기? 맞음, 분기 한번에 통으로 들어감, if문 중첩시에는 사용 안해야할듯. 값으로만 일괄계산 = map() / for of, 인덱스 관련 일괄계산 = for in
+// for of/in - if 일괄로 분기? 맞음, 분기 한번에 통으로 들어감, 순회 대상의 이터레이터를 사용하기 때문, for in/of 안에 if/else 문 사용 못함 / for of, 인덱스 관련 일괄계산 = for in
 // for - if 개별로 분기? 개별로 분기됨
 
 // [문법 - str]
@@ -350,3 +350,9 @@ function chkMaps(p1, p2) {
     return true;
   }
 }
+
+// p2에 p1의 k가 있는지 확인 || p2의 v와 p1의 v가 같은지 확인
+if (!p2.has(k) || p2.get(k) !== v) return false;
+
+// 병렬 if = 순차적으로 조건 확인
+// if / else if = 분기점

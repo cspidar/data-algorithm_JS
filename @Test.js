@@ -17,6 +17,8 @@ const sarr = arr.map((p) => p.toString());
 
 ///////
 
-console.log(0 == false);
+arr[0][1] = 0;
 
-!console.table();
+console.log(arr);
+
+!console.table(arr);
