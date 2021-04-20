@@ -356,3 +356,20 @@ if (!p2.has(k) || p2.get(k) !== v) return false;
 
 // 병렬 if = 순차적으로 조건 확인
 // if / else if = 분기점
+
+// 아래처럼 하면 pick 을 0으로 재정의 하는것?
+// 그렇다면 pick에 정의된 값을 할당은 어찌해야............
+let pick = bd[j][mv[i] - 1];
+if (pick > 0) {
+  res.push(pick);
+  pick = 0;
+  console.log(pick);
+  break;
+}
+// 이렇게 해야 재할당 아닌 배열 값이 바뀜
+const pick = bd[j][mv[i] - 1];
+if (pick > 0) {
+  res.push(pick);
+  bd[j][mv[i] - 1] = 0;
+  break;
+}

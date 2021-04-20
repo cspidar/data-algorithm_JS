@@ -9,24 +9,20 @@ function sol(board, moves) {
   const mv = [...moves];
   const res = [];
 
-  let cnt = 0;
   for (i = 0; i < l; i++) {
     for (j = 0; j < n; j++) {
-      if (bd[j][mv[i] - 1] > 0) {
-        if (
-          res.length !== 0 &&
-          res.lastIndexOf(bd[j][mv[i] - 1]) === res.length - 1
-        ) {
-          res.pop();
-          cnt++;
-        } else res.push(bd[j][mv[i] - 1]);
-        bd[j][mv[i] - 1] = 0;
+      const pick = bd[j][mv[i] - 1];
+      if (pick > 0) {
+        res.push(pick);
+        pick = 0;
         break;
       }
     }
   }
 
-  return cnt * 2;
+  const ans = res;
+
+  return ans;
 }
 
 const in1 = [
