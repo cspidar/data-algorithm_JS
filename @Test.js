@@ -16,9 +16,12 @@ const sarr = arr.map((p) => p.toString());
 ///////
 
 ///////
+let tmp = '';
+let before = '1';
+let after = '2';
+let str1 = '+';
+tmp += before += str1[0] += after;
 
-arr[0][1] = 0;
-
-console.log(arr);
+console.log(eval(tmp).toString());
 
 !console.table(arr);
