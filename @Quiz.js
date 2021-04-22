@@ -1,22 +1,24 @@
 //
-function sol(str1, str2) {
-  let rarr = '';
-  for (i = 0; i < str2.length; i++) {
-    if (str2[i] == 'C' || str2[i] == 'A' || str2[i] == 'B') {
-      rarr += str2[i];
+function sol(arr1, str2) {
+  const arr = [...arr1];
+  let lt = 0;
+  let rt = 1;
+  let tmp = 0;
+
+  while (rt < arr.length) {
+    if (arr[lt] > arr[rt]) {
+      tmp = arr[lt];
+      arr[lt] = arr[rt];
+      arr[rt] = tmp;
     }
+    lt++;
+    rt++;
   }
 
-  let ans = '';
-  if (rarr == str1) {
-    ans = 'YES';
-  } else ans = 'NO';
-
-  return ans;
+  return arr;
 }
 
-const in1 = 'CBA';
-const in2 = 'CBDAGE';
+const in1 = [13, 5, 11, 7, 23, 15];
 
-console.log(sol(in1, in2));
-!console.table(sol(in1, in2));
+console.log(sol(in1));
+!console.table(sol(in1));

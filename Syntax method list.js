@@ -7,6 +7,7 @@ arr.pop();
 arr.push(i1, i2, ...i);
 
 arr.splice(start, n, i1, i2, ...i);
+
 arr.fill(i, start, end);
 arr.copyWithin(target, start, end);
 
