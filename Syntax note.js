@@ -385,3 +385,21 @@ if (!isNaN(n)) {
 // 괄호 (조건쌍) 이 들어가는 문제는 80% 스택
 
 // str에 바로 push 등등 안됨, += str[i] 같은것만 가능
+
+// arr의 i1과 i2의 value 서로 교체
+[arr[i1], arr[i2]] = [arr[i2], arr[i1]];
+
+// 2차 배열의 정렬
+arr.sort((a, b) => a[1] - b[1]).sort((a, b) => a[0] - b[0]);
+// a = arr[i] 가 기본, a[1] = arr[i][1]
+
+// 2차 배열 정렬 / 0번 인덱스 같을때 1번 인덱스로 정렬
+arr.sort((a, b) => {
+  if (a[0] === b[0]) return a[1] - b[1];
+  else return a[0] - b[0];
+});
+// 1번 인덱스 같을때 0번으로 정렬
+arr.sort((a, b) => {
+  if (a[1] === b[1]) return a[0] - b[0];
+  else return a[1] - b[1];
+});

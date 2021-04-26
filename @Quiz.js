@@ -1,24 +1,24 @@
 //
-function sol(arr1, str2) {
-  const arr = [...arr1];
-  let lt = 0;
-  let j = 1;
-  let tmp = 0;
+function sol(p1, p2) {
+  const arr = [...p1].sort((a, b) => {
+    if (a[0] === b[0]) return a[1] - b[1];
+    else return a[0] - b[0];
+  });
 
-  for (i = arr.length - 1; i >= 0; i--) {
-    for (j = 1; j <= i; j++) {
-      if (arr[j - 1] > arr[j]) {
-        tmp = arr[j - 1];
-        arr[j - 1] = arr[j];
-        arr[j] = tmp;
-      }
-    }
-  }
+  for (i = 0; i < arr.length; i++) {}
 
-  return arr;
+  const ans = arr;
+  // const ans = rarr;
+  return ans;
 }
 
-const in1 = [13, 5, 11, 7, 23, 15];
+const in1 = [
+  [14, 18],
+  [12, 15],
+  [15, 20],
+  [20, 30],
+  [5, 14],
+];
 
 console.log(sol(in1));
 !console.table(sol(in1));
