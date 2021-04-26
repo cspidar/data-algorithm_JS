@@ -26,7 +26,7 @@ arr.toString();
 
 arr.forEach((p) => p + 1);
 
-arr.map((p) => p + 1);
+arr.map((v, i, arr) => v[i] + 1);
 
 arr.flatMap((p) => p + 1);
 

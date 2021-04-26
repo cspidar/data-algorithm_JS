@@ -1,24 +1,31 @@
 //
-function sol(p1, p2) {
-  const arr = [...p1].sort((a, b) => {
-    if (a[0] === b[0]) return a[1] - b[1];
-    else return a[0] - b[0];
-  });
+function count(house, dis) {
+  let cnt = 1;
 
-  for (i = 0; i < arr.length; i++) {}
-
-  const ans = arr;
-  // const ans = rarr;
-  return ans;
+  return cnt;
 }
 
-const in1 = [
-  [14, 18],
-  [12, 15],
-  [15, 20],
-  [20, 30],
-  [5, 14],
-];
 
-console.log(sol(in1));
-!console.table(sol(in1));
+
+function sol(p1, p2) {
+  const arr = [...p1].sort((a, b) => a - b);
+
+  let lt = arr[lt]
+  let rt = arr[arr.length-1]
+  let res = 0
+
+  while (lt<=rt){
+    mid = Math.floor((lt+rt)/2)
+    let ep = arr[lt]
+    if 
+
+  }
+
+  return arr;
+}
+
+const in1 = [1, 2, 8, 4, 9];
+const in2 = 3;
+
+console.log(sol(in1, in2));
+!console.table(sol(in1, in2));

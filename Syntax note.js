@@ -69,6 +69,7 @@ for (i of arr) {
   arr1.push(i + 1);
 }
 // for of/in - if 일괄로 분기? 맞음, 분기 한번에 통으로 들어감, 순회 대상의 이터레이터를 사용하기 때문, for in/of 안에 if/else 문 사용 못함 / for of, 인덱스 관련 일괄계산 = for in
+// for of/in 도 개별로 분기됨, 좀더 테스트 해보고 이상 없으면 위에 지울 예정
 // for - if 개별로 분기? 개별로 분기됨
 
 // [문법 - str]
@@ -403,3 +404,32 @@ arr.sort((a, b) => {
   if (a[1] === b[1]) return a[0] - b[0];
   else return a[1] - b[1];
 });
+
+// map과 foreach의 차이
+// forEach 아무것도 반환 안함
+// map 배열 복사해서 반환
+//forEach()는 Array안에 데이터를 변경하려는 것이 아니라 데이터베이스에 저장하거나 로그아웃하는 것과 같은 작업에 유용
+
+//메소드 체인 map().flat() 안됨
+
+// 이진 검색
+/// mid는 이미 확인했기때문에 rt = mid -1 / lt = mid + 1
+let lt = 0;
+let rt = sarr.length - 1;
+while (lt <= rt) {
+  mid = Math.floor((lt + rt) / 2);
+  if (sarr[mid] === p2) {
+    ans = mid + 1;
+    break;
+  }
+  if (sarr[mid] > p2) {
+    rt = mid - 1;
+  } else lt = mid + 1;
+}
+
+// if 내 조건 계산과 대소 비교에도 괄호 넣어야함
+if ((sum += songs[i]) > capa) {
+}
+// += 와 + 혼동 주의
+if (sum + songs[i] > capa) {
+}
