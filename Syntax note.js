@@ -380,3 +380,82 @@ if (sum + songs[i] > capa) {
 }
 
 // 배열 깊은 복사 방법 확인 필요
+
+// 재귀함수 - 콜스택
+function DFS(L) {
+  if (L == 0) return;
+  else {
+    console.log(L);
+    DFS(L - 1);
+  }
+}
+/// 둘간 차이
+function DFS(L) {
+  if (L == 0) return;
+  else {
+    DFS(L - 1);
+    console.log(L);
+  }
+}
+
+// 이진트리 DFS
+// 전위순회 출력 : 1 2 4 5 3 6 7
+// console.log(v)
+// DFS(v*2)
+// DFS(v*2+1)
+// 중위순회 출력 : 4 2 5 1 6 3 7
+// DFS(v*2)
+// console.log(v)
+// DFS(v*2+1)
+// 후위순회 출력 : 4 5 2 6 7 3 1
+// DFS(v*2)
+// DFS(v*2+1)
+// console.log(v)
+//
+
+// str 공백 제거
+str.trim();
+
+// n+1 길이의 기본값 0 배열 만들기
+let ch = Array.from({ length: n + 1 }, () => 0);
+
+// 부분집합 같은 합 확인 - sum 파라미터
+function DFS(L, sum) {
+  if (flag) return;
+  if (L === n) {
+    if (total - sum === sum) {
+      answer = 'YES';
+      flag = 1;
+    }
+  } else {
+    DFS(L + 1, sum + arr[L]);
+    DFS(L + 1, sum);
+  }
+}
+DFS(0, 0);
+
+// 부분집합 같은 합 갯수 - 체크배열
+function DFS(i) {
+  if (i === arr.length) {
+    let sum0 = 0;
+    let sum1 = 0;
+    for (i in ch) {
+      if (ch[i] === 0) {
+        sum0 += arr[i];
+      } else sum1 += arr[i];
+    }
+    if (sum0 === sum1) {
+      cnt++;
+    }
+  } else {
+    ch[i] = 1;
+    DFS(i + 1);
+    ch[i] = 0;
+    DFS(i + 1);
+  }
+}
+DFS(0);
+
+// arr.filter((p)=> p < 10) 은 새로운 배열 반환, 전체 구분 한번 다시 볼 필요 있을듯
+
+// 재귀에서 루프를 컷해야 할때는 최상단에 탈출조건 if문을 병렬로 추가하고 리턴

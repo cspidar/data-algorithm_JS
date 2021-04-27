@@ -115,7 +115,7 @@ str.endsWith('s');
 
 str.at(index);
 
-str.at(index);
+str.trim();
 
 map.size;
 
