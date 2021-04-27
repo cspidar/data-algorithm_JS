@@ -18,7 +18,6 @@ function sol(p1, p2) {
       if (sum0 === sum1) {
         res = 'YES';
         cnt++;
-        break;
       }
     } else {
       ch[i] = 1;
