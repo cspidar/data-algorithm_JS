@@ -412,6 +412,8 @@ function DFS(i) {
 }
 DFS(0);
 
+// 부분집합 = 이진검색 DFS / 원소를 넣을것이냐 말것이냐 (이진트리) 로 전체 탐색
+
 //// = arr
 // arr.filter((p)=> p < 10) 은 새로운 배열 반환 / sort는 배열 직접 변경, 전체 구분 한번 다시 볼 필요 있을듯
 
@@ -421,3 +423,82 @@ DFS(0);
 // 배열 깊은 복사 방법 확인 필요
 // arr.filter((p)=> p < 10) 은 새로운 배열 반환 / sort는 배열 직접 변경, 전체 구분 한번 다시 볼 필요 있을듯
 // 부분집합 = 이진검색 DFS / 이런식으로 유형 정리 필요
+
+// 여러 값중 최대값으로 값 유지
+res = Math.max(res, n1, n2, ...n);
+
+// 중복 허락하여 [1,2,3, ...n] 중 m개 뽑기
+function DFS(L) {
+  if (L === n) {
+    // 차수 (뽑는 횟수)
+    console.log(gr);
+  } else {
+    // 분기 1, 2, 3, ... (후보군 갯수)
+    for (let v = 1; v <= m; v++) {
+      // let v 하고 안하고 차이 있음!!!!!
+      gr[L] = v;
+      DFS(L + 1);
+    }
+  }
+}
+DFS(0);
+
+// arr 내 금액별 동전 합이 sum 되는 최소 갯수 찾기 + 엣지 커팅
+function DFS(L, sum) {
+  if (sum > change) return;
+  if (L >= ans) return; // 최소값 이하 레벨 탐색 자르기
+  if (sum === change) {
+    console.log(L, sum);
+    ans = Math.min(ans, L);
+  } else {
+    for (let i = 0; i < arr.length; i++) {
+      DFS(L + 1, sum + arr[i]);
+    }
+  }
+}
+DFS(0, 0);
+
+// for 문과 재귀의 차이점
+// 1번 뽑을때마다 for문 차수가 1개씩 증가(i, j, k, ...)
+// 뽑는 숫자가 변하면 코드가 바뀌어야한다. / 변수이면 구현 불가
+
+// 고차 배열 깊은 복사
+const arr2 = arr1.slice();
+
+// 중복 없이 [1,2,3, ...n] 중 m개 뽑기 (순열, 외워야함)
+function DFS(L) {
+  if (L === m) {
+    console.log(res);
+  } else {
+    for (let i = 0; i < arr.length; i++) {
+      if (ch[i] === 0) {
+        res[L] = arr[i];
+        ch[i] = 1;
+        DFS(L + 1);
+        ch[i] = 0;
+      }
+    }
+  }
+}
+DFS(0);
+
+// 조합 계산 nCr = n-1Cr + n-1Cr-1
+function solution(n, r) {
+  function DFS(n, r) {
+    if (n === r || r === 0) return 1;
+    else return DFS(n - 1, r - 1) + DFS(n - 1, r);
+  }
+  return DFS(10, 3);
+}
+// 메모이제이션
+function solution(n, r) {
+  let answer = [];
+  let dy = Array.from(Array(35), () => Array(35).fill(0));
+  function DFS(n, r) {
+    if (dy[n][r] > 0) return dy[n][r];
+    if (n === r || r === 0) return 1;
+    else return (dy[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r));
+  }
+  answer = DFS(n, r);
+  return answer;
+}

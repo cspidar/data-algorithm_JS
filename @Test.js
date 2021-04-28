@@ -11,6 +11,8 @@ const rarr = [...arr];
 
 rarr.push('1');
 
+arr[22] = 0;
+
 console.log(arr);
 
 !console.table(arr);
