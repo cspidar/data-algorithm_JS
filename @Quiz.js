@@ -1,33 +1,23 @@
 //
 
 function sol(p1, p2) {
-  let arr = [...p1];
-  let limit = p2[1];
-  const res = [];
+  const limit = Number(p1);
+  const pick = Number(p2);
 
-  function DFS(i, time, score) {
-    if (time > limit) return;
-    if (i === arr.length) {
-      res.push(score);
+  function DFS(L) {
+    if (L === 4) {
     } else {
-      DFS(i + 1, time + arr[i][1], score + arr[i][0]);
-      DFS(i + 1, time, score);
+      let tmp = '';
     }
   }
 
-  DFS(0, 0, 0);
-  res.sort((a, b) => b - a);
+  DFS(0);
+
   return res[0];
 }
 
-const in1 = [
-  [10, 5],
-  [25, 12],
-  [15, 8],
-  [6, 3],
-  [7, 4],
-];
-const in2 = [5, 20];
+const in1 = 3;
+const in2 = 2;
 
 console.log(sol(in1, in2));
 // !console.table(sol(in1, in2));

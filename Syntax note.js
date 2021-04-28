@@ -147,7 +147,7 @@ arr.map((p) => p.toString());
 // 숫자화, 첫자리 0 제거
 arr.map((p) => Number(p));
 
-//// = 소수 확인
+//// = 코드 - 소수 확인
 // n Math.sqrt(n) 까지 나눈 나머지가 0이 존재하면 안됨
 const chkPrime = (n) => {
   if (n === 1) return false;
@@ -168,55 +168,25 @@ str.replace(/[^a-z]/g, '');
 ////////////////////////////////////////////
 ///////////////////////////////////////////////
 
-// 숫자 확인
+//// = Number
 isNaN(s); // 숫자면 false, 아니면 true
 
 // str -> n
 Number(n);
 parseInt(str);
 
-// 좌우 탐색 시 시작값 큰 수 넣는 이유: -> 방향 탐색시 시작값의 왼쪽에는 비교 대상이 없기 때문
-
-// 숫자 뒤집기
-let res = 0;
-while (n) {
-  let tmp = n % 10;
-  res = res * 10 + tmp;
-  n = n / 10;
-}
-
+//// = arr
 // arr.indexOf([1, 2]) 와 같은 2차배열 인덱스는 못찾음
 
+//// = 순회
 // sort n개 만 돌려도 시간복잡도 NlogN
 
+//// = 순회
 // 후치 연산
 res.push(arr[i++]); // arr[i] 를 푸시 하고 i++
 
+//// = Set, arr
 // set.has(v) / arr.includes(v)
-
-// arr.sort() 기본 값은 오름차순 (a - b)
-
-// while(A && B) 는 A && B 인 동안 반복이므로 A 또는 B 하나만 false여도 중단
-
-// 팩토리얼 계산 (재귀)
-function factorial(n) {
-  return n != 1 ? n * factorial(n - 1) : 1;
-}
-
-// 투포인터 알고리즘
-// 집합이 아닌 수열...
-
-// 투포인터 알고리즘 특정값보다 작은 부분수열 갯수 구하기
-let answer = 0,
-  sum = 0,
-  lt = 0;
-for (let rt = 0; rt < arr.length; rt++) {
-  sum += arr[rt];
-  while (sum > m) {
-    sum -= arr[lt++];
-  }
-  answer += rt - lt + 1;
-}
 
 // 슬라이딩 윈도우
 // 반복문을 병렬적으로 사용하는건 시간복잡도에 상관없음.
@@ -229,34 +199,27 @@ for (let i = k; i < arr.length; i++) {
   answer = Math.max(answer, sum);
 }
 
+//// = obj, arr
 // obj <-> arr 변환
 /// obj -> arr
 Object.entries(obj);
 /// arr -> obj
 Object.fromEntries(arr);
 
+//// = Map
 // Map 의 value 연산
 map.set(k, (map.get(k) += 1)); // ( X ) += 이 아님, 값을 셋 하는것
 map.set(k, map.get(k) + 1); // ( O )
 
+//// = Map
 // Map 순회
 for ([key, value] of map) {
 }
 
-// 두 Map 일치 검사
-/// 조건
-let flag = 1;
-if (map1.has(k) != map2.has(k) || map1.get(k) != map2.get(k)) {
-  return 'NO'; // 이런 상황에서 바로 빠져나오는게 유리
-}
-/// 소거
-for (let x of str2) {
-  if (!map.has(x) || map.get(x) == 0) return 'NO';
-  map.set(x, sH.get(x) - 1);
-}
-
+//// = func
 // 화살표 함수는 항상 익명, 생성자로 사용 불가
 
+//// = func
 // 함수 선언 형태
 function func(p) {
   return p + 1;
@@ -268,29 +231,16 @@ const fullname = function name(p) {
   return p + 1;
 };
 
-// flag와 count
-let flag = 1;
-while (lt < m - n) {
-  for ([k, v] of map1) {
-    if (map1.has(k) != map2.has(k) || map1.get(k) != map2.get(k)) {
-      flag = 0;
-    }
-  }
-  if (flag) {
-    count++;
-  }
-  flag = 1;
-  map1.delete(arr1[lt++]);
-  map1.set(arr1[rt++], 1);
-}
-
+//// = 조건
 // if 문 조건 안에서 배열 직접조작 하면 원본 배열 수정됨
 if (arr.pop()) {
 }
 
+//// = 조건
 // 0 == false : true
 // 0 === false : false
 
+//// = 코드 - 슬라이딩 윈도우
 // 슬라이딩 윈도우 형태 반복문의 구조
 // 순회 길이가 3이라고 하면 반복문을 적용할 대상을 길이 2, rt = 2 로 세팅
 /// for 문
@@ -298,13 +248,7 @@ if (arr.pop()) {
 // 평가
 // lt 빼서 대상 길이 2로 만들고 lt++
 
-// Map k 확인 후 없으면 추가, 있으면 +1
-for (i in str2) {
-  if (!map2.has(str2[i])) {
-    map2.set(str2[i], 1);
-  } else map2.set(str2[i], map2.get(str2[i]) + 1);
-}
-
+//// = Map
 // 두 Map 일치 확인 함수
 function chkMaps(p1, p2) {
   // console.log(p1);
@@ -317,31 +261,36 @@ function chkMaps(p1, p2) {
   }
 }
 
-// p2에 p1의 k가 있는지 확인 || p2의 v와 p1의 v가 같은지 확인
-if (!p2.has(k) || p2.get(k) !== v) return false;
-
+//// = 조건
 // 병렬 if = 순차적으로 조건 확인
 // if / else if = 분기점
 
+//// = str
 // eval(str)
 // str 수식 계산
 const res = eval('1+2'); // 3
 
+//// = Number
 // 숫자 확인
 if (!isNaN(n)) {
 }
 
+//// = 코드
 // 괄호 (조건쌍) 이 들어가는 문제는 80% 스택
 
-// str에 바로 push 등등 안됨, += str[i] 같은것만 가능
+//// = str
+// str에 바로 push 등등 배열 메소드 사용 불가, += str[i] 같은것만 가능
 
+//// = arr
 // arr의 i1과 i2의 value 서로 교체
 [arr[i1], arr[i2]] = [arr[i2], arr[i1]];
 
+//// = arr
 // 2차 배열의 정렬
 arr.sort((a, b) => a[1] - b[1]).sort((a, b) => a[0] - b[0]);
 // a = arr[i] 가 기본, a[1] = arr[i][1]
 
+//// = arr
 // 2차 배열 정렬 / 0번 인덱스 같을때 1번 인덱스로 정렬
 arr.sort((a, b) => {
   if (a[0] === b[0]) return a[1] - b[1];
@@ -353,25 +302,28 @@ arr.sort((a, b) => {
   else return a[1] - b[1];
 });
 
+//// = arr
 // map과 foreach의 차이
-/// forEach 아무것도 반환 안함
+/// forEach 아무것도 반환 안함, 다른 객체에 트리거 역할
 /// map 배열 복사해서 반환
 //forEach()는 Array안에 데이터를 변경하려는 것이 아니라 데이터베이스에 저장하거나 로그아웃하는 것과 같은 작업에 유용
 
+//// = arr
 //메소드 체인 map().flat() 안됨
 
+//// = 코드 - 이진 검색 - 결정 알고리즘
 // 이진 검색 - 결정 알고리즘 기본 형태
-/// mid는 이미 확인했기때문에 rt = mid -1 / lt = mid + 1
-/// count 함수로 arr에서 mid값에 따른 결과 반환
+/// 별도 함수(count)로 arr에서 mid값에 따른 결과 반환
 const arr = [...p1];
 while (lt <= rt) {
   mid = Math.floor((lt + rt) / 2);
   if (count(arr, mid) >= p2) {
     res = mid;
-    lt = mid + 1;
+    lt = mid + 1; // mid는 이미 확인했기때문에 rt = mid - 1 / lt = mid + 1
   } else rt = mid - 1;
 }
 
+//// = 조건
 // if 내 조건 계산과 대소 비교에도 괄호 넣어야함
 if ((sum += songs[i]) > capa) {
 }
@@ -379,9 +331,8 @@ if ((sum += songs[i]) > capa) {
 if (sum + songs[i] > capa) {
 }
 
-// 배열 깊은 복사 방법 확인 필요
-
-// 재귀함수 - 콜스택
+//// 코드 - 재귀
+// 재귀 - 콜스택
 function DFS(L) {
   if (L == 0) return;
   else {
@@ -398,42 +349,47 @@ function DFS(L) {
   }
 }
 
+//// 코드 - 재귀
 // 이진트리 DFS
 // 전위순회 출력 : 1 2 4 5 3 6 7
-// console.log(v)
-// DFS(v*2)
-// DFS(v*2+1)
+console.log(v);
+DFS(v * 2);
+DFS(v * 2 + 1);
 // 중위순회 출력 : 4 2 5 1 6 3 7
-// DFS(v*2)
-// console.log(v)
-// DFS(v*2+1)
+DFS(v * 2);
+console.log(v);
+DFS(v * 2 + 1);
 // 후위순회 출력 : 4 5 2 6 7 3 1
-// DFS(v*2)
-// DFS(v*2+1)
-// console.log(v)
-//
+DFS(v * 2);
+DFS(v * 2 + 1);
+console.log(v);
 
+//// = str
 // str 공백 제거
 str.trim();
 
+//// = arr
 // n+1 길이의 기본값 0 배열 만들기
 let ch = Array.from({ length: n + 1 }, () => 0);
 
+//// = 코드 - 이진트리 - DFS
 // 부분집합 같은 합 확인 - sum 파라미터
+let answer = 'NO';
 function DFS(L, sum) {
   if (flag) return;
-  if (L === n) {
+  if (L === p2) {
     if (total - sum === sum) {
       answer = 'YES';
       flag = 1;
     }
   } else {
-    DFS(L + 1, sum + arr[L]);
-    DFS(L + 1, sum); // 파라미터가 그대로인것 전달 해야함, // '외부 변수일때는 += / 함수 파라미터일때는 +' 이것과 연관
+    DFS(L + 1, sum + arr[L]); // '외부 변수일때는 += / 함수 파라미터일때는 +'
+    DFS(L + 1, sum); // 파라미터가 그대로인것 전달 해야함,
   }
 }
 DFS(0, 0);
 
+//// = 코드 - 이진트리 - DFS
 // 부분집합 같은 합 갯수 - 체크배열
 function DFS(i) {
   if (i === arr.length) {
@@ -456,10 +412,12 @@ function DFS(i) {
 }
 DFS(0);
 
+//// = arr
 // arr.filter((p)=> p < 10) 은 새로운 배열 반환 / sort는 배열 직접 변경, 전체 구분 한번 다시 볼 필요 있을듯
 
+//// = 재귀
 // 재귀에서 루프를 컷해야 할때는 최상단에 탈출조건 if문을 병렬로 추가하고 리턴
 
-// 부분집합 = 이진검색 DFS / 이런식으로 유형 정리도 어느정도 필요할듯
-
-//
+// 배열 깊은 복사 방법 확인 필요
+// arr.filter((p)=> p < 10) 은 새로운 배열 반환 / sort는 배열 직접 변경, 전체 구분 한번 다시 볼 필요 있을듯
+// 부분집합 = 이진검색 DFS / 이런식으로 유형 정리 필요
