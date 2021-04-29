@@ -1,35 +1,24 @@
 //
 
-function sol(p1, p2) {
-  const N = Number(p1);
-  const R = Number(p2);
-  const ch = Array.from({ length: N }, () => 0);
-  const arr = [];
-  for (i = 0; i < N; i++) {
-    arr.push(i + 1);
-  }
-  const res = [];
-
-    function DFS(L, sum) {
-      if (L > N || sum > R) return;
-      if (L === N && sum === R) {
-        let arr1 = [];
-      } else {
-        for (let i = 1; i <= N; i++) {
-          if (ch[i] === 0){
-            ch[i] = 1
-            DFS(L+1)
-            ch[i] = 0
-          }
-        }
+function solution(n, r) {
+  let answer = [];
+  let tmp = Array.from({ length: r }, () => 0);
+  function DFS(L, s) {
+    if (L === r) {
+      answer.push(tmp.slice());
+    } else {
+      for (let i = s; i <= n; i++) {
+        tmp[L] = i;
+        DFS(L + 1, i + 1);
       }
     }
-  
-  DFS(0, 0);
-  console.log(arr);
+  }
+  DFS(0, 1);
+  return answer;
 }
-const in1 = 4;
-const in2 = 16;
 
-console.log(sol(in1, in2));
-!console.table(sol(in1, in2));
+const in1 = 4;
+const in2 = 2;
+
+console.log(solution(in1, in2));
+!console.table(solution(in1, in2));

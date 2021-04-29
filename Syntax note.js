@@ -483,7 +483,7 @@ function DFS(L) {
 }
 DFS(0);
 
-// 조합 계산 nCr = n-1Cr + n-1Cr-1
+// 조합 nCr 값 계산 (nCr = n-1Cr + n-1Cr-1)
 function solution(n, r) {
   function DFS(n, r) {
     if (n === r || r === 0) return 1;
@@ -491,7 +491,7 @@ function solution(n, r) {
   }
   return DFS(10, 3);
 }
-// 메모이제이션
+// 조합 nCr 값 계산 - 메모이제이션
 function sol(n, r) {
   let answer = [];
   let dy = Array.from(Array(35), () => Array(35).fill(0));
@@ -503,5 +503,143 @@ function sol(n, r) {
     // 둘의 차이...
   }
   answer = DFS(n, r);
+  return answer;
+}
+
+// 수열 추측하기
+// 1부터 n까지 파스칼 삼각형이 f가 되는 수열 출력
+function solution(n, f) {
+  // 조합 nCr 계산 - 메모이제이션
+  let dy = Array.from(Array(11), () => Array(11).fill(0));
+  function combi(n, r) {
+    if (dy[n][r] > 0) return dy[n][r];
+    if (n === r || r === 0) return 1;
+    else return (dy[n][r] = combi(n - 1, r - 1) + combi(n - 1, r));
+  }
+  //
+  let answer,
+    flag = 0;
+  let ch = Array.from({ length: n + 1 }, () => 0); // 체크 배열
+  let arr = Array.from({ length: n }, () => 0); // 1부터 n까지
+  let pascal = Array.from({ length: n }, () => 0); // 자릿수별 파스칼삼각형 계수
+  function DFS(L, sum) {
+    if (flag) return;
+    if (L === n && sum === f) {
+      answer = arr.slice();
+      flag = 1;
+    } else {
+      for (let i = 1; i <= n; i++) {
+        if (ch[i] === 0) {
+          ch[i] = 1;
+          arr[L] = i;
+          DFS(L + 1, sum + pascal[L] * arr[L]);
+          ch[i] = 0;
+        }
+      }
+    }
+  }
+  // 자릿수별 파스칼삼각형 계수 구하기
+  for (let i = 0; i < n; i++) {
+    pascal[i] = combi(n - 1, i);
+  }
+  DFS(0, 0);
+  return answer;
+}
+
+// 조합 nCr 각 원소 배열 출력
+function solution(n, r) {
+  let answer = [];
+  let tmp = Array.from({ length: r }, () => 0);
+  function DFS(L, s) {
+    if (L === r) {
+      answer.push(tmp.slice());
+    } else {
+      for (let i = s; i <= n; i++) {
+        // s 부터 도는게 포인트
+        tmp[L] = i;
+        DFS(L + 1, i + 1); // 다음 s 를 i + 1 로 세팅
+      }
+    }
+  }
+  DFS(0, 1);
+  return answer;
+}
+
+// 조합 nCr 각 원소의 합이 m의 배수인 경우의 수
+function solution(n, r, arr, m) {
+  let answer = 0;
+  function DFS(L, s, sum) {
+    if (L === r) {
+      if (sum % m === 0) answer++;
+    } else {
+      for (let i = s; i < n; i++) {
+        DFS(L + 1, i + 1, sum + arr[i]);
+      }
+    }
+  }
+
+  DFS(0, 0, 0);
+  return answer;
+}
+
+// 그래프 - 경로 탐색 - 인접행렬
+function solution(n, arr) {
+  let answer = 0;
+  let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
+  let ch = Array.from({ length: n + 1 }, () => 0);
+  path = [];
+  for (let [a, b] of arr) {
+    graph[a][b] = 1;
+  }
+  function DFS(v) {
+    if (v === n) {
+      answer++;
+      console.log(path);
+    } else {
+      for (let i = 1; i <= n; i++) {
+        if (graph[v][i] === 1 && ch[i] === 0) {
+          ch[i] = 1;
+          path.push(i);
+          DFS(i);
+          ch[i] = 0;
+          path.pop();
+        }
+      }
+    }
+  }
+  path.push(1);
+  ch[1] = 1;
+  DFS(1);
+  return answer;
+}
+
+// 그래프 - 경로 탐색 - 인접리스트
+function solution(n, arr) {
+  let answer = 0;
+  let graph = Array.from(Array(n + 1), () => Array());
+  let ch = Array.from({ length: n + 1 }, () => 0);
+  let path = [];
+  for (let [a, b] of arr) {
+    graph[a].push(b);
+  }
+  function DFS(v) {
+    if (v === n) {
+      answer++;
+      console.log(path);
+    } else {
+      for (let nv of graph[v]) {
+        if (ch[nv] === 0) {
+          path.push(nv);
+          ch[nv] = 1;
+          DFS(nv);
+          ch[nv] = 0;
+          path.pop();
+        }
+      }
+    }
+  }
+  ch[1] = 1;
+  path.push(1);
+  DFS(1);
   return answer;
 }
