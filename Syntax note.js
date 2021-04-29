@@ -371,6 +371,7 @@ str.trim();
 //// = arr
 // n+1 길이의 기본값 0 배열 만들기
 let ch = Array.from({ length: n + 1 }, () => 0);
+const arr = Array.from(Array(n + 1), () => 0);
 
 //// = 코드 - 이진트리 - DFS
 // 부분집합 같은 합 확인 - sum 파라미터
@@ -491,13 +492,15 @@ function solution(n, r) {
   return DFS(10, 3);
 }
 // 메모이제이션
-function solution(n, r) {
+function sol(n, r) {
   let answer = [];
   let dy = Array.from(Array(35), () => Array(35).fill(0));
   function DFS(n, r) {
     if (dy[n][r] > 0) return dy[n][r];
     if (n === r || r === 0) return 1;
     else return (dy[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r));
+    // else dy[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r);
+    // 둘의 차이...
   }
   answer = DFS(n, r);
   return answer;

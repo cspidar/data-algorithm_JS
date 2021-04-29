@@ -11,8 +11,8 @@ const rarr = [...arr];
 
 rarr.push('1');
 
-arr[22] = 0;
+arr3 = Array.from(Array(35), () => 0);
 
-console.log(arr);
+console.log(arr3);
 
 !console.table(arr);
