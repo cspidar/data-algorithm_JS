@@ -373,7 +373,7 @@ str.trim();
 let ch = Array.from({ length: n + 1 }, () => 0);
 const arr = Array.from(Array(n + 1), () => 0);
 
-//// = 코드 - 이진트리 - DFS
+//// = 코드 - DFS - 이진트리
 // 부분집합 같은 합 확인 - sum 파라미터
 let answer = 'NO';
 function DFS(L, sum) {
@@ -390,8 +390,8 @@ function DFS(L, sum) {
 }
 DFS(0, 0);
 
-//// = 코드 - 이진트리 - DFS
-// 부분집합 같은 합 갯수 - 체크배열
+//// = 코드 - DFS - 이진트리
+// arr 부분집합 같은 합 갯수 - 체크배열 (ch)
 function DFS(i) {
   if (i === arr.length) {
     let sum0 = 0;
