@@ -582,64 +582,84 @@ function solution(n, r, arr, m) {
   return answer;
 }
 
-// 그래프 - 경로 탐색 - 인접행렬
+// 그래프 - 경로 탐색 - 인접 행렬
+// v1 [i1,i2, ...i]
+// v2 [i1,i2, ...i]
+// v  [i1,i2, ...i]
 function solution(n, arr) {
-  let answer = 0;
-  let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
-  let ch = Array.from({ length: n + 1 }, () => 0);
-  path = [];
+  let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0)); // n+1 x n+1 배열 0으로 채움
+  let ch = Array.from({ length: n + 1 }, () => 0); // 체크 배열 (0으로 꼭 채워야함)
+  let path = [];
+  // 그래프 정보를 인접 행렬에 반영
   for (let [a, b] of arr) {
     graph[a][b] = 1;
   }
   function DFS(v) {
     if (v === n) {
-      answer++;
       console.log(path);
     } else {
       for (let i = 1; i <= n; i++) {
         if (graph[v][i] === 1 && ch[i] === 0) {
+          // graph 경로가 있고 체크배열이 0일때
           ch[i] = 1;
-          path.push(i);
-          DFS(i);
+          path.push(i); // 이동가능한 경로인 i를 푸시하고
+          DFS(i); // DFS(i) 로 i행 탐색 실행
           ch[i] = 0;
           path.pop();
         }
       }
     }
   }
-  path.push(1);
+  path.push(1); // 1에서 시작하기 때문에 미리 추가
   ch[1] = 1;
   DFS(1);
   return answer;
 }
 
-// 그래프 - 경로 탐색 - 인접리스트
-function solution(n, arr) {
-  let answer = 0;
-  let graph = Array.from(Array(n + 1), () => Array());
-  let ch = Array.from({ length: n + 1 }, () => 0);
+// 그래프 - 경로 탐색 - 인접 리스트
+// v1 [1, 2, 3]
+// v2 [1]
+// v  [2, 3]
+function solution(p1, p2) {
+  const arr = [...p1];
+  const n = Number(p2);
+  let graph = Array.from(Array(n + 1), () => Array()); // n+1 행 2차 빈배열
+  let ch = Array.from(Array(n + 1), () => 0);
   let path = [];
-  for (let [a, b] of arr) {
+
+  // 그래프 정보를 인접 리스트에 반영
+  for ([a, b] of arr) {
     graph[a].push(b);
   }
   function DFS(v) {
     if (v === n) {
-      answer++;
       console.log(path);
     } else {
-      for (let nv of graph[v]) {
-        if (ch[nv] === 0) {
-          path.push(nv);
-          ch[nv] = 1;
-          DFS(nv);
-          ch[nv] = 0;
-          path.pop();
+      for (let i = 0; i <= graph[v].length; i++) {
+        let vi = graph[v][i];
+        if (vi && ch[vi] === 0) {
+          // 배열을 직접 돌기때문에 i = 0 부터 돌아야함
+          // for (let vi of graph[v]) {
+          ch[vi] = 1;
+          path.push(vi);
+          DFS(vi);
+          path.pop(vi);
+          ch[vi] = 0;
         }
       }
     }
   }
-  ch[1] = 1;
   path.push(1);
+  ch[1] = 1;
   DFS(1);
-  return answer;
+  return;
+}
+
+// n차 배열 내부 탐색
+for (let v of graph[n]) {
+}
+
+// 행 [a, b] 을 반환값으로 순회
+for (let [a, b] of arr) {
+  graph[a].push(b);
 }
