@@ -663,3 +663,68 @@ for (let v of graph[n]) {
 for (let [a, b] of arr) {
   graph[a].push(b);
 }
+
+// 미로 탐색
+function solution(board) {
+  let answer = 0;
+  let dx = [-1, 0, 1, 0];
+  let dy = [0, 1, 0, -1];
+  function DFS(x, y) {
+    if (x === 6 && y === 6) answer++;
+    else {
+      for (let k = 0; k < 4; k++) {
+        let nx = x + dx[k];
+        let ny = y + dy[k];
+        if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && board[nx][ny] === 0) {
+          // 경계선 처리를 위해 dx, dy 사용 / +1, -1 과 같이 하면 상황에 따른 범위 설정 힘듦
+          board[nx][ny] = 1;
+          DFS(nx, ny);
+          board[nx][ny] = 0;
+        }
+      }
+    }
+  }
+  board[0][0] = 1;
+  DFS(0, 0);
+  return answer;
+}
+
+// BFS 1~8 출력
+function solution() {
+  let answer = '';
+  let queue = [];
+  queue.push(1);
+  while (queue.length) {
+    console.log(queue);
+    let v = queue.shift();
+    answer += v + ' ';
+    for (let nv of [v * 2, v * 2 + 1]) {
+      if (nv > 7) continue;
+      queue.push(nv);
+    }
+  }
+  return answer;
+}
+
+// BFS +1/-1/+5 로 14되는 최단 횟수
+function solution(s, e) {
+  let answer = 0;
+  let ch = Array.from({ length: 10001 }, () => 0);
+  let dis = Array.from({ length: 10001 }, () => 0);
+  let queue = [];
+  queue.push(s);
+  ch[s] = 1;
+  dis[s] = 0;
+  while (queue.length) {
+    let x = queue.shift();
+    for (let nx of [x - 1, x + 1, x + 5]) {
+      if (nx === e) return dis[x] + 1;
+      if (nx > 0 && nx <= 10000 && ch[nx] === 0) {
+        ch[nx] = 1;
+        queue.push(nx);
+        dis[nx] = dis[x] + 1;
+      }
+    }
+  }
+  return answer;
+}
