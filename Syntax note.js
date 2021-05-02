@@ -707,6 +707,9 @@ function solution() {
 }
 
 // BFS +1/-1/+5 로 14되는 최단 횟수
+// 1번 집어넣고 while 안에서 shift 하여 변수 선언,
+// shift 한 변수에 대한 관계를 다시 push 하고 shift
+// ch 배열 (중복 방지)과 dis 배열 (최소 경로 기록) 사용
 function solution(s, e) {
   let answer = 0;
   let ch = Array.from({ length: 10001 }, () => 0);
@@ -726,5 +729,143 @@ function solution(s, e) {
       }
     }
   }
+  return answer;
+}
+
+// 맵 탐색 경계조건 순서에 따라 왜 달라지지?
+// if (A && B && C) 와 if (C && A && B) 의 차이 왜?
+// C가 A, B 를 포함하는 요소이기 때문에 앞에서 미리 제한조건 설정 해야함.
+if (nx >= 0 && nx <= n - 1 && ny >= 0 && ny <= n - 1 && maze[nx][ny] === 0) {
+}
+if (maze[nx][ny] === 0 && nx >= 0 && nx <= n - 1 && ny >= 0 && ny <= n - 1) {
+}
+
+// DFS - 섬찾기
+// DFS 호출 횟수 != 섬확인 true 수 왜?
+function solution(island) {
+  const n = island.length;
+  let dx = [1, 0, -1, 0, 1, 1, -1, -1];
+  let dy = [0, 1, 0, -1, 1, -1, -1, 1];
+  let cnt = 0;
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < n; j++) {
+      if (island[i][j] === 1) {
+        cnt++;
+        island[i][j] = 0;
+        DFS(i, j);
+      }
+    }
+  }
+  function DFS(x, y) {
+    if (checkIsland(x, y)) {
+      // cnt++;
+      console.log(x, y);
+    } else {
+      for (let k = 0; k < dx.length; k++) {
+        let nx = x + dx[k];
+        let ny = y + dy[k];
+        if (
+          nx >= 0 &&
+          nx <= n - 1 &&
+          ny >= 0 &&
+          ny <= n - 1 &&
+          island[nx][ny] === 1
+        ) {
+          island[nx][ny] = 0;
+          DFS(nx, ny);
+        }
+      }
+    }
+  }
+  function checkIsland(x, y) {
+    let res = true;
+    for (let k = 0; k < dx.length; k++) {
+      let nx = x + dx[k];
+      let ny = y + dy[k];
+      if (
+        nx >= 0 &&
+        nx <= n - 1 &&
+        ny >= 0 &&
+        ny <= n - 1 &&
+        island[nx][ny] === 1
+      ) {
+        // console.log(x, y);
+        res = false;
+      }
+    }
+    return res;
+  }
+  return cnt;
+}
+/// 강의 풀이 (체크 아일랜드 필요없음, 호출 숫자 = 섬 숫자)
+function solution(board) {
+  let answer = 0;
+  let n = board.length;
+  let dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+  let dy = [0, 1, 1, 1, 0, -1, -1, -1];
+  function DFS(x, y) {
+    board[x][y] = 0;
+    for (let k = 0; k < 8; k++) {
+      let nx = x + dx[k];
+      let ny = y + dy[k];
+      if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] === 1) {
+        DFS(nx, ny);
+      }
+    }
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (board[i][j] === 1) {
+        board[i][j] = 0;
+        answer++;
+        DFS(i, j);
+      }
+    }
+  }
+  return answer;
+}
+
+// BFS - 섬찾기
+for (i = 0; i < n; i++) {
+  for (j = 0; j < n; j++) {
+    if (island[i][j] === 1) {
+      cnt++;
+      queue.push([i, j]);
+      BFS(i, j);
+    }
+  }
+}
+function BFS(x, y) {
+  island[x][y] = 0;
+
+  while (queue.length) {
+    let s = queue.pop();
+    for (k = 0; k < dx.length; k++) {
+      let ns = [s[0] + dx[k], s[1] + dy[k]];
+      if (
+        ns[0] >= 0 &&
+        ns[0] < n &&
+        ns[1] >= 0 &&
+        ns[1] < n &&
+        island[ns[0]][ns[1]] === 1
+      ) {
+        island[ns[0]][ns[1]] = 0;
+        queue.push(ns);
+      }
+    }
+  }
+}
+return cnt;
+
+// DP - 계단 오르기
+function solution(n) {
+  let answer = 0;
+  let dy = Array.from({ length: n + 1 }, () => 0);
+  dy[1] = 1;
+  dy[2] = 2;
+  for (let i = 3; i <= n; i++) {
+    dy[i] = dy[i - 2] + dy[i - 1];
+  }
+  answer = dy[n];
   return answer;
 }

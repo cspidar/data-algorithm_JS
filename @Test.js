@@ -11,8 +11,18 @@ const rarr = [...arr];
 
 rarr.push('1');
 
-arr3 = Array.from(Array(35), () => 0);
+arr3 = [
+  [0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1, 0],
+  [0, 0, 0, 1, 0, 0, 0],
+  [1, 1, 0, 1, 0, 1, 1],
+  [1, 1, 0, 0, 0, 0, 1],
+  [1, 1, 0, 1, 1, 0, 0],
+  [1, 0, 0, 0, 0, 0, 0],
+];
 
-console.log(arr3);
+let arr4 = [...arr3];
 
-!console.table(arr);
+console.log(arr4);
+
+!console.table(arr4);
