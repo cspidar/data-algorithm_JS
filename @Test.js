@@ -11,7 +11,7 @@ const rarr = [...arr];
 
 arr3 = [1, 2, 3];
 
-arr3[0] += 10;
+arr3.push(arr3.shift());
 
 // console.log(arr3);
 

@@ -260,6 +260,15 @@ function chkMaps(p1, p2) {
     return true;
   }
 }
+/// arr -> map 변환
+const map = new Map([
+  [k1, v1],
+  [k2, v2],
+  [...k, ...v],
+]);
+/// map ->> arr 변환 (펼침 연산자)
+const map = [...map];
+//> [[k1, v1], [k2, v2], [...k, ...v]]
 
 //// = 조건
 // 병렬 if = 순차적으로 조건 확인
