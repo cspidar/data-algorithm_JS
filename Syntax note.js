@@ -188,17 +188,6 @@ res.push(arr[i++]); // arr[i] 를 푸시 하고 i++
 //// = Set, arr
 // set.has(v) / arr.includes(v)
 
-// 슬라이딩 윈도우
-// 반복문을 병렬적으로 사용하는건 시간복잡도에 상관없음.
-let answer,
-  sum = 0;
-for (let i = 0; i < k; i++) sum += arr[i];
-answer = sum;
-for (let i = k; i < arr.length; i++) {
-  sum += arr[i] - arr[i - k];
-  answer = Math.max(answer, sum);
-}
-
 //// = obj, arr
 // obj <-> arr 변환
 /// obj -> arr
@@ -240,6 +229,17 @@ if (arr.pop()) {
 // 0 == false : true
 // 0 === false : false
 
+// 슬라이딩 윈도우
+// 반복문을 병렬적으로 사용하는건 시간복잡도에 상관없음.
+let answer,
+  sum = 0;
+for (let i = 0; i < k; i++) sum += arr[i];
+answer = sum;
+for (let i = k; i < arr.length; i++) {
+  sum += arr[i] - arr[i - k];
+  answer = Math.max(answer, sum);
+}
+
 //// = 코드 - 슬라이딩 윈도우
 // 슬라이딩 윈도우 형태 반복문의 구조
 // 순회 길이가 3이라고 하면 반복문을 적용할 대상을 길이 2, rt = 2 로 세팅
@@ -255,7 +255,7 @@ function chkMaps(p1, p2) {
   if (p1.size != p2.size) return false;
   else {
     for ([k, v] of p1) {
-      if (!p2.has(k) || p2.get(k) !== v) return false; // p2에 p1의 k가 있는지 확인 || p2의 v와 p1의 v가 같은지 확인
+      if (!p2.has(k) || p2.get(k) !== v) return false; // p2에 p1의 k가 있는지 확인 || p2의 v가 p1의 v와 같은지 확인
     }
     return true;
   }
@@ -306,14 +306,15 @@ arr.sort((a, b) => {
 // map과 foreach의 차이
 /// forEach 아무것도 반환 안함, 다른 객체에 트리거 역할
 /// map 배열 복사해서 반환
-//forEach()는 Array안에 데이터를 변경하려는 것이 아니라 데이터베이스에 저장하거나 로그아웃하는 것과 같은 작업에 유용
+//forEach()는 데이터를 변경하는것이 아닌 외부 객체에 작업 수행에 적합
 
 //// = arr
 //메소드 체인 map().flat() 안됨
 
+/////////////////////////////////////////////////////////////////
 //// = 코드 - 이진 검색 - 결정 알고리즘
 // 이진 검색 - 결정 알고리즘 기본 형태
-/// 별도 함수(count)로 arr에서 mid값에 따른 결과 반환
+/// count()로 arr에서 mid값에 따른 결과 반환
 const arr = [...p1];
 while (lt <= rt) {
   mid = Math.floor((lt + rt) / 2);
@@ -321,14 +322,6 @@ while (lt <= rt) {
     res = mid;
     lt = mid + 1; // mid는 이미 확인했기때문에 rt = mid - 1 / lt = mid + 1
   } else rt = mid - 1;
-}
-
-//// = 조건
-// if 내 조건 계산과 대소 비교에도 괄호 넣어야함
-if ((sum += songs[i]) > capa) {
-}
-// += 와 + 혼동 주의
-if (sum + songs[i] > capa) {
 }
 
 //// 코드 - 재귀
@@ -369,9 +362,11 @@ console.log(v);
 str.trim();
 
 //// = arr
-// n+1 길이의 기본값 0 배열 만들기
-let ch = Array.from({ length: n + 1 }, () => 0);
-const arr = Array.from(Array(n + 1), () => 0);
+// n 길이의 기본값 0 배열 만들기
+let ch = Array.from({ length: n }, () => 0);
+const arr = Array.from(Array(n), () => 0);
+// n 길이의 기본값 0 2차 배열 만들기
+let dy = Array.from(Array(35), () => Array(35).fill(0));
 
 //// = 코드 - DFS - 이진트리
 // 부분집합 같은 합 확인 - sum 파라미터
@@ -422,11 +417,37 @@ DFS(0);
 // 재귀에서 루프를 컷해야 할때는 최상단에 탈출조건 if문을 병렬로 추가하고 리턴
 
 // 배열 깊은 복사 방법 확인 필요
+const arr2 = arr.slice(); // 고차 배열 복사 안됨
+const arr2 = [...arr]; // 고차 배열 복사 안됨
+const arr2 = Object.assign([], arr); // 고차 배열 복사 안됨
+// Lodash의 cloneDeep 함수 사용
+// JSON.parse()와 JSON.stringify() 함수 사용
+// forEach로 되나? (안됨)
+
 // arr.filter((p)=> p < 10) 은 새로운 배열 반환 / sort는 배열 직접 변경, 전체 구분 한번 다시 볼 필요 있을듯
 // 부분집합 = 이진검색 DFS / 이런식으로 유형 정리 필요
 
 // 여러 값중 최대값으로 값 유지
 res = Math.max(res, n1, n2, ...n);
+
+// 코드 - 재귀 - 제한시간 내 점수 최대값
+function sol(p1, p2) {
+  let arr = [...p1];
+  let limit = p2[1];
+  const res = [];
+  function DFS(i, time, score) {
+    if (time > limit) return;
+    if (i === arr.length) {
+      res.push(score);
+    } else {
+      DFS(i + 1, time + arr[i][1], score + arr[i][0]);
+      DFS(i + 1, time, score);
+    }
+  }
+  DFS(0, 0, 0);
+  res.sort((a, b) => b - a);
+  return res[0];
+}
 
 // 중복 허락하여 [1,2,3, ...n] 중 m개 뽑기
 function DFS(L) {
@@ -676,7 +697,7 @@ function solution(board) {
         let nx = x + dx[k];
         let ny = y + dy[k];
         if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && board[nx][ny] === 0) {
-          // 경계선 처리를 위해 dx, dy 사용 / +1, -1 과 같이 하면 상황에 따른 범위 설정 힘듦
+          // 경계선 처리를 위해 dx, dy 사용 / +1, -1 과 같이 하면 상황에 따른 범위 설정 힘듦 / 조합된 변수는 뒤로 (board[nx][ny])
           board[nx][ny] = 1;
           DFS(nx, ny);
           board[nx][ny] = 0;
@@ -797,7 +818,7 @@ function solution(island) {
   }
   return cnt;
 }
-/// 강의 풀이 (체크 아일랜드 필요없음, 호출 숫자 = 섬 숫자)
+/// 강의 풀이 (체크 함수 필요없음, 호출 숫자 = 섬 숫자)
 function solution(board) {
   let answer = 0;
   let n = board.length;
@@ -868,4 +889,29 @@ function solution(n) {
   }
   answer = dy[n];
   return answer;
+}
+
+function solution(p1) {
+  const quiz = [...p1];
+  // const time = Number(p2);
+  let tmp = [0, 0]; // 0 으로 초기화 안하면 계산값 NaN
+  let res = [];
+  function DFS(i) {
+    if (tmp[1] > 20) return;
+    if (i === 5) {
+      // console.log(tmp);
+      res.push(tmp.slice()); // slice 안하면 복사 안되고 참조만 복사
+      return;
+    } else {
+      tmp[0] += quiz[i][0];
+      tmp[1] += quiz[i][1];
+      DFS(i + 1);
+      tmp[0] -= quiz[i][0];
+      tmp[1] -= quiz[i][1];
+      DFS(i + 1);
+    }
+  }
+  DFS(0);
+  res.sort((a, b) => b[0] - a[0]);
+  return res[0][0];
 }

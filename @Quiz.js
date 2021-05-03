@@ -1,55 +1,38 @@
 //
 //
-function solution(island) {
-  const n = island.length;
-  let dx = [1, 0, -1, 0, 1, 1, -1, -1];
-  let dy = [0, 1, 0, -1, 1, -1, -1, 1];
-  let queue = [];
-  let cnt = 0;
-
-  for (i = 0; i < n; i++) {
-    for (j = 0; j < n; j++) {
-      if (island[i][j] === 1) {
-        cnt++;
-        queue.push([i, j]);
-        BFS(i, j);
-      }
+function solution(p1) {
+  const quiz = [...p1];
+  // const time = Number(p2);
+  let tmp = [0, 0]; // 0 으로 초기화 안하면 계산값 NaN
+  let res = [];
+  function DFS(i) {
+    if (tmp[1] > 20) return;
+    if (i === 5) {
+      // console.log(tmp);
+      res.push(tmp.slice()); // slice 안하면 복사 안되고 참조만 복사
+      return;
+    } else {
+      tmp[0] += quiz[i][0];
+      tmp[1] += quiz[i][1];
+      DFS(i + 1);
+      tmp[0] -= quiz[i][0];
+      tmp[1] -= quiz[i][1];
+      DFS(i + 1);
     }
   }
-
-  function BFS(x, y) {
-    island[x][y] = 0;
-
-    while (queue.length) {
-      let s = queue.pop();
-
-      for (k = 0; k < dx.length; k++) {
-        let ns = [s[0] + dx[k], s[1] + dy[k]];
-        if (
-          ns[0] >= 0 &&
-          ns[0] < n &&
-          ns[1] >= 0 &&
-          ns[1] < n &&
-          island[ns[0]][ns[1]] === 1
-        ) {
-          island[ns[0]][ns[1]] = 0;
-          queue.push(ns);
-        }
-      }
-    }
-  }
-  return cnt;
+  DFS(0);
+  res.sort((a, b) => b[0] - a[0]);
+  return res[0][0];
 }
-
+// 5문제, 20분
 const in1 = [
-  [1, 1, 0, 0, 0, 1, 0],
-  [0, 1, 1, 0, 1, 1, 0],
-  [0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 1, 1],
-  [1, 1, 0, 1, 1, 0, 0],
-  [1, 0, 0, 0, 1, 0, 0],
-  [1, 0, 1, 0, 1, 0, 0],
+  [10, 5],
+  [25, 12],
+  [15, 8],
+  [6, 3],
+  [7, 4],
 ];
+const in2 = 531;
 
 console.log(solution(in1));
 // !console.table(solution(in1));
