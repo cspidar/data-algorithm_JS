@@ -150,10 +150,11 @@ arr.map((p) => Number(p));
 //// = 코드 - 소수 확인
 // n Math.sqrt(n) 까지 나눈 나머지가 0이 존재하면 안됨
 const chkPrime = (n) => {
+  if (n === 0) return false;
   if (n === 1) return false;
   else if (n === 2) return true;
   else {
-    for (i = 2; i <= Math.sqrt(n); i++) {
+    for (let i = 2; i <= Math.sqrt(n); i++) {
       if (n % i === 0) return false;
     }
     return true;
@@ -378,6 +379,29 @@ const arr = Array.from(Array(n), () => 0);
 let dy = Array.from(Array(35), () => Array(35).fill(0));
 
 //// = 코드 - DFS - 이진트리
+// 부분집합
+// 이진검색 DFS / 원소를 넣을것이냐 말것이냐 (이진트리) 로 전체 탐색
+/// arr 부분 집합 배열을 res 배열에 추가
+let ch = Array.from(Array(arr.length));
+let res = [];
+function DFS(i) {
+  if (i === arr.length) {
+    let tmp = [];
+    for (i in ch) {
+      if (ch[i] === 0) {
+        tmp.push(arr[i]);
+      }
+    }
+    res.push(tmp);
+  } else {
+    ch[i] = 1;
+    DFS(i + 1);
+    ch[i] = 0;
+    DFS(i + 1);
+  }
+}
+DFS(0);
+
 // 부분집합 같은 합 확인 - sum 파라미터
 let answer = 'NO';
 function DFS(L, sum) {
@@ -393,31 +417,6 @@ function DFS(L, sum) {
   }
 }
 DFS(0, 0);
-
-//// = 코드 - DFS - 이진트리
-// arr 부분집합 같은 합 갯수 - 체크배열 (ch)
-function DFS(i) {
-  if (i === arr.length) {
-    let sum0 = 0;
-    let sum1 = 0;
-    for (i in ch) {
-      if (ch[i] === 0) {
-        sum0 += arr[i];
-      } else sum1 += arr[i];
-    }
-    if (sum0 === sum1) {
-      cnt++;
-    }
-  } else {
-    ch[i] = 1;
-    DFS(i + 1);
-    ch[i] = 0;
-    DFS(i + 1);
-  }
-}
-DFS(0);
-
-// 부분집합 = 이진검색 DFS / 원소를 넣을것이냐 말것이냐 (이진트리) 로 전체 탐색
 
 //// = arr
 // arr.filter((p)=> p < 10) 은 새로운 배열 반환 / sort는 배열 직접 변경, 전체 구분 한번 다시 볼 필요 있을듯
@@ -493,12 +492,12 @@ DFS(0, 0);
 // 1번 뽑을때마다 for문 차수가 1개씩 증가(i, j, k, ...)
 // 뽑는 숫자가 변하면 코드가 바뀌어야한다. / 변수이면 구현 불가
 
-// 고차 배열 깊은 복사
-const arr2 = arr1.slice();
-
 // 중복 없이 [1,2,3, ...n] 중 m개 뽑기 (순열, 외워야함)
+let tmp = [];
+let res = [];
+let ch = Array.from(Array(arr.length + 1), () => 0);
 function DFS(L) {
-  if (L === m) {
+  if (L === arr.length) {
     console.log(res);
   } else {
     for (let i = 0; i < arr.length; i++) {
@@ -923,4 +922,20 @@ function solution(p1) {
   DFS(0);
   res.sort((a, b) => b[0] - a[0]);
   return res[0][0];
+}
+
+// 큐 스택
+// 고차 배열 이런 표현 가능
+let a = list.shift()[1];
+
+// 정렬
+arr.sort(function (a, b) {
+  if (a > b) return 1; // 1 이면 바꾼다.
+  if (a === b) return 0; // 0 이면 그대로.
+  if (a < b) return -1; // -1 이면 규칙대로.
+});
+/// 스트링으로 합쳐서 가장 큰 숫자
+function solution(numbers) {
+  let answer = numbers.sort((a, b) => `${b}${a}` - `${a}${b}`).join('');
+  return answer[0] === '0' ? '0' : answer;
 }

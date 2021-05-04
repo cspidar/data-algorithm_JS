@@ -1,18 +1,27 @@
-const str = 'abbbbcd';
-const arr = [1, [1, 2], 2, 3, 4, 5];
-const arr1 = [];
+let str = '011';
+const arr = [1, 2, 3, 4, 5];
 
-///////
+// arr 부분 집합 배열을 res 배열에 추가
+let ch = Array.from(Array(arr.length));
+let res = [];
+function DFS(i) {
+  if (i === arr.length) {
+    let tmp = [];
+    for (i in ch) {
+      if (ch[i] === 0) {
+        tmp.push(arr[i]);
+      }
+    }
+    res.push(tmp);
+  } else {
+    ch[i] = 1;
+    DFS(i + 1);
+    ch[i] = 0;
+    DFS(i + 1);
+  }
+}
+DFS(0);
 
-///////
+console.log(res);
 
-// const rarr = arr.map((p) => p);
-const rarr = [...arr];
-
-arr3 = [1, 2, 3];
-
-arr3.push(arr3.shift());
-
-// console.log(arr3);
-
-!console.table(arr3);
+// !console.table(arr3);
