@@ -48,7 +48,6 @@ Math.abs(n);
 // arr을 변수 선언하면 얕은 복사로 참조만 복사되어 변수를 조작하면 원본도 변경되지만 str은 변수 선언을 하면 string 자체가 복사 (깊은 복사) 되어 원본이 변경되지 않는다.
 const arr = [1, 2, 3];
 const str = '123123';
-//스프레드 연산자를 써서 깊은 복사 하는게 좋은듯 [...arr].sort()
 
 //// = str
 // str 정규표현식 사용하여 replace로 교체
@@ -105,7 +104,7 @@ str.indexOf(str[i]); // str[i] 의 반복을 무시하고 고유 인덱스를 �
 i != str.indexOf(str[i]); // 반복되는 항목
 
 //// = arr
-// arr.filter() index 넣는건 옵션 파라미터
+// arr.filter() index는 옵션
 arr.filter((p) => p < 10);
 arr.filter((item, index) => item[index]);
 
@@ -127,15 +126,6 @@ arr.filter((item, index) => item[index]);
 //// = 조건
 // flag 활용 - 여집합
 // flag = true 선언 후 for - if 에 불만족 조건 걸고 불만족 시 flag = false 후 break, for 문 밖에서 flag 여전히 true인지 확인
-let ans = 'NO';
-let flag = true;
-for (i = 0; i < str.length / 2; i++) {
-  if (lstr[i] != lstr[str.length - 1 - i]) {
-    flag = false;
-    break;
-  }
-}
-if (flag) ans = 'YES';
 
 //// = Math
 Math.max(...arr); // 배열이 아님에 주의
@@ -146,24 +136,6 @@ Math.min(...arr); // 배열이 아님에 주의
 arr.map((p) => p.toString());
 // 숫자화, 첫자리 0 제거
 arr.map((p) => Number(p));
-
-//// = 코드 - 소수 확인
-// n Math.sqrt(n) 까지 나눈 나머지가 0이 존재하면 안됨
-const chkPrime = (n) => {
-  if (n === 0) return false;
-  if (n === 1) return false;
-  else if (n === 2) return true;
-  else {
-    for (let i = 2; i <= Math.sqrt(n); i++) {
-      if (n % i === 0) return false;
-    }
-    return true;
-  }
-};
-
-//// = str
-// 알파벳 소문자만 남기고 숫자, 기호 등 제거
-str.replace(/[^a-z]/g, '');
 
 //////////////////////////////////////////
 ////////////////////////////////////////////
@@ -195,16 +167,6 @@ res.push(arr[i++]); // arr[i] 를 푸시 하고 i++
 Object.entries(obj);
 /// arr -> obj
 Object.fromEntries(arr);
-
-//// = Map
-// Map 의 value 연산
-map.set(k, (map.get(k) += 1)); // ( X ) += 이 아님, 값을 셋 하는것
-map.set(k, map.get(k) + 1); // ( O )
-
-//// = Map
-// Map 순회
-for ([key, value] of map) {
-}
 
 //// = func
 // 화살표 함수는 항상 익명, 생성자로 사용 불가
@@ -249,28 +211,6 @@ for (let i = k; i < arr.length; i++) {
 // 평가
 // lt 빼서 대상 길이 2로 만들고 lt++
 
-//// = Map
-// 두 Map 일치 확인 함수
-function chkMaps(p1, p2) {
-  // console.log(p1);
-  if (p1.size != p2.size) return false;
-  else {
-    for ([k, v] of p1) {
-      if (!p2.has(k) || p2.get(k) !== v) return false; // p2에 p1의 k가 있는지 확인 || p2의 v가 p1의 v와 같은지 확인
-    }
-    return true;
-  }
-}
-/// arr -> map 변환
-const map = new Map([
-  [k1, v1],
-  [k2, v2],
-  [...k, ...v],
-]);
-/// map ->> arr 변환 (펼침 연산자)
-const map = [...map];
-//> [[k1, v1], [k2, v2], [...k, ...v]]
-
 //// = 조건
 // 병렬 if = 순차적으로 조건 확인
 // if / else if = 분기점
@@ -292,25 +232,9 @@ if (!isNaN(n)) {
 // str에 바로 push 등등 배열 메소드 사용 불가, += str[i] 같은것만 가능
 
 //// = arr
-// arr의 i1과 i2의 value 서로 교체
-[arr[i1], arr[i2]] = [arr[i2], arr[i1]];
-
-//// = arr
 // 2차 배열의 정렬
 arr.sort((a, b) => a[1] - b[1]).sort((a, b) => a[0] - b[0]);
 // a = arr[i] 가 기본, a[1] = arr[i][1]
-
-//// = arr
-// 2차 배열 정렬 / 0번 인덱스 같을때 1번 인덱스로 정렬
-arr.sort((a, b) => {
-  if (a[0] === b[0]) return a[1] - b[1];
-  else return a[0] - b[0];
-});
-// 1번 인덱스 같을때 0번으로 정렬
-arr.sort((a, b) => {
-  if (a[1] === b[1]) return a[0] - b[0];
-  else return a[1] - b[1];
-});
 
 //// = arr
 // map과 foreach의 차이
@@ -326,13 +250,6 @@ arr.sort((a, b) => {
 // 이진 검색 - 결정 알고리즘 기본 형태
 /// count()로 arr에서 mid값에 따른 결과 반환
 const arr = [...p1];
-while (lt <= rt) {
-  mid = Math.floor((lt + rt) / 2);
-  if (count(arr, mid) >= p2) {
-    res = mid;
-    lt = mid + 1; // mid는 이미 확인했기때문에 rt = mid - 1 / lt = mid + 1
-  } else rt = mid - 1;
-}
 
 //// 코드 - 재귀
 // 재귀 - 콜스택
@@ -367,10 +284,6 @@ DFS(v * 2);
 DFS(v * 2 + 1);
 console.log(v);
 
-//// = str
-// str 공백 제거
-str.trim();
-
 //// = arr
 // n 길이의 기본값 0 배열 만들기
 let ch = Array.from({ length: n }, () => 0);
@@ -378,31 +291,8 @@ const arr = Array.from(Array(n), () => 0);
 // n 길이의 기본값 0 2차 배열 만들기
 let dy = Array.from(Array(35), () => Array(35).fill(0));
 
-//// = 코드 - DFS - 이진트리
-// 부분집합
-// 이진검색 DFS / 원소를 넣을것이냐 말것이냐 (이진트리) 로 전체 탐색
-/// arr 부분 집합 배열을 res 배열에 추가
-let ch = Array.from(Array(arr.length));
-let res = [];
-function DFS(i) {
-  if (i === arr.length) {
-    let tmp = [];
-    for (i in ch) {
-      if (ch[i] === 0) {
-        tmp.push(arr[i]);
-      }
-    }
-    res.push(tmp);
-  } else {
-    ch[i] = 1;
-    DFS(i + 1);
-    ch[i] = 0;
-    DFS(i + 1);
-  }
-}
-DFS(0);
-
 // 부분집합 같은 합 확인 - sum 파라미터
+// arr의 부분집합 같은 합 확인, answer에 'YES' 출력
 let answer = 'NO';
 function DFS(L, sum) {
   if (flag) return;
@@ -457,22 +347,6 @@ function sol(p1, p2) {
   return res[0];
 }
 
-// 중복 허락하여 [1,2,3, ...n] 중 m개 뽑기
-function DFS(L) {
-  if (L === n) {
-    // 차수 (뽑는 횟수)
-    console.log(gr);
-  } else {
-    // 분기 1, 2, 3, ... (후보군 갯수)
-    for (let v = 1; v <= m; v++) {
-      // let v 하고 안하고 차이 있음!!!!!
-      gr[L] = v;
-      DFS(L + 1);
-    }
-  }
-}
-DFS(0);
-
 // arr 내 금액별 동전 합이 sum 되는 최소 갯수 찾기 + 엣지 커팅
 function DFS(L, sum) {
   if (sum > change) return;
@@ -491,26 +365,6 @@ DFS(0, 0);
 // for 문과 재귀의 차이점
 // 1번 뽑을때마다 for문 차수가 1개씩 증가(i, j, k, ...)
 // 뽑는 숫자가 변하면 코드가 바뀌어야한다. / 변수이면 구현 불가
-
-// 중복 없이 [1,2,3, ...n] 중 m개 뽑기 (순열, 외워야함)
-let tmp = [];
-let res = [];
-let ch = Array.from(Array(arr.length + 1), () => 0);
-function DFS(L) {
-  if (L === arr.length) {
-    console.log(res);
-  } else {
-    for (let i = 0; i < arr.length; i++) {
-      if (ch[i] === 0) {
-        res[L] = arr[i];
-        ch[i] = 1;
-        DFS(L + 1);
-        ch[i] = 0;
-      }
-    }
-  }
-}
-DFS(0);
 
 // 조합 nCr 값 계산 (nCr = n-1Cr + n-1Cr-1)
 function solution(n, r) {
@@ -611,6 +465,10 @@ function solution(n, r, arr, m) {
   return answer;
 }
 
+//////////////////////////
+//////
+////////////
+
 // 그래프 - 경로 탐색 - 인접 행렬
 // v1 [i1,i2, ...i]
 // v2 [i1,i2, ...i]
@@ -694,7 +552,17 @@ for (let [a, b] of arr) {
 }
 
 // 미로 탐색
-function solution(board) {
+let arr = [
+  [0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1, 0],
+  [0, 0, 0, 1, 0, 0, 0],
+  [1, 1, 0, 1, 0, 1, 1],
+  [1, 1, 0, 0, 0, 0, 1],
+  [1, 1, 0, 1, 1, 0, 0],
+  [1, 0, 0, 0, 0, 0, 0],
+];
+
+function solution(arr) {
   let answer = 0;
   let dx = [-1, 0, 1, 0];
   let dy = [0, 1, 0, -1];
@@ -704,16 +572,16 @@ function solution(board) {
       for (let k = 0; k < 4; k++) {
         let nx = x + dx[k];
         let ny = y + dy[k];
-        if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && board[nx][ny] === 0) {
-          // 경계선 처리를 위해 dx, dy 사용 / +1, -1 과 같이 하면 상황에 따른 범위 설정 힘듦 / 조합된 변수는 뒤로 (board[nx][ny])
-          board[nx][ny] = 1;
+        if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && arr[nx][ny] === 0) {
+          // 경계선 처리를 위해 dx, dy 사용 / +1, -1 과 같이 하면 상황에 따른 범위 설정 힘듦 / 조합된 변수는 뒤로 (arr[nx][ny])
+          arr[nx][ny] = 1;
           DFS(nx, ny);
-          board[nx][ny] = 0;
+          arr[nx][ny] = 0;
         }
       }
     }
   }
-  board[0][0] = 1;
+  arr[0][0] = 1;
   DFS(0, 0);
   return answer;
 }

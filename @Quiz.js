@@ -1,57 +1,48 @@
-function solution(numbers) {
-  let arr = [...numbers];
-  let rarr = [];
+function solution(number, computers) {
+  let arr = [...computers];
+  let n = number;
+  let k = 2;
 
-  let ch = Array.from(Array(arr.length));
-
+  let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
+  let ch = Array.from({ length: n + 1 }, () => 0);
   let res = [];
-  function DFS(i) {
-    if (i === arr.length) {
-      let tmp = [];
-      for (i in ch) {
-        if (ch[i] === 0) {
-          tmp.push(arr[i]);
+
+  // 그래프 정보를 인접 행렬에 반영
+  for (let [a, b] of arr) {
+    graph[a][b] = 1;
+  }
+
+  let path = [];
+  function DFS(v) {
+    if (v === k) {
+      res.push(path.slice());
+    } else {
+      for (let i = 1; i <= n; i++) {
+        if (graph[v][i] === 1 && ch[i] === 0) {
+          ch[i] = 1;
+          path.push(i);
+          DFS(i);
+          ch[i] = 0;
+          path.pop();
         }
       }
-      res.push(tmp);
-    } else {
-      ch[i] = 1;
-      DFS(i + 1);
-      ch[i] = 0;
-      DFS(i + 1);
     }
   }
-  DFS(0);
+  path.push(1);
+  ch[1] = 1;
+  DFS(1);
 
-  const chkPrime = (n) => {
-    if (n === 0) return false;
-    if (n === 1) return false;
-    else if (n === 2) return true;
-    else {
-      for (let i = 2; i <= Math.sqrt(n); i++) {
-        if (n % i === 0) return false;
-      }
-      return true;
-    }
-  };
+  let answer = res;
 
-  // 중복 제거
-  let rset = new Set(rarr);
-  let karr = [...rset];
-
-  let cnt = 0;
-  for (let i = 0; i < karr.length; i++) {
-    if (chkPrime(karr[i])) {
-      console.log(karr[i]);
-      cnt++;
-    }
-  }
-
-  return res;
+  return answer;
 }
 
-const in1 = '17';
-const in2 = 0;
+const in1 = 3;
+const in2 = [
+  [1, 1, 0],
+  [1, 1, 0],
+  [0, 0, 1],
+];
 const in3 = [5, 6, 3];
 console.log(solution(in1, in2, in3));
 // !console.table(solution(in1));

@@ -1,14 +1,13 @@
-let str = '011';
-const arr = [1, 2, 3, 4, 5];
+let arr = [1, 2, 3];
 
-// arr 부분 집합 배열을 res 배열에 추가
 let ch = Array.from(Array(arr.length));
 let res = [];
+let tmp = [];
+
 function DFS(i) {
   if (i === arr.length) {
-    let tmp = [];
     for (i in ch) {
-      if (ch[i] === 0) {
+      if (ch[i] === 1) {
         tmp.push(arr[i]);
       }
     }
@@ -23,5 +22,4 @@ function DFS(i) {
 DFS(0);
 
 console.log(res);
-
-// !console.table(arr3);
+!console.table(res);
