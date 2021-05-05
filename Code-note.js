@@ -48,6 +48,8 @@ arr.sort((a, b) => {
 //// str
 // str 공백 제거
 str.trim();
+// str 수식 계산
+const res = eval('1+2'); // 3
 
 //
 
@@ -107,7 +109,7 @@ let ch = Array.from(Array(arr.length));
 let res = [];
 function DFS(i) {
   if (i === arr.length) {
-    let tmp = [];
+    let tmp = []; // 아래 tmp 추가 for문 초기화떄문에 위치 여기
     for (i in ch) {
       // 체크배열이 1인 요소만 tmp에 추가
       if (ch[i] === 1) {
@@ -201,7 +203,7 @@ function DFS(v) {
       if (graph[v][i] === 1 && ch[i] === 0) {
         ch[i] = 1;
         path.push(i);
-        DFS(i);
+        DFS(i); // 이렇게 가야함...
         ch[i] = 0;
         path.pop();
       }
@@ -251,7 +253,7 @@ function DFS(v) {
         // for (let vi of graph[v]) {
         ch[vi] = 1;
         tmp.push(vi);
-        DFS(vi);
+        DFS(vi); // 이렇게 가야함...
         tmp.pop(vi);
         ch[vi] = 0;
       }
