@@ -46,10 +46,26 @@ arr.sort((a, b) => {
 //
 
 //// str
+
 // str 공백 제거
 str.trim();
+
 // str 수식 계산
 const res = eval('1+2'); // 3
+
+str.charCodeAt(); // ascii num으로 변경
+String.fromCharCode(n); // ascii num을 str 반환
+
+// str 정규표현식 사용하여 replace로 교체
+str.replace(/A/g, 'B'); // 'A' 를 글로벌 (g) 로 'B'로 교체
+
+// arr 배열 내 문자열 정렬
+arr.sort((a, b) => {
+  return a[0].charCodeAt() - b[0].charCodeAt();
+});
+
+// 정규표현식 - str 알파벳 소문자만 남기고 숫자, 기호 등 제거
+str.replace(/[^a-z*]/g, '');
 
 //
 
@@ -83,9 +99,6 @@ function solution(numbers) {
 }
 
 //
-
-//// 정규표현식 - str 알파벳 소문자만 남기고 숫자, 기호 등 제거
-str.replace(/[^a-z]/g, '');
 
 //
 
@@ -169,8 +182,30 @@ DFS(2);
 
 //
 
+//// 조합
+// arr을 r 개 뽑는 모든 조합 res에 추가
+function combi(arr, r) {
+  let res = [];
+  let tmp = Array.from({ length: r }, () => 0);
+  function DFS(L, s) {
+    if (L === r) {
+      res.push(tmp.slice());
+    } else {
+      for (let i = s; i < arr.length; i++) {
+        // s 부터 도는게 포인트
+        tmp[L] = arr[i];
+        DFS(L + 1, i + 1); // 다음 s 를 i + 1 로 세팅
+      }
+    }
+  }
+  DFS(0, 0);
+  return res;
+}
+
+//
+
 //// 그래프 탐색 - 인접행렬
-// 노드 갯수 n개 (5) 의 arr 로 연결된 그래프를 1에서 k까지 이동하는 경로 res에 추가
+// 노드 갯수 n개 (5) 의 arr 로 연결된 그래프를 start에서 end까지 이동하는 경로 res에 추가
 let arr = [
   [1, 2],
   [1, 3],
@@ -183,27 +218,26 @@ let arr = [
   [4, 5],
 ];
 let n = 5; // 노드 갯수
-let k = 4; // 목적지
 
 let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
 let ch = Array.from({ length: n + 1 }, () => 0);
-let res = [];
 
 // 그래프 정보를 인접 행렬에 반영
 for (let [a, b] of arr) {
   graph[a][b] = 1;
 }
 
+let res = [];
 let path = [];
-function DFS(v) {
-  if (v === k) {
+function DFS(start, end) {
+  if (start === end) {
     res.push(path.slice());
   } else {
     for (let i = 1; i <= n; i++) {
-      if (graph[v][i] === 1 && ch[i] === 0) {
+      if (graph[start][i] === 1 && ch[i] === 0) {
         ch[i] = 1;
         path.push(i);
-        DFS(i); // 이렇게 가야함...
+        DFS(i, end); // 이렇게 가야함...
         ch[i] = 0;
         path.pop();
       }
@@ -212,7 +246,7 @@ function DFS(v) {
 }
 path.push(1);
 ch[1] = 1;
-DFS(1);
+DFS(1, 4);
 
 //
 

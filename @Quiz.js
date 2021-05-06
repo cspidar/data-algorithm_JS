@@ -1,58 +1,82 @@
-function solution(p1, p2) {
-  const info = [...p1];
-  const query = [...p2];
+function solution(p1, p2, p3, p4, p5) {
+  const n = Number(p1); // 6
+  const S = Number(p2); // 4
+  const A = Number(p3); // 6
+  const B = Number(p4); // 2
+  const arr = [...p5];
 
-  let ilist = [];
-  for (let i in info) {
-    ilist.push(info[i].split(' '));
+  let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
+  let ch = Array.from({ length: n + 1 }, () => 0);
+
+  for (let [a, b, c] of arr) {
+    graph[a][b] = c;
+    graph[b][a] = c;
   }
 
-  let qlist = [];
-  for (let i in query) {
-    qlist.push(query[i].replace(/and /g, '').split(' '));
-  }
-
-  let res = Array.from(Array(qlist.length), () => 0);
-  for (let i in qlist) {
-    let cnt = 0;
-    for (let j = 0; j < qlist[i].length - 1; j++) {
-      if (qlist[i][j] === ilist[i][j] || qlist[i][j] === '-') cnt++;
+  function getPrice(S1, E1) {
+    let pres = [];
+    let min = Number.MAX_SAFE_INTEGER;
+    function DFS(start, end, price) {
+      if (price >= min) return;
+      if (start === end) {
+        pres.push(price);
+        min = Math.min(min, price);
+      } else {
+        for (let i = 1; i <= n; i++) {
+          if (graph[start][i] > 0 && ch[i] === 0) {
+            ch[i] = 1;
+            DFS(i, end, price + graph[start][i]); // 이렇게 가야함...
+            ch[i] = 0;
+          }
+        }
+      }
     }
-    if (qlist[i][4] <= ilist[i][4]) cnt++;
-    if (cnt === 5) res[i] += 1;
+    // path.push(S1);
+    ch[S1] = 1;
+    DFS(S1, E1, 0);
+    ch[S1] = 0;
+    return Math.min(...pres);
+    //
+  }
+  //
+
+  let C = [];
+  for (let i = 1; i <= n; i++) {
+    if (i == S || i == A || i == B) {
+    } else C.push(i);
   }
 
-  // console.table(ilist);
-  // console.table(qlist);
-  console.log(res);
-  return;
+  let sa = getPrice(S, A);
+  let sb = getPrice(S, B);
+  let ab = getPrice(A, B);
+
+  // sc cb ca
+  let scab = [];
+  for (let v of C) {
+    scab.push(getPrice(S, v) + getPrice(v, A) + getPrice(v, B));
+  }
+
+  // console.table(Math.min(sa + sb, sa + ab, sb + ab));
+  // console.table(sa, sb, ab);
+  // console.table(ab, ba);
+
+  return Math.min(sa + sb, sa + ab, sb + ab, ...scab);
 }
 
-let res = [];
-
-// [1,1,1,1,2,4]
-// 언어는 cpp, java, python, - 중 하나입니다.
-// 직군은 backend, frontend, - 중 하나입니다.
-// 경력은 junior, senior, - 중 하나입니다.
-// 소울푸드는 chicken, pizza, - 중 하나입니다.
-// '-' 표시는 해당 조건을 고려하지 않겠다는 의미입니다.
-
-const in1 = [
-  'java backend junior pizza 150',
-  'python frontend senior chicken 210',
-  'python frontend senior chicken 150',
-  'cpp backend senior pizza 260',
-  'java backend junior chicken 80',
-  'python backend senior chicken 50',
+const in1 = 6;
+const in2 = 4;
+const in3 = 6;
+const in4 = 2;
+const arr = [
+  [4, 1, 10],
+  [3, 5, 24],
+  [5, 6, 2],
+  [3, 1, 41],
+  [5, 1, 24],
+  [4, 6, 50],
+  [2, 4, 66],
+  [2, 3, 22],
+  [1, 6, 25],
 ];
-const in2 = [
-  'java and backend and junior and pizza 100',
-  'python and frontend and senior and chicken 200',
-  'cpp and - and senior and pizza 250',
-  '- and backend and senior and - 150',
-  '- and - and - and chicken 100',
-  '- and - and - and - 150',
-];
-const in3 = 0;
-console.log(solution(in1, in2, in3));
+console.log(solution(in1, in2, in3, in4, arr));
 // !console.table(solution(in1));
