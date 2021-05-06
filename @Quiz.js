@@ -1,67 +1,58 @@
-function solution(ordersin, coursein) {
-  let orders = [...ordersin];
-  let course = [...coursein];
+function solution(p1, p2) {
+  const info = [...p1];
+  const query = [...p2];
 
-  function arrCr(arr, r) {
-    let res = [];
-    let tmp = Array.from({ length: r }, () => Array());
-    function DFS(L, s) {
-      if (L === r) {
-        res.push(tmp.slice().sort().join(''));
-      } else {
-        for (let i = s; i < arr.length; i++) {
-          // s 부터 도는게 포인트
-          tmp[L] = arr[i];
-          DFS(L + 1, i + 1); // 다음 s 를 i + 1 로 세팅
-        }
-      }
+  let ilist = [];
+  for (let i in info) {
+    ilist.push(info[i].split(' '));
+  }
+
+  let qlist = [];
+  for (let i in query) {
+    qlist.push(query[i].replace(/and /g, '').split(' '));
+  }
+
+  let res = Array.from(Array(qlist.length), () => 0);
+  for (let i in qlist) {
+    let cnt = 0;
+    for (let j = 0; j < qlist[i].length - 1; j++) {
+      if (qlist[i][j] === ilist[i][j] || qlist[i][j] === '-') cnt++;
     }
-    DFS(0, 0);
-    return res;
+    if (qlist[i][4] <= ilist[i][4]) cnt++;
+    if (cnt === 5) res[i] += 1;
   }
 
-  let list = Array.from(Array(11), () => Array());
-  for (let i = 0; i < orders.length; i++) {
-    for (let j of course) {
-      if (orders[i].length >= j) {
-        list[j].push(...arrCr(orders[i], j));
-      }
-    }
-  }
-
-  let mlist = new Map();
-  for (let v of course) {
-    for (let j in list[v]) {
-      if (list[v][j] !== undefined && !mlist.has(list[v][j]))
-        mlist.set(list[v][j], 1);
-      else mlist.set(list[v][j], mlist.get(list[v][j]) + 1);
-    }
-  }
-
-  let answer = [];
-
-  for (let c of course) {
-    list[c] = [...mlist]
-      .filter((p) => p[0].length === c)
-      .sort((a, b) => b[1] - a[1]);
-  }
-
-  for (let c of course) {
-    if (list[c][0][1] >= 2) {
-      answer.push(list[c][0][0]);
-      for (let i = 1; i < list[c].length; i++) {
-        if (list[c][0][1] === list[c][i][1]) {
-          answer.push(list[c][i][0]);
-        }
-      }
-    } else break;
-  }
-  // console.log(list);
-
-  return answer.sort();
+  // console.table(ilist);
+  // console.table(qlist);
+  console.log(res);
+  return;
 }
-const in1 = ['XYZ', 'XWY', 'WXA'];
-const in2 = [2, 3, 4];
+
+let res = [];
+
+// [1,1,1,1,2,4]
+// 언어는 cpp, java, python, - 중 하나입니다.
+// 직군은 backend, frontend, - 중 하나입니다.
+// 경력은 junior, senior, - 중 하나입니다.
+// 소울푸드는 chicken, pizza, - 중 하나입니다.
+// '-' 표시는 해당 조건을 고려하지 않겠다는 의미입니다.
+
+const in1 = [
+  'java backend junior pizza 150',
+  'python frontend senior chicken 210',
+  'python frontend senior chicken 150',
+  'cpp backend senior pizza 260',
+  'java backend junior chicken 80',
+  'python backend senior chicken 50',
+];
+const in2 = [
+  'java and backend and junior and pizza 100',
+  'python and frontend and senior and chicken 200',
+  'cpp and - and senior and pizza 250',
+  '- and backend and senior and - 150',
+  '- and - and - and chicken 100',
+  '- and - and - and - 150',
+];
 const in3 = 0;
 console.log(solution(in1, in2, in3));
 // !console.table(solution(in1));
