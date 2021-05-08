@@ -118,78 +118,101 @@ while (lt <= rt) {
 //// 부분 집합
 // 원소를 넣을지 말지 2갈래로 탐색
 // arr 의 모든 부분 집합 res 에 추가
-let ch = Array.from(Array(arr.length));
-let res = [];
-function DFS(i) {
-  if (i === arr.length) {
-    let tmp = []; // 아래 tmp 추가 for문 초기화떄문에 위치 여기
-    for (i in ch) {
-      // 체크배열이 1인 요소만 tmp에 추가
-      if (ch[i] === 1) {
-        tmp.push(arr[i]);
+// 갯수 cnt에 출력
+function partsOfarr(arr) {
+  let ch = Array.from(Array(arr.length));
+  let res = [];
+  // let cnt = 0;
+  function DFS(i) {
+    if (i === arr.length) {
+      let tmp = []; // 아래 tmp 추가 for문 초기화떄문에 위치 여기
+      for (i in ch) {
+        // 체크배열이 1인 요소만 tmp에 추가
+        if (ch[i] === 1) {
+          tmp.push(arr[i]);
+        }
       }
+      res.push(tmp);
+      // cnt++;
+    } else {
+      ch[i] = 1;
+      DFS(i + 1);
+      ch[i] = 0;
+      DFS(i + 1);
     }
-    res.push(tmp);
-  } else {
-    ch[i] = 1;
-    DFS(i + 1);
-    ch[i] = 0;
-    DFS(i + 1);
   }
+  DFS(0);
+  // return cnt;
+  return res;
 }
-DFS(0);
 
 //
 
 //// 중복 순열
 // arr 에서 중복을 허락하여 (arr.length - 1) 개 뽑아 res 에 추가
-let res = [];
-let tmp = [];
-function DFS(L) {
-  if (L === arr.length - 1) {
-    res.push(tmp.slice());
-  } else {
-    for (let i = 0; i < arr.length; i++) {
-      tmp[L] = arr[i];
-      DFS(L + 1);
+function arrPir(arr, r) {
+  let res = [];
+  let tmp = [];
+  // let cnt = 0;
+  function DFS(L) {
+    if (L === r) {
+      res.push(tmp.slice());
+      // cnt++;
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        tmp[L] = arr[i];
+        DFS(L + 1);
+      }
     }
   }
+  DFS(0);
+  // return cnt;
+  return res;
 }
-DFS(0);
 
 //
 
 //// 순열
 // arr을 (arr.length - 2) 개 뽑는 모든 순열 res 에 추가
-let res = [];
-let tmp = [];
-let ch = Array.from(Array(arr.length + 1), () => 0);
-function DFS(L) {
-  if (L === arr.length) {
-    res.push(tmp.join(''));
-  } else {
-    for (let i = 0; i < arr.length; i++) {
-      if (ch[i] === 0) {
-        tmp[L] = arr[i];
-        ch[i] = 1;
-        DFS(L + 1);
-        ch[i] = 0;
+// cnt 에 갯수 출력
+function arrPr(arr, r) {
+  let res = [];
+  let tmp = [];
+  // let cnt = 0;
+  let ch = Array.from(Array(arr.length + 1), () => 0);
+  function DFS(L) {
+    if (L === arr.length) {
+      res.push(tmp.join(''));
+      // cnt++;
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        if (ch[i] === 0) {
+          tmp[L] = arr[i];
+          ch[i] = 1;
+          DFS(L + 1);
+          ch[i] = 0;
+        }
       }
     }
   }
+  DFS(arr.length - r);
+  return res;
+  // return cnt;
 }
-DFS(2);
 
 //
 
 //// 조합
 // arr을 r 개 뽑는 모든 조합 res에 추가
+// cnt 에 갯수 출력
 function combi(arr, r) {
   let res = [];
   let tmp = Array.from({ length: r }, () => 0);
+  // let cnt = 0;
   function DFS(L, s) {
     if (L === r) {
       res.push(tmp.slice());
+      // cnt++;
     } else {
       for (let i = s; i < arr.length; i++) {
         // s 부터 도는게 포인트
@@ -199,6 +222,7 @@ function combi(arr, r) {
     }
   }
   DFS(0, 0);
+  // return cnt;
   return res;
 }
 
@@ -237,7 +261,7 @@ function DFS(start, end) {
       if (graph[start][i] === 1 && ch[i] === 0) {
         ch[i] = 1;
         path.push(i);
-        DFS(i, end); // 이렇게 가야함...
+        DFS(i, end); // i 열 검색 호출
         ch[i] = 0;
         path.pop();
       }
@@ -302,6 +326,7 @@ DFS(1);
 
 //// 미로 탐색 - DFS
 // arr (0, 0) 에서 (6, 6) 까지 미로 탈출 경로를 res에 추가
+// cnt에 경로 숫자 추가
 let arr = [
   [0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 1, 1, 1, 0],
@@ -317,9 +342,12 @@ let dy = [0, 1, 0, -1];
 let res = [];
 
 let tmp = [];
+// let cnt = 0;
 function DFS(x, y) {
-  if (x === 6 && y === 6) res.push(tmp.slice());
-  else {
+  if (x === 6 && y === 6) {
+    res.push(tmp.slice());
+    // cnt++;
+  } else {
     for (let k = 0; k < 4; k++) {
       let nx = x + dx[k];
       let ny = y + dy[k];
@@ -328,6 +356,7 @@ function DFS(x, y) {
         arr[nx][ny] = 1;
         tmp.push([nx, ny]);
         DFS(nx, ny);
+        tmp.pop();
         arr[nx][ny] = 0;
       }
     }
