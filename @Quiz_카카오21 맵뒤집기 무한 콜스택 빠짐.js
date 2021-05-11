@@ -21,7 +21,6 @@ function solution(p1, p2, p3, p4, p5) {
   function DFS(start, end) {
     if (traps.indexOf(start) !== -1) {
       reverse_arr(graph);
-
       ch.fill(0);
       // ch[pre_idx] = 1;
       // ch[traps[traps.indexOf(start)]] = 1;
