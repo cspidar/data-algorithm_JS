@@ -125,9 +125,9 @@ function partsOfarr(arr) {
   // let cnt = 0;
   function DFS(i) {
     if (i === arr.length) {
-      let tmp = []; // 아래 tmp 추가 for문 초기화떄문에 위치 여기
+      let tmp = []; // for문 전 초기화
       for (i in ch) {
-        // 체크배열이 1인 요소만 tmp에 추가
+        // 체크배열이 1인 v만 tmp에 추가
         if (ch[i] === 1) {
           tmp.push(arr[i]);
         }
@@ -149,7 +149,8 @@ function partsOfarr(arr) {
 //
 
 //// 중복 순열
-// arr 에서 중복을 허락하여 (arr.length - 1) 개 뽑아 res 에 추가
+// arr 에서 중복을 허락하여 r 개 뽑아 res 에 추가
+// cnt에 갯수 출력
 function arrPir(arr, r) {
   let res = [];
   let tmp = [];
@@ -160,6 +161,7 @@ function arrPir(arr, r) {
       // cnt++;
     } else {
       for (let i = 0; i < arr.length; i++) {
+        // L차 순회하며 각 자리에 v 입력
         tmp[L] = arr[i];
         DFS(L + 1);
       }
