@@ -1,3 +1,7 @@
+//// Math
+
+// 올림 Math.ceil(n), 내림 Math.floor(n), 반올림 Math.round(n)
+
 //
 
 //// Map
@@ -339,27 +343,35 @@ let arr = [
   [1, 0, 0, 0, 0, 0, 0],
 ];
 
-let dx = [-1, 0, 1, 0];
+let m_edge = arr.length;
+let n_edge = arr[0].length;
 let dy = [0, 1, 0, -1];
+let dx = [-1, 0, 1, 0];
 let res = [];
 
 let tmp = [];
 // let cnt = 0;
-function DFS(x, y) {
-  if (x === 6 && y === 6) {
+function DFS(y, x) {
+  if (x === n_edge - 1 && y === m_edge - 1) {
     res.push(tmp.slice());
     // cnt++;
   } else {
-    for (let k = 0; k < 4; k++) {
-      let nx = x + dx[k];
+    for (let k = 0; k < dx.length; k++) {
       let ny = y + dy[k];
-      if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && arr[nx][ny] === 0) {
+      let nx = x + dx[k];
+      if (
+        ny >= 0 &&
+        ny < m_edge &&
+        nx >= 0 &&
+        nx < n_edge &&
+        arr[ny][nx] === 0
+      ) {
         // 경계선 처리를 위해 dx, dy 사용 / +1, -1 과 같이 하면 상황에 따른 범위 설정 힘듦 / 조합된 변수는 뒤로 (arr[nx][ny])
-        arr[nx][ny] = 1;
-        tmp.push([nx, ny]);
-        DFS(nx, ny);
+        arr[ny][nx] = 1;
+        tmp.push([ny, nx]);
+        DFS(ny, nx);
         tmp.pop();
-        arr[nx][ny] = 0;
+        arr[ny][nx] = 0;
       }
     }
   }
@@ -398,36 +410,36 @@ while (queue.length) {
 }
 
 //// 섬 확인 - BFS
-// arr 섬 갯수 res에 출력
+// arr (n x m 열) 섬 (0) 갯수 res에 출력
 let arr = [
-  [1, 1, 0, 0, 0, 1, 0],
-  [0, 1, 1, 0, 1, 1, 0],
-  [0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 1, 1],
-  [1, 1, 0, 1, 1, 0, 0],
-  [1, 0, 0, 0, 1, 0, 0],
-  [1, 0, 1, 0, 1, 0, 0],
+  [0, 0, 1, 1, 0],
+  [0, 0, 0, 1, 1],
+  [1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0],
 ];
 
 let res = 0;
-let n = arr.length;
+let m = arr.length;
+let n = arr[0].length;
 let dx = [-1, -1, 0, 1, 1, 1, 0, -1];
 let dy = [0, 1, 1, 1, 0, -1, -1, -1];
 let queue = [];
-for (let i = 0; i < n; i++) {
+
+for (let i = 0; i < m; i++) {
   for (let j = 0; j < n; j++) {
-    if (arr[i][j] === 1) {
-      arr[i][j] = 0;
+    if (arr[i][j] === 0) {
+      arr[i][j] = 1;
       queue.push([i, j]);
       res++; // 큐 호출 갯수 = 섬 갯수
+
       while (queue.length) {
         let x = queue.shift();
-        for (let k = 0; k < 8; k++) {
-          let nx = x[0] + dx[k];
-          let ny = x[1] + dy[k];
-          if (nx >= 0 && nx < n && ny >= 0 && ny < n && arr[nx][ny] === 1) {
-            arr[nx][ny] = 0;
-            queue.push([nx, ny]);
+        for (let k = 0; k < dx.length; k++) {
+          let ny = x[0] + dy[k];
+          let nx = x[1] + dx[k];
+          if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[ny][nx] === 0) {
+            arr[ny][nx] = 1;
+            queue.push([ny, nx]);
           }
         }
       }
@@ -436,35 +448,33 @@ for (let i = 0; i < n; i++) {
 }
 
 //// 섬 확인 - DFS
-// arr 섬 갯수 res에 출력
+// arr (n x m 열) 섬 (0) 갯수 res에 출력
 let arr = [
-  [1, 1, 0, 0, 0, 1, 0],
-  [0, 1, 1, 0, 1, 1, 0],
-  [0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 1, 1],
-  [1, 1, 0, 1, 1, 0, 0],
-  [1, 0, 0, 0, 1, 0, 0],
-  [1, 0, 1, 0, 1, 0, 0],
+  [0, 0, 1, 1, 0],
+  [0, 0, 0, 1, 1],
+  [1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0],
 ];
 
 let res = 0;
 let n = arr.length;
 let dx = [-1, -1, 0, 1, 1, 1, 0, -1];
 let dy = [0, 1, 1, 1, 0, -1, -1, -1];
-function DFS(x, y) {
-  arr[x][y] = 0;
-  for (let k = 0; k < 8; k++) {
-    let nx = x + dx[k];
+
+function DFS(y, x) {
+  arr[y][x] = 1;
+  for (let k = 0; k < dx.length; k++) {
     let ny = y + dy[k];
-    if (nx >= 0 && nx < n && ny >= 0 && ny < n && arr[nx][ny] === 1) {
-      DFS(nx, ny);
+    let nx = x + dx[k];
+    if (nx >= 0 && nx < n && ny >= 0 && ny < m && arr[ny][nx] === 0) {
+      DFS(ny, nx);
     }
   }
 }
-for (let i = 0; i < n; i++) {
+for (let i = 0; i < m; i++) {
   for (let j = 0; j < n; j++) {
-    if (arr[i][j] === 1) {
-      arr[i][j] = 0;
+    if (arr[i][j] === 0) {
+      // arr[i][j] = 1;
       res++;
       DFS(i, j);
     }
