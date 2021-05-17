@@ -40,7 +40,7 @@ function chkMaps(p1, p2) {
 
 //// arr
 
-// arr의 i1과 i2의 value 서로 교체
+// arr의 i1과 i2의 value 서로 교체 (전 행이 ;로 끝나야 제대로 인식)
 [arr[i1], arr[i2]] = [arr[i2], arr[i1]];
 
 // 2차 배열 정렬 / 0번 인덱스 같을때 1번 인덱스로 정렬
@@ -50,6 +50,14 @@ arr.sort((a, b) => {
 });
 
 //
+
+// 특정 v의 모든 i res에 추가
+let res = [];
+let idx = arr.indexOf(v);
+while (idx != -1) {
+  res.push(idx);
+  idx = arr.indexOf(v, idx + 1);
+}
 
 //// str
 
