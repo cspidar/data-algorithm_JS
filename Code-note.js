@@ -18,7 +18,7 @@ const map = new Map([
 // map ->> arr 변환 (펼침 연산자)
 let arr = [...map];
 
-// Value 업데이트
+// value 업데이트
 map.set(k, map.get(k) + 1);
 
 // 순회
