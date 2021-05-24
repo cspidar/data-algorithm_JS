@@ -118,14 +118,19 @@ class PriorityQueue extends Heap {
 
 const pq = new PriorityQueue();
 
-pq.enqueue(1, 99);
-pq.enqueue(3, 1);
-pq.enqueue(2, 2);
-pq.enqueue(10, 100);
+// pq.enqueue(1, 99);
+// pq.enqueue(3, 1);
+// pq.enqueue(2, 2);
+// pq.enqueue(10, 100);
 
-console.log(pq.dequeue());
-console.log(pq.dequeue().key);
-console.log(pq.dequeue().value);
-console.log(pq.isEmpty());
-console.log(pq.dequeue());
-console.log(pq.isEmpty());
+// console.log(pq.dequeue());
+// console.log(pq.dequeue());
+// console.log(pq.dequeue());
+// console.log(pq.dequeue());
+// console.log(pq.dequeue());
+
+// console.log(pq.remove());
+// console.log(pq.isEmpty());
+// console.log(pq.remove());
+// console.log(pq.isEmpty());
+// console.log(pq.remove());
