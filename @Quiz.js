@@ -150,7 +150,7 @@ function solution(p1, p2, p3) {
 
   // 1. '출발 노드' enqueue
   // 2. dequeue
-  // 3. '현 위치' 를 경유한 각각 '다음 노드' 까지의 거리 (출발 노드 - 현 위치 - 다음 노드) 가 기존 거리 보다 작으면, distance 배열에 저장하고 '다음 노드' 를 enqueue
+  // 3. '현 위치' 를 경유한 각각 '다음 노드' 까지의 거리 (출발 노드 -> 현 위치 -> 다음 노드) 가 기존 거리 보다 작으면, 거리를 distance 배열에 저장하고 '다음 노드' 를 enqueue
   // 4. 2 - 3 반복, dequeue 노드가 존재하지 않으면 종료
 
   // 출발 노드: 시작점, 거리 = 0
@@ -180,12 +180,14 @@ function solution(p1, p2, p3) {
 
     while (!pq.isEmpty()) {
       let tmp = pq.dequeue();
-      let now = tmp.value; // 다음 노드
-      let dist = tmp.key; // 다음 노드까지 거리
+      let now = tmp.value; // 현재 노드
+      let dist = tmp.key; // 현재 노드까지 거리
       console.log(dist);
-      if (distance[now] < dist) continue;
-      for (i in graph[now]) {
+      if (distance[now] < dist) continue; // 현재 노드까지 거리가 저장값보다 작으면 pass
+      for (v of graph[now]) {
+        // 현재 노드에서 연결된 노드들 정보 처리
         /////////////////////////
+        let cost = v[0];
       }
     }
   }
@@ -193,6 +195,7 @@ function solution(p1, p2, p3) {
   dijk(start_node);
 
   // console.log(pq.isEmpty());
+  // console.log(graph);
   // console.log(distance);
   // console.log(visited);
 
