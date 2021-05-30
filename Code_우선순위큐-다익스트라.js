@@ -116,45 +116,34 @@ class PriorityQueue extends Heap {
   isEmpty = () => this.heap.length <= 0;
 }
 
+//// 우선순위 큐 끝
+
 //
 
 const pq = new PriorityQueue();
+// pq.enqueue(key, value)
+// pq.dequeue()
+// pq.isEmpty()
 
-// pq.enqueue(1, 99);
-// pq.enqueue(3, 1);
-// pq.enqueue(2, 2);
-// pq.enqueue(10, 100);
-
-// console.log(pq.dequeue());
-// console.log(pq.dequeue());
-// console.log(pq.dequeue());
-// console.log(pq.dequeue());
-// console.log(pq.dequeue());
-
-// console.log(pq.remove());
-// console.log(pq.isEmpty());
-// console.log(pq.remove());
-// console.log(pq.isEmpty());
-// console.log(pq.remove());
-
-//
+//// 다익스트라 알고리즘: 최소 힙 우선순위 큐 사용
 
 function solution(p1, p2, p3) {
   //
 
   // graph: 노드 정보 배열 (2차, 빈배열)
   // distance: 최단 거리 결과 (초기화: 1e9 ≒ 무한)
-
-  //// 다익스트라 알고리즘: 최소 힙 우선순위 큐 사용
+  // arr = [현위치, 다음 노드, 거리]
+  // graph[현위치] = [다음 노드, 거리]
+  // pq[현위치] = [거리, 다음 노드]
+  // 현 위치: dequeue 된 노드
+  // 다음 노드: graph의 현 위치에서 연결된 노드
+  // 출발 노드: 시작점, 거리 = 0
+  // 저장값: distance 배열에 저장된 해당 노드까지의 최소 거리
 
   // 1. '출발 노드' enqueue
   // 2. dequeue
-  // 3. '현 위치' 를 경유한 각각 '다음 노드' 까지의 거리 (출발 노드 -> 현 위치 -> 다음 노드) 가 기존 거리 보다 작으면, 거리를 distance 배열에 저장하고 '다음 노드' 를 enqueue
+  // 3. '출발 노드' 에서 '현 위치' 를 경유한 각각 '다음 노드' 까지의 거리 (출발 노드 -> 현 위치 -> 다음 노드) 가 기존 거리 보다 작으면, 거리를 distance 배열에 저장하고 '다음 노드' 를 enqueue
   // 4. 2 - 3 반복, dequeue 할 노드가 존재하지 않으면 종료
-
-  // 출발 노드: 시작점, 거리 = 0
-  // 현 위치: dequeue 된 노드
-  // 다음 노드: graph의 현 위치에서 연결된 노드
 
   const start_node = Number(p1);
   const nodes = Number(p2);
@@ -167,9 +156,6 @@ function solution(p1, p2, p3) {
   for (v of arr) {
     graph[v[0]].push([v[1], v[2]]);
   }
-  // graph[노드] = [노드, 거리]
-  // graph[노드][0] = 노드
-  // graph[노드][1] = 거리
 
   // console.table(graph);
 
@@ -182,14 +168,14 @@ function solution(p1, p2, p3) {
       let dist = tmp.key; // 현재 노드까지 거리
       let now = tmp.value; // 현재 노드
       // console.log(dist);
-      if (distance[now] < dist) continue; // 현재 노드까지 거리가 저장값보다 작으면 pass: 체크 배열이 필요없는 이유
+      if (distance[now] < dist) continue; // 현재 노드의 저장 값보다 현재 노드까지 거리 (dist) 가 크면 pass = 체크 배열이 필요없는 이유
       for (v of graph[now]) {
         // 현재 노드에서 연결된 노드들 정보 처리
         let next_node = v[0]; // 다음 노드
-        let next_dist = v[1]; // 다음 노드까지 거리
-        /////////////////////////
-        let cost = dist + next_dist;
+        let next_dist = v[1]; // 현재 노드에서 다음 노드까지 거리
+        let cost = dist + next_dist; // cost = 출발 노드에서 다음 노드까지 거리
         if (cost < distance[next_node]) {
+          // cost가 저장값보다 작으면 값 갱신 후 우선순위 큐에 추가
           distance[next_node] = cost;
           pq.enqueue(cost, next_node);
         }

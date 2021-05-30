@@ -17,11 +17,13 @@ function solution(p1, p2, p3) {
   }
 
   // graph 에 node 정보 입력
+  // [출발 노드, 도착 노드, 거리]
   for (v of arr) {
     graph[v[0]][v[1]] = v[2];
   }
 
   // 점화식 적용
+  // min(a -> b, a -> k -> b)
   for (k = 1; k <= nodes; k++) {
     for (a = 1; a <= nodes; a++) {
       for (b = 1; b <= nodes; b++) {
