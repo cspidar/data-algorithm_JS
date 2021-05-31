@@ -131,7 +131,6 @@ function solution(p1, p2, p3) {
   //
 
   // graph: 노드 정보 배열 (2차, 빈배열)
-<<<<<<< HEAD
   // distance: 최단 거리 결과 (초기화: 1e9 ≒ 무한)
   // arr = [현위치, 다음 노드, 거리]
   // graph[현위치] = [다음 노드, 거리]
@@ -144,15 +143,6 @@ function solution(p1, p2, p3) {
   // 1. '출발 노드' enqueue
   // 2. dequeue
   // 3. '출발 노드' 에서 '현 위치' 를 경유한 각각 '다음 노드' 까지의 거리 (출발 노드 -> 현 위치 -> 다음 노드) 가 기존 거리 보다 작으면, 거리를 distance 배열에 저장하고 '다음 노드' 를 enqueue
-=======
-  // distance: 최단 거리 배열 (초기화: 1e9 ≒ 무한)
-
-  //// 다익스트라 알고리즘: 최소 힙 우선순위 큐 사용
-
-  // 1. '출발 노드' enqueue
-  // 2. dequeue
-  // 3. '현 위치' 까지 거리 + '다음 노드' 까지의 거리 (출발 노드 + 현 위치 + 다음 노드) 값이 '최단 거리 배열' 의 '다음 노드' 값 보다 작으면, 값을 '최단 거리 배열' 에 저장하고 값과 '다음 노드' 를 enqueue
->>>>>>> b16263206929c29debc7d4437c7e8d1e83b963d7
   // 4. 2 - 3 반복, dequeue 할 노드가 존재하지 않으면 종료
 
   const start_node = Number(p1);
@@ -178,11 +168,7 @@ function solution(p1, p2, p3) {
       let dist = tmp.key; // 현재 노드까지 거리
       let now = tmp.value; // 현재 노드
       // console.log(dist);
-<<<<<<< HEAD
       if (distance[now] < dist) continue; // 현재 노드의 저장 값보다 현재 노드까지 거리 (dist) 가 크면 pass = 체크 배열이 필요없는 이유
-=======
-      if (distance[now] < dist) continue; // 현재 노드까지 거리가 최단 거리 배열 저장값보다 작으면 pass: 체크 배열이 필요없는 이유
->>>>>>> b16263206929c29debc7d4437c7e8d1e83b963d7
       for (v of graph[now]) {
         // 현재 노드에서 연결된 노드들 정보 처리
         let next_node = v[0]; // 다음 노드
