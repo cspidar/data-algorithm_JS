@@ -1,36 +1,21 @@
 function solution(p1, p2) {
+  //
   const arr = [...p1];
-  const k = Number(p2);
+  //
+  let m = 1;
 
-  let sum_time = arr.reduce((acc, cur) => acc + cur, 0);
-  if (sum_time < k) return -1;
-
-  function next_idx(ni) {
-    for (j = ni; j < arr.length; j++) {
-      if (arr[j] > 0) {
-        ni = j;
-        break;
+  for (m = 0; m < arr.length / 2; m++) {
+    for (i = 0; i < arr.length - m; i++) {
+      if (arr[i] === arr[i + 1]) {
       }
     }
-    let nzero = arr.filter((p) => p > 0)[0];
-    ni = arr.indexOf(nzero);
-    return ni;
   }
+  //
 
-  let idx = 0;
-
-  for (let i = 1; i <= 4; i++) {
-    if (idx >= arr.length || arr[idx] === 0) idx = next_idx(idx);
-    arr[idx] = arr[idx] - 1;
-    idx++;
-  }
-
-  // return idx;
   return arr;
-  // return next_idx(idx) + 1;
 }
 
-const in1 = [3, 1, 2];
+const in1 = 'aaaaba';
 const in2 = 5;
 const in3 = 0;
 const in4 = 0;
