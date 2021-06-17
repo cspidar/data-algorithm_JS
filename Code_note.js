@@ -24,6 +24,7 @@ map.set(k, map.get(k) + 1);
 // 순회
 for ([key, value] of map) {
 }
+
 // 함수 - 두 Map 일치 확인
 function chkMaps(p1, p2) {
   // console.log(p1);
@@ -40,14 +41,40 @@ function chkMaps(p1, p2) {
 
 //// arr
 
-// arr의 i1과 i2의 value 서로 교체 (전 행이 ;로 끝나야 제대로 인식)
-[arr[i1], arr[i2]] = [arr[i2], arr[i1]];
+// arr의 v1과 v2의 value 서로 교체 / 교환 (전 행이 ;로 끝나야 제대로 인식)
+[arr[v1], arr[v2]] = [arr[v2], arr[v1]];
 
 // 2차 배열 정렬 / 0번 인덱스 같을때 1번 인덱스로 정렬
 arr.sort((a, b) => {
   if (a[0] === b[0]) return a[1] - b[1];
   else return a[0] - b[0];
 });
+
+//
+
+// arr 회전 - 좌
+function rotateLeft(array) {
+  var result = [];
+  array.forEach((a, i, aa) => {
+    a.forEach((b, j, bb) => {
+      result[bb.length - j - 1] = result[bb.length - j - 1] || [];
+      result[bb.length - j - 1][i] = b;
+    });
+  });
+  return result;
+}
+
+// arr 회전 - 우
+function rotateRight(array) {
+  var result = [];
+  array.forEach((a, i, aa) => {
+    a.forEach((b, j, bb) => {
+      result[j] = result[j] || [];
+      result[j][aa.length - i - 1] = b;
+    });
+  });
+  return result;
+}
 
 //
 
@@ -506,3 +533,8 @@ for (let i = 3; i <= n; i++) {
   dy[i] = dy[i - 2] + dy[i - 1];
 }
 res = dy[n];
+
+//
+
+// 배열 교환
+[arr[0], arr[1]] = [arr[1], arr[0]];
