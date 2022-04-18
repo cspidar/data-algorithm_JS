@@ -53,30 +53,32 @@ arr.sort((a, b) => {
 //
 
 // arr 회전 - 좌
-function rotateLeft(array) {
-  var result = [];
-  array.forEach((a, i, aa) => {
+function rotateLeft(arr) {
+  let res = [];
+  arr.forEach((a, i, aa) => {
     a.forEach((b, j, bb) => {
-      result[bb.length - j - 1] = result[bb.length - j - 1] || [];
-      result[bb.length - j - 1][i] = b;
+      res[bb.length - j - 1] = res[bb.length - j - 1] || [];
+      res[bb.length - j - 1][i] = b;
     });
   });
-  return result;
+  return res;
 }
 
 // arr 회전 - 우
-function rotateRight(array) {
-  var result = [];
-  array.forEach((a, i, aa) => {
+function rotateRight(arr) {
+  let res = [];
+  arr.forEach((a, i, aa) => {
     a.forEach((b, j, bb) => {
-      result[j] = result[j] || [];
-      result[j][aa.length - i - 1] = b;
+      res[j] = res[j] || [];
+      res[j][aa.length - i - 1] = b;
     });
   });
-  return result;
+  return res;
 }
 
 //
+
+///////////////////
 
 // 특정 v의 모든 i res에 추가
 let res = [];
