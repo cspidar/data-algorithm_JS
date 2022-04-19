@@ -1,4 +1,4 @@
-let arr = [6, 11, 'ㅁ', 'A'];
+let arr = [6, 11, 'ㅁ', 'A', 1];
 
 function arrPr(arr, r) {
   let res = [];
@@ -6,7 +6,7 @@ function arrPr(arr, r) {
   let ch = Array.from({ length: arr.length }, () => 0);
   let tmp = Array.from({ length: r }, () => 0);
   function DFS(L) {
-    if (L === arr.length) {
+    if (L === r) {
       res.push(tmp.slice());
       // cnt++;
     } else {
@@ -20,7 +20,7 @@ function arrPr(arr, r) {
       }
     }
   }
-  DFS(arr.length - r);
+  DFS(0);
   return res;
   // return cnt;
 }

@@ -1,4 +1,5 @@
-//
+// 마구간 5 개, 말 3 마리
+// 마구간 좌표 1 2 8 4 9
 function count(house, dis) {
   let cnt = 1;
   let ep = 1;

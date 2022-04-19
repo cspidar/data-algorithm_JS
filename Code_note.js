@@ -227,29 +227,29 @@ function arrPiR(arr, r) {
 //
 
 //// 순열
-// arr을 (arr.length - 2) 개 중복없이 순서에 상관있게 나열뽑는 모든 순열 res 에 추가
+// arr을 r 개 중복없이 순서에 상관있게 나열뽑는 모든 순열 res 에 추가
 // cnt 에 갯수 출력
 function arrPr(arr, r) {
   let res = [];
-  let tmp = [];
   // let cnt = 0;
-  let ch = Array.from(Array(arr.length + 1), () => 0);
+  let ch = Array.from({ length: arr.length }, () => 0);
+  let tmp = Array.from({ length: r }, () => 0);
   function DFS(L) {
-    if (L === arr.length) {
-      res.push(tmp.join(''));
+    if (L === r) {
+      res.push(tmp.slice());
       // cnt++;
     } else {
       for (let i = 0; i < arr.length; i++) {
         if (ch[i] === 0) {
-          tmp[L] = arr[i];
           ch[i] = 1;
+          tmp[L] = arr[i];
           DFS(L + 1);
           ch[i] = 0;
         }
       }
     }
   }
-  DFS(arr.length - r);
+  DFS(0);
   return res;
   // return cnt;
 }
