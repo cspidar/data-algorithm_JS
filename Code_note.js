@@ -1,9 +1,3 @@
-//// Math
-
-Math.ceil(n); // 올림
-Math.floor(n); // 내림
-Math.round(n); // 반올림
-
 //
 
 //// Map
@@ -16,7 +10,7 @@ const map = new Map([
 ]);
 
 // map ->> arr 변환 (펼침 연산자)
-let arr = [...map];
+arr = [...map];
 
 // value 업데이트
 map.set(k, map.get(k) + 1);
@@ -39,16 +33,22 @@ function chkMaps(p1, p2) {
 
 //
 
+//
+
+//// Math
+
+Math.ceil(n); // 올림
+Math.floor(n); // 내림
+Math.round(n); // 반올림
+
+//
+
+//
+
 //// arr
 
-// arr의 v1과 v2의 value 서로 교체 / 교환 (전 행이 ;로 끝나야 제대로 인식)
-[arr[v1], arr[v2]] = [arr[v2], arr[v1]];
-
-// 2차 배열 정렬 / 0번 인덱스 같을때 1번 인덱스로 정렬
-arr.sort((a, b) => {
-  if (a[0] === b[0]) return a[1] - b[1];
-  else return a[0] - b[0];
-});
+// arr 내 값 서로 교체 / 교환 (전 행이 ;로 끝나야 제대로 인식)
+[arr[0], arr[1]] = [arr[1], arr[0]]; // arr[0] -> arr[1], arr[1] -> arr[0]
 
 //
 
@@ -78,8 +78,6 @@ function rotateRight(arr) {
 
 //
 
-///////////////////
-
 // 특정 v의 모든 i res에 추가
 let res = [];
 let idx = arr.indexOf(v);
@@ -87,6 +85,8 @@ while (idx != -1) {
   res.push(idx);
   idx = arr.indexOf(v, idx + 1);
 }
+
+//
 
 //// str
 
@@ -100,20 +100,14 @@ const res = eval('1+2'); // 3
 str.charCodeAt(); // ascii num으로 변경
 String.fromCharCode(n); // ascii num을 str 반환
 
-// str 정규표현식 사용하여 replace로 교체
+// str 정규표현식 사용하여 replace로 교체 (replaceAll nodeJS 사용 불가)
 str.replace(/A/g, 'B'); // 'A' 를 글로벌 (g) 로 'B'로 교체
-
-// arr 배열 내 문자열 정렬
-arr.sort((a, b) => {
-  return a[0].charCodeAt() - b[0].charCodeAt();
-});
-
-// 정규표현식 - str 알파벳 소문자만 남기고 숫자, 기호 등 제거
-str.replace(/[^a-z*]/g, '');
 
 //
 
-//// 함수 - 소수 확인
+//
+
+//// 소수 확인
 // n을 Math.sqrt(n) 까지 나눈 나머지가 0이 존재하면 안됨
 const chkPrime = (n) => {
   if (n === 0) return false;
@@ -129,7 +123,13 @@ const chkPrime = (n) => {
 
 //
 
+//
+
 //// 정렬
+
+arr.sort((a, b) => a - b); // 오름차순 1, 2, 3
+arr.sort((a, b) => b - a); // 내림차순 3, 2, 1
+
 arr.sort(function (a, b) {
   if (a > b) return 1; // 1 이면 바꾼다.
   if (a === b) return 0; // 0 이면 그대로.
@@ -142,7 +142,17 @@ function solution(numbers) {
   return answer[0] === '0' ? '0' : answer;
 }
 
+// 2차 배열 정렬 / 0번 인덱스 우선, 같을때 1번 인덱스로 정렬
+arr.sort((a, b) => {
+  if (a[0] === b[0]) return a[1] - b[1];
+  else return a[0] - b[0];
+});
+
 //
+
+//
+
+//// 응용
 
 //// 이진 검색 - 결정 알고리즘
 // lt: 맨 왼쪽 / rt: 맨 오른쪽 / mid: lt와 rt의 중간
@@ -161,7 +171,7 @@ while (lt <= rt) {
 // 원소를 넣을지 말지 2갈래로 탐색
 // arr 의 모든 부분 집합 res 에 추가
 // 갯수 cnt에 출력
-function partsOfarr(arr) {
+function partsOfArr(arr) {
   let ch = Array.from(Array(arr.length));
   let res = [];
   // let cnt = 0;
@@ -193,7 +203,7 @@ function partsOfarr(arr) {
 //// 중복 순열
 // arr 에서 중복을 허락하여 r 개 뽑아 res 에 추가
 // cnt에 갯수 출력
-function arrPir(arr, r) {
+function arrPiR(arr, r) {
   let res = [];
   let tmp = [];
   // let cnt = 0;
@@ -217,7 +227,7 @@ function arrPir(arr, r) {
 //
 
 //// 순열
-// arr을 (arr.length - 2) 개 뽑는 모든 순열 res 에 추가
+// arr을 (arr.length - 2) 개 중복없이 순서에 상관있게 나열뽑는 모든 순열 res 에 추가
 // cnt 에 갯수 출력
 function arrPr(arr, r) {
   let res = [];
