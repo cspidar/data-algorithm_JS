@@ -136,11 +136,12 @@ arr.sort(function (a, b) {
   if (a < b) return -1; // -1 이면 규칙대로.
 });
 
-// 스트링으로 합쳐서 가장 큰 숫자
-function solution(numbers) {
-  let answer = numbers.sort((a, b) => `${b}${a}` - `${a}${b}`).join('');
-  return answer[0] === '0' ? '0' : answer;
-}
+// 문자열로 합쳐서 큰 숫자대로 정렬
+let res_arr = arr.sort((a, b) => {
+  const ca = parseInt(`${a}` + `${b}`);
+  const cb = parseInt(`${b}` + `${a}`);
+  return cb - ca;
+});
 
 // 2차 배열 정렬 / 0번 인덱스 우선, 같을때 1번 인덱스로 정렬
 arr.sort((a, b) => {

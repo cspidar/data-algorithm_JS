@@ -95,17 +95,19 @@ class Heap {
   };
 }
 
-////
+//
 
-// const Heap = require('./Heap')
+//// 우선순위 큐
+// min heap 을 상속해서 구현한 우선순위 큐
+// min heap 의 insert 메소드가 enqueue 가 되고
+// min heap 의 remove 메소드가 dequeue 가 된다.
 
-/**
- * @fileoverview Data Structure: Priority Queue
- *
- * min heap 을 상속해서 구현한 우선순위 큐
- * min heap 의 insert 메소드가 enqueue 가 되고
- * min heap 의 remove 메소드가 dequeue 가 된다.
- */
+// 활용
+// const pq = new PriorityQueue();
+// pq.enqueue(key, value)
+// pq.dequeue()
+// pq.isEmpty()
+
 class PriorityQueue extends Heap {
   constructor() {
     super();
@@ -120,12 +122,12 @@ class PriorityQueue extends Heap {
 
 //
 
+//// 다익스트라 알고리즘: 최소 힙 우선순위 큐 사용
+
 const pq = new PriorityQueue();
 // pq.enqueue(key, value)
 // pq.dequeue()
 // pq.isEmpty()
-
-//// 다익스트라 알고리즘: 최소 힙 우선순위 큐 사용
 
 function solution(p1, p2, p3) {
   //
