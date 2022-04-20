@@ -41,6 +41,9 @@ Math.ceil(n); // 올림
 Math.floor(n); // 내림
 Math.round(n); // 반올림
 
+Math.max(...arr); // arr 내 최대값
+Math.min(...arr); // arr 내 최소값
+
 //
 
 //
@@ -160,7 +163,9 @@ arr.sort((a, b) => {
 // arr의 mid 값이 count() 함수의 조건 만족할때까지 검색
 while (lt <= rt) {
   mid = Math.floor((lt + rt) / 2);
-  if (count(arr, mid) < Condition) {
+  if (check(mid) < Condition) {
+    // 답의 조건
+    res = mid; // 현상황 답 저장
     lt = mid + 1; // mid는 이미 확인했기때문에 rt = mid - 1 / lt = mid + 1
   } else rt = mid - 1;
 }
