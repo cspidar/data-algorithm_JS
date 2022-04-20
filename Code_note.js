@@ -160,11 +160,11 @@ arr.sort((a, b) => {
 // arr의 mid 값이 count() 함수의 조건 만족할때까지 검색
 while (lt <= rt) {
   mid = Math.floor((lt + rt) / 2);
-  if (count(arr, mid) >= Condition) {
-    res = mid;
+  if (count(arr, mid) < Condition) {
     lt = mid + 1; // mid는 이미 확인했기때문에 rt = mid - 1 / lt = mid + 1
   } else rt = mid - 1;
 }
+let res = lt; // lt 가 rt와 같거나 넘어간 순간의 값
 
 //
 
