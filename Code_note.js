@@ -162,7 +162,7 @@ arr.sort((a, b) => {
 // lt: 맨 왼쪽 / rt: 맨 오른쪽 / mid: lt와 rt의 중간
 // arr의 mid 값이 count() 함수의 조건 만족할때까지 검색
 while (lt <= rt) {
-  mid = Math.floor((lt + rt) / 2);
+  let mid = Math.floor((lt + rt) / 2);
   if (check(mid) < Condition) {
     // 답의 조건
     res = mid; // 현상황 답 저장
