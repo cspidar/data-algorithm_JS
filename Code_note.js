@@ -177,7 +177,7 @@ let res = lt; // lt 가 rt와 같거나 넘어간 순간의 값
 // 원소를 넣을지 말지 2갈래로 탐색
 // arr 의 모든 부분 집합 res 에 추가
 // 갯수 cnt에 출력
-function partsOfArr(arr) {
+function subset(arr) {
   let ch = Array.from(Array(arr.length));
   let res = [];
   // let cnt = 0;
@@ -207,7 +207,7 @@ function partsOfArr(arr) {
 //
 
 //// 중복 순열
-// arr 에서 중복을 허락하여 r 개 뽑아 res 에 추가
+// arr 에서 중복을 허락하여 r 개 뽑아 나열, res 에 추가
 // cnt에 갯수 출력
 function arrPiR(arr, r) {
   let res = [];
