@@ -1,4 +1,4 @@
-let coins = [1, 2, 5];
+let coins = [1, 2, 5, 15];
 let m = 15;
 
 let res = Infinity;
@@ -10,9 +10,7 @@ function DFS(L, value) {
     if (value === m) {
       res = Math.min(res, L);
     } else {
-      value += coin;
-      DFS(L + 1, value);
-      value -= coin;
+      DFS(L + 1, value + coin[i]);
     }
   }
 }
